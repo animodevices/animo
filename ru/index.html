@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANIMO — экосистема мониторинга здоровья животных</title>
+<meta name="description" content="ANIMO: ошейник-модуль, камера мониторинга и чип-имплант. Непрерывные показатели здоровья питомца, AI-интерпретация и ранние алерты.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ANIMO — экосистема мониторинга здоровья животных">
+<meta property="og:description" content="Ошейник-модуль читает пульс, дыхание, температуру, сон и голос питомца. AI переводит данные в понятные действия.">
+<meta property="og:image" content="img/og.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#090d18">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3l7 4v6c0 4.4-3 7.3-7 8-4-.7-7-3.6-7-8V7l7-4z" fill="%231E50B4"/><circle cx="12" cy="11" r="2.4" fill="white"/><path d="M8.5 16c.7-1.6 6.3-1.6 7 0" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<noscript><style>.rv{opacity:1!important;transform:none!important;}</style></noscript>
+<style>
+:root{
+  --bg:#0d1220; --bg2:#090d18;
+  --line:rgba(255,255,255,0.08); --line2:rgba(255,255,255,0.14);
+  --blue:#1E50B4; --blue-br:#4e8ff7; --blue-lt:#8fb6ff; --blue-sf:rgba(78,143,247,0.12);
+  --t1:rgba(255,255,255,0.96); --t2:rgba(255,255,255,0.66); --t3:rgba(255,255,255,0.52);
+  --green:#3ddc84; --amber:#f0a24e;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg2);font-family:var(--sans);color:var(--t2);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:clip;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+section{position:relative;padding:120px 0;}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue-br);margin-bottom:16px;}
+h2{font-size:clamp(30px,4.4vw,46px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;max-width:820px;text-wrap:balance;}
+h2 span{color:var(--blue-br);}
+.lead{font-size:17px;color:var(--t2);margin-top:16px;max-width:640px;}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+.rv.on{opacity:1;transform:none;}
+.d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}
+
+/* ── NAV ─────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(9,13,24,0.82);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+.nav-in{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
+.logo{display:flex;align-items:center;gap:11px;}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(160deg,#2a63d8,#1538a0);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px -6px rgba(30,80,180,0.6);flex-shrink:0;}
+.logo-text{font-size:21px;font-weight:800;color:#fff;letter-spacing:-0.4px;}
+.logo-text span{color:var(--blue-br);}
+.nav-links{display:flex;gap:26px;margin-left:auto;}
+.nav-links a{font-size:14px;font-weight:600;color:var(--t2);transition:color .15s;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{margin-left:8px;background:var(--blue);color:#fff;font-size:14px;font-weight:700;border-radius:999px;
+  padding:11px 22px;transition:background .15s;white-space:nowrap;}
+.nav-cta:hover{background:#2a63d8;}
+a:focus-visible,.btn:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--blue-br);outline-offset:3px;}
+@media(max-width:860px){
+  .nav-in{gap:16px;}
+  .nav-links{gap:16px;overflow-x:auto;scrollbar-width:none;}
+  .nav-links::-webkit-scrollbar{display:none;}
+  .nav-links a{font-size:13px;white-space:nowrap;}
+}
+@media(max-width:560px){.nav-links{display:none;}.nav-cta{margin-left:auto;}}
+
+/* ── HERO ─────────────────────────── */
+.hero{padding:180px 0 0;background:var(--bg);overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 50% at 50% 0%,rgba(30,90,200,0.20),transparent 70%);}
+.hero-top{position:relative;text-align:center;max-width:880px;margin:0 auto;}
+h1{font-size:clamp(38px,6vw,68px);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.04;text-wrap:balance;}
+h1 span{color:var(--blue-br);}
+.hero .sub{font-size:clamp(16px,1.6vw,19px);color:var(--t2);margin:22px auto 0;max-width:620px;}
+.hero .sub b{color:var(--t1);font-weight:600;}
+.cta-row{display:flex;gap:14px;margin-top:34px;justify-content:center;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:15px 30px;font-size:15px;font-weight:700;transition:all .15s;}
+.btn.primary{background:var(--blue);color:#fff;box-shadow:0 14px 36px -10px rgba(30,80,180,0.55);}
+.btn.primary:hover{background:#2a63d8;transform:translateY(-1px);}
+.btn.ghost{border:1px solid var(--line2);color:var(--t1);}
+.btn.ghost:hover{border-color:var(--blue-br);color:#fff;}
+.hero-art{position:relative;max-width:880px;margin:64px auto 0;}
+.hero-art::before{content:'';position:absolute;inset:-10% -16%;background:radial-gradient(ellipse 60% 60% at 50% 55%,rgba(78,143,247,0.25),transparent 70%);pointer-events:none;}
+.hero-art img{position:relative;border-radius:26px;border:1px solid rgba(120,160,230,0.2);
+  box-shadow:0 50px 110px -30px rgba(0,0,0,0.85),0 0 110px -20px rgba(78,143,247,0.45);}
+.hero-strip{position:relative;display:flex;justify-content:center;gap:clamp(20px,5vw,72px);flex-wrap:wrap;
+  padding:34px 24px 38px;margin-top:0;border-top:1px solid var(--line);}
+.hs{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.hs .n{font-size:clamp(20px,2.4vw,28px);font-weight:800;color:#fff;letter-spacing:-0.5px;}
+.hs .n i{font-style:normal;color:var(--blue-br);}
+.hs .k{font-size:12.5px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);}
+
+/* ── DEVICES ─────────────────────── */
+.dev{background:var(--bg2);}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.cards3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:54px;}
+.pcard{position:relative;background:rgba(255,255,255,0.025);border:1px solid var(--line);border-radius:24px;padding:22px;
+  display:flex;flex-direction:column;transition:transform .25s,border-color .25s;}
+.pcard:hover{transform:translateY(-6px);border-color:rgba(78,143,247,0.5);}
+.pcard.core{background:linear-gradient(170deg,rgba(78,143,247,0.13),rgba(30,80,180,0.02));border-color:rgba(78,143,247,0.4);}
+.badge{position:absolute;top:34px;left:34px;z-index:2;font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;border-radius:999px;padding:7px 14px;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);background:rgba(13,18,32,0.72);color:var(--t2);border:1px solid var(--line2);}
+.badge.b-core{background:rgba(30,80,180,0.88);color:#fff;border-color:transparent;}
+.pcard .art{height:230px;}
+.pcard .art img{width:100%;height:100%;object-fit:cover;border-radius:16px;border:1px solid rgba(120,160,230,0.15);}
+.pbody{padding:20px 8px 8px;display:flex;flex-direction:column;flex:1;}
+.pname{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.3px;line-height:1.15;}
+.pone{font-size:14.5px;color:var(--t2);margin-top:8px;}
+.pspec{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.pspec span{background:rgba(255,255,255,0.05);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;color:var(--t2);}
+.price{margin-top:auto;padding-top:18px;font-size:18px;font-weight:800;color:#fff;}
+.price small{font-size:12.5px;font-weight:600;color:var(--t3);}
+.price.tbd{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);}
+@media(max-width:980px){.cards3{grid-template-columns:1fr;max-width:520px;margin:54px auto 0;}}
+
+/* ── WHY (value, condensed) ──────── */
+.why{background:var(--bg);}
+.why::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 50% 45% at 80% 10%,rgba(30,90,200,0.13),transparent 70%);}
+.why-grid{position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:54px;}
+.wcard{background:rgba(255,255,255,0.025);border:1px solid var(--line);border-radius:24px;padding:30px;}
+.wcard .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:var(--blue-sf);border:1px solid rgba(78,143,247,0.35);margin-bottom:20px;}
+.wcard .ic svg{width:26px;height:26px;}
+.wcard h3{font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.3px;line-height:1.2;}
+.wcard p{font-size:14.5px;color:var(--t2);margin-top:10px;}
+.wcard p b{color:var(--t1);font-weight:700;}
+.wcard .fact{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--t3);}
+.wcard .fact b{color:var(--green);font-weight:700;}
+@media(max-width:980px){.why-grid{grid-template-columns:1fr;}}
+
+.integr{position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:22px;}
+.itile{background:linear-gradient(160deg,rgba(78,143,247,0.08),rgba(255,255,255,0.015));border:1px solid var(--line);
+  border-radius:18px;padding:20px 22px;}
+.itile b{display:block;font-size:15px;color:var(--t1);font-weight:700;}
+.itile span{display:block;font-size:12.5px;color:var(--t3);margin-top:5px;line-height:1.4;}
+.srcline{margin-top:30px;font-size:12px;color:var(--t3);max-width:820px;line-height:1.55;}
+.integr-lbl{margin-top:60px;font-size:12.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+@media(max-width:980px){.integr{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.integr{grid-template-columns:1fr;}}
+
+/* ── MARKET ──────────────────────── */
+.market{background:var(--bg2);}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:54px;}
+.stat{background:linear-gradient(160deg,rgba(255,255,255,0.045),rgba(255,255,255,0.015));
+  border:1px solid var(--line);border-radius:22px;padding:30px;}
+.stat.accent{border-color:rgba(78,143,247,0.42);background:linear-gradient(160deg,rgba(78,143,247,0.15),rgba(30,80,180,0.04));}
+.stat .lbl{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);}
+.stat .big{font-size:clamp(28px,2.6vw,38px);font-weight:800;color:#fff;letter-spacing:-1.2px;margin:12px 0 8px;white-space:nowrap;}
+.stat .big .ar{color:var(--t3);font-weight:400;}
+.stat .big .hl{color:var(--blue-br);}
+.stat .big .unit{font-size:.5em;font-weight:700;color:var(--t2);margin-left:.1em;}
+.stat .desc{font-size:14px;color:var(--t2);}
+.stat .cagr{display:inline-block;margin-top:16px;font-size:12.5px;font-weight:700;color:var(--blue-lt);
+  background:var(--blue-sf);border:1px solid rgba(78,143,247,0.3);border-radius:999px;padding:5px 13px;}
+@media(max-width:980px){.stats{grid-template-columns:1fr;max-width:520px;margin:54px auto 0;}}
+
+.comp{margin-top:26px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
+.ccard{border:1px solid var(--line);border-radius:18px;padding:20px 22px;background:rgba(255,255,255,0.02);}
+.ccard .cn{font-size:15.5px;font-weight:700;color:var(--t1);}
+.ccard .cp{font-size:13px;color:var(--t3);margin-top:4px;}
+.ccard .cg{font-size:12.5px;color:var(--amber);margin-top:10px;line-height:1.4;}
+.ccard.us{background:linear-gradient(165deg,rgba(78,143,247,0.16),rgba(30,80,180,0.04));border-color:rgba(78,143,247,0.45);}
+.ccard.us .cn{color:#fff;}
+.ccard.us .cg{color:var(--green);font-weight:600;}
+.comp-lbl{margin-top:60px;font-size:12.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+@media(max-width:980px){.comp{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.comp{grid-template-columns:1fr;}}
+
+.verdict{margin-top:26px;display:flex;align-items:center;gap:22px;background:linear-gradient(120deg,rgba(30,80,180,0.22),rgba(78,143,247,0.06));
+  border:1px solid rgba(78,143,247,0.3);border-radius:20px;padding:26px 32px;}
+.verdict .vk{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue-br);flex-shrink:0;}
+.verdict .vt{font-size:clamp(15px,1.8vw,18px);color:var(--t1);font-weight:500;}
+.verdict .vt b{color:#fff;font-weight:700;}
+@media(max-width:700px){.verdict{flex-direction:column;align-items:flex-start;gap:10px;}}
+
+/* ── CONTACTS ────────────────────── */
+.contact{background:var(--bg);}
+.contact::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 50% 60% at 50% 120%,rgba(30,80,180,0.18),transparent 70%);}
+.c-card{position:relative;background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:26px;
+  padding:52px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;margin-top:54px;}
+.c-row{display:flex;align-items:center;gap:15px;}
+.c-ic{width:46px;height:46px;border-radius:13px;background:var(--blue-sf);border:1px solid rgba(78,143,247,0.35);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.c-ic svg{width:22px;height:22px;}
+.c-row .k{font-size:11.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);}
+.c-row .v{font-size:15px;font-weight:600;color:var(--t1);margin-top:3px;line-height:1.65;word-break:break-word;}
+.c-row .v a{color:var(--blue-lt);transition:color .15s;}
+.c-row .v a:hover{color:#fff;}
+.c-row .v.muted{color:var(--t3);font-weight:500;}
+@media(max-width:900px){.c-card{grid-template-columns:1fr;padding:34px 26px;}}
+
+@media(max-width:600px){
+  .hero-art img{aspect-ratio:4/3;object-fit:cover;object-position:center 62%;}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  .rv{transition:none;opacity:1;transform:none;}
+  .pcard,.btn,.nav-cta{transition:none;}
+}
+
+/* ── CTA ─────────────────────────── */
+.cta-wrap{margin-top:48px;}
+.big-cta{display:inline-flex;align-items:center;gap:12px;padding:22px 46px;font-size:20px;font-weight:800;
+  border-radius:999px;background:var(--blue);color:#fff;letter-spacing:-0.3px;
+  box-shadow:0 18px 50px -12px rgba(30,80,180,0.6);transition:transform .15s,background .15s;}
+.big-cta:hover{background:#2a63d8;transform:translateY(-2px);}
+.email-line{margin-top:20px;font-size:15px;color:var(--t2);}
+.email-line a{color:var(--blue-lt);font-weight:600;}
+.email-line a:hover{color:#fff;}
+@media(max-width:560px){.big-cta{width:100%;justify-content:center;font-size:17px;padding:18px 26px;}}
+
+/* ── FOOTER ──────────────────────── */
+footer{background:var(--bg2);border-top:1px solid var(--line);padding:32px 0;}
+.foot-in{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  font-size:13px;color:var(--t3);}
+.foot-in .gl{color:var(--t2);font-weight:600;}
+.foot-in .right{margin-left:auto;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="logo" href="#top">
+      <span class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v6c0 4.4-3 7.3-7 8-4-0.7-7-3.6-7-8V7l7-4z" stroke="#fff" stroke-width="1.6" fill="rgba(255,255,255,0.12)"/><circle cx="12" cy="11" r="2.4" fill="#fff"/><path d="M8.5 16c.7-1.6 6.3-1.6 7 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      <span class="logo-text">anim<span>o</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#devices">Устройства</a>
+      <a href="#why">Польза</a>
+      <a href="#market">Рынок</a>
+      <a href="#contact">Контакты</a>
+    </div>
+    <a class="nav-cta" href="#contact">Связаться</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="eyebrow rv">ANIMO</div>
+      <h1 class="rv">Здоровье питомца — <span>под непрерывным контролем</span></h1>
+      <p class="sub rv d1">Мультисенсорная экосистема: ошейник-модуль читает <b>пульс, дыхание, температуру, сон и голос</b> — AI переводит данные в понятные действия.</p>
+      <div class="cta-row rv d2">
+        <a class="btn primary" href="#devices">Смотреть устройства
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn ghost" href="#market">Потенциал рынка</a>
+      </div>
+    </div>
+    <div class="hero-art rv d2">
+      <img src="img/collar.webp" alt="ANIMO ошейник-модуль — сенсорная клипса на ошейнике" width="1536" height="1024" fetchpriority="high">
+    </div>
+  </div>
+  <div class="hero-strip rv">
+    <div class="hs"><div class="n">24/7</div><div class="k">vitals-мониторинг</div></div>
+    <div class="hs"><div class="n">5 сигналов</div><div class="k">пульс · ЧД · T° · сон · голос</div></div>
+    <div class="hs"><div class="n">AI</div><div class="k">объяснимость, не графики</div></div>
+    <div class="hs"><div class="n">$50–80</div><div class="k">свободная ниша</div></div>
+  </div>
+</section>
+
+<!-- DEVICES -->
+<section class="dev" id="devices">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <div class="eyebrow">01 · Экосистема</div>
+        <h2>Три устройства — <span>один профиль здоровья</span></h2>
+      </div>
+    </div>
+    <div class="cards3">
+      <div class="pcard core rv">
+        <span class="badge b-core">★ Ядро · B2C</span>
+        <div class="art"><img src="img/collar.webp" alt="Ошейник-модуль ANIMO" width="1536" height="1024" loading="lazy"></div>
+        <div class="pbody">
+          <h3 class="pname">Ошейник-модуль</h3>
+          <div class="pone">Съёмная клипса на любой ошейник — непрерывный биосенсор.</div>
+          <div class="pspec"><span>пульс</span><span>дыхание</span><span>T°</span><span>сон</span><span>акустика</span></div>
+          
+        </div>
+      </div>
+      <div class="pcard rv d1">
+        <span class="badge">Питомцы · фермы · клиники</span>
+        <div class="art"><img src="img/camera_wide.webp" alt="Камера мониторинга ANIMO" width="1536" height="1024" loading="lazy"></div>
+        <div class="pbody">
+          <h3 class="pname">Камера мониторинга</h3>
+          <div class="pone">Бесконтактный анализ поведения и звуков — 24/7, без датчика на животном.</div>
+          <div class="pspec"><span>детекция кашля</span><span>поведение</span><span>вес</span></div>
+          
+        </div>
+      </div>
+      <div class="pcard rv d2">
+        <span class="badge">Phase 3+ · R&amp;D</span>
+        <div class="art"><img src="img/chip.webp" alt="Чип-имплант ANIMO" width="1536" height="1024" loading="lazy"></div>
+        <div class="pbody">
+          <h3 class="pname">Чип-имплант</h3>
+          <div class="pone">Подкожно, как ID-чип: показатели без ношения — не теряется и не снимается.</div>
+          <div class="pspec"><span>T° · пульс</span><span>SpO₂</span><span>ID + здоровье</span></div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">02 · Польза</div>
+      <h2>Ловим болезнь <span>до того, как она стала экстренной</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="wcard rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2-6 4 12 2-6h6" stroke="#4e8ff7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Ранние признаки — раньше владельца</h3>
+        <p><b>Рост частоты дыхания в покое</b> — один из самых ранних признаков сердечной недостаточности. ANIMO фиксирует его автоматически.</p>
+        <div class="fact">Плановое лечение вместо экстренного — <b>дешевле и безопаснее</b></div>
+      </div>
+      <div class="wcard rv d1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="11" r="5" stroke="#4e8ff7" stroke-width="2"/><path d="M5 18h14M12 16v2" stroke="#4e8ff7" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Индивидуальная норма питомца</h3>
+        <p>AI строит <b>baseline конкретного животного</b> и объясняет отклонения: ответ «почему» + рекомендация.</p>
+        <div class="fact">Оцифрованная история — <b>врач видит динамику</b>, а не разовый осмотр</div>
+      </div>
+      <div class="wcard rv d2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 4v6c0 4.4-3 7.3-7 8-4-.7-7-3.6-7-8V7l7-4z" stroke="#4e8ff7" stroke-width="1.8"/><path d="M8.5 12.5l2.5 2.5 4.5-5" stroke="#4e8ff7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>От питомца до фермы</h3>
+        <p>Камера слышит кашель и видит поведение <b>без датчика на животном</b>: раннее выявление респираторных болезней до распространения.</p>
+        <div class="fact">Меньше потерь поголовья и <b>меньше антибиотиков</b></div>
+      </div>
+    </div>
+
+    <div class="integr-lbl rv">Интеграции экосистемы</div>
+    <div class="integr">
+      <div class="itile rv"><b>Умные кормушки</b><span>дозирование по активности, весу и сну питомца</span></div>
+      <div class="itile rv d1"><b>AI-советы по питанию</b><span>рацион под породу, возраст, генетику и показатели</span></div>
+      <div class="itile rv d2"><b>Автозаказ корма</b><span>white-label для производителей кормов — корм заказывается сам</span></div>
+      
+    </div>
+    <p class="srcline rv">Источники: AI-COLLAR study (703 собаки, PMC) · bioRxiv · SoundTalks / Boehringer Ingelheim · VetChip · IEEE Spectrum. ANIMO — wellness-мониторинг: дополняет, но не заменяет ветеринарную диагностику.</p>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market" id="market">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">03 · Рынок</div>
+      <h2>Растущий рынок — и <span>свободный ценовой коридор</span></h2>
+    </div>
+    <div class="stats">
+      <div class="stat rv">
+        <div class="lbl">Pet-care · мир</div>
+        <div class="big">$290 <span class="ar">→</span> <span class="hl">$450</span><span class="unit">млрд</span></div>
+        <div class="desc">Рынок ухода за питомцами, 2024 → 2030.</div>
+        <div class="cagr">CAGR 7.6%</div>
+      </div>
+      <div class="stat accent rv d1">
+        <div class="lbl">Наша ниша · continuous + AI</div>
+        <div class="big">$50–80</div>
+        <div class="desc">Свободный ценовой коридор: аналоги либо дороже $300, либо без vitals.</div>
+        <div class="cagr">белое пятно по цене</div>
+      </div>
+      <div class="stat rv d2">
+        <div class="lbl">Agro-tech · мониторинг стада</div>
+        <div class="big">$6,7 <span class="ar">→</span> <span class="hl">$14</span><span class="unit">млрд</span></div>
+        <div class="desc">Livestock Monitoring, 2024 → 2030. B2B-трек камеры.</div>
+        <div class="cagr">CAGR 12.6%</div>
+      </div>
+    </div>
+
+    <div class="comp-lbl rv">Кто уже на рынке</div>
+    <div class="comp">
+      <div class="ccard rv"><div class="cn">PetPace</div><div class="cp">vitals-ошейник · $300+</div><div class="cg">дорого, меряет только в покое</div></div>
+      <div class="ccard rv d1"><div class="cn">Invoxia MiniTailz</div><div class="cp">AI-кардио + GPS · $99</div><div class="cg">меряет только в покое</div></div>
+      <div class="ccard rv d2"><div class="cn">FitBark · Tractive · Whistle</div><div class="cp">активность + GPS · $40–100</div><div class="cg">нет vitals (пульс/дыхание)</div></div>
+      <div class="ccard us rv d3"><div class="cn">ANIMO</div><div class="cp">vitals + акустика + ДНК + AI · $50–80</div><div class="cg">связка, которой нет ни у кого</div></div>
+    </div>
+
+    <div class="verdict rv">
+      <div class="vk">Наша ниша</div>
+      <div class="vt">Continuous-сенсор с AI <b>дешевле $100</b>, который связывает <b>голос + дыхание + поведение + ДНК</b> и полезен бесплатно — такого на рынке нет.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">Контакты</div>
+      <h2>Запросить презентацию <span>и контакты</span></h2>
+      <p class="lead">Инвесторы · ветеринарные сети · производители кормов · агро-интеграторы.</p>
+    </div>
+    <div class="cta-wrap rv">
+      <a class="big-cta" href="mailto:animo.devices@gmail.com?subject=ANIMO%20pitch%20%26%20contacts">Запросить контакты и презентацию →</a>
+      <div class="email-line">или на почту <a href="mailto:animo.devices@gmail.com">animo.devices@gmail.com</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <span class="gl">ANIMO</span>
+        <span class="right">© 2026 ANIMO</span>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+}), { threshold: 0.12 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+setTimeout(() => {
+  document.querySelectorAll('.rv:not(.on)').forEach(el => {
+    if (el.getBoundingClientRect().top < innerHeight * 1.25) { el.classList.add('on'); io.unobserve(el); }
+  });
+}, 1500);
+</script>
+<a href="../" aria-label="language" style="position:fixed;bottom:18px;right:18px;z-index:80;font-family:Inter,system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;color:#cfe0ff;background:rgba(13,18,32,.82);border:1px solid rgba(120,160,230,.35);border-radius:10px;padding:9px 14px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);text-decoration:none;box-shadow:0 8px 24px -10px rgba(0,0,0,.6);">EN →</a>
+</body>
+</html>
