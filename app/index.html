@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ANIMO App — прототип</title>
+<meta name="theme-color" content="#090d18">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1220; --bg2:#090d18; --card:#121a2e;
+  --line:rgba(255,255,255,0.08); --line2:rgba(255,255,255,0.14);
+  --blue:#1E50B4; --blue-br:#4e8ff7; --blue-lt:#8fb6ff; --blue-sf:rgba(78,143,247,0.14);
+  --t1:rgba(255,255,255,0.97); --t2:rgba(255,255,255,0.62); --t3:rgba(255,255,255,0.40);
+  --green:#3ddc84; --amber:#f0a24e; --red:#ff6b6b;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{font-family:var(--sans);-webkit-font-smoothing:antialiased;color:var(--t1);
+  background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(30,90,200,0.18),transparent 70%),var(--bg2);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.wrap{display:flex;flex-direction:column;align-items:center;gap:16px;}
+.brandbar{display:flex;align-items:center;gap:11px;}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(160deg,#2a63d8,#1538a0);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px -6px rgba(30,80,180,0.6);}
+.logo-text{font-size:20px;font-weight:800;letter-spacing:-0.4px;}
+.logo-text span{color:var(--blue-br);}
+.proto-tag{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue-lt);background:var(--blue-sf);border:1px solid rgba(78,143,247,0.3);border-radius:999px;padding:4px 11px;}
+
+/* phone */
+.phone{width:380px;height:780px;max-height:calc(100vh - 120px);border-radius:46px;background:#0a0e18;
+  border:1px solid rgba(120,160,230,0.22);padding:13px;position:relative;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,0.85),0 0 80px -30px rgba(78,143,247,0.5);}
+.notch{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:140px;height:26px;background:#0a0e18;border-radius:0 0 18px 18px;z-index:30;}
+.screen-wrap{width:100%;height:100%;border-radius:34px;background:linear-gradient(180deg,#0e1626,#0b1120);overflow:hidden;position:relative;display:flex;flex-direction:column;}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 6px;font-size:13px;font-weight:700;color:var(--t2);flex-shrink:0;}
+.statusbar .r{display:flex;gap:6px;}
+.apptop{display:flex;align-items:center;justify-content:space-between;padding:4px 18px 8px;flex-shrink:0;}
+.apptop .ttl{font-size:19px;font-weight:800;letter-spacing:-0.3px;}
+.apptop .mini{font-size:18px;}
+
+.views{flex:1;position:relative;overflow:hidden;}
+.view{position:absolute;inset:0;overflow-y:auto;padding:4px 16px 16px;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .25s,transform .25s;-webkit-overflow-scrolling:touch;}
+.view::-webkit-scrollbar{display:none;}
+.view.active{opacity:1;transform:none;pointer-events:auto;}
+
+/* tab bar */
+.tabs{display:flex;justify-content:space-around;align-items:center;padding:9px 6px 14px;border-top:1px solid var(--line);background:rgba(8,12,22,0.7);flex-shrink:0;}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--t3);font-size:9.5px;font-weight:600;cursor:pointer;padding:3px 6px;border-radius:10px;transition:color .15s;}
+.tab svg{width:23px;height:23px;}
+.tab.on{color:var(--blue-br);}
+.tab:active{background:rgba(255,255,255,0.05);}
+
+/* components */
+.uicard{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:12px;}
+.tap{cursor:pointer;transition:transform .12s,border-color .15s;}
+.tap:active{transform:scale(0.98);}
+.petrow{display:flex;align-items:center;gap:13px;}
+.pet-av{width:48px;height:48px;border-radius:15px;background:linear-gradient(160deg,#2a63d8,#1538a0);display:flex;align-items:center;justify-content:center;font-size:26px;}
+.pet-n{font-size:17px;font-weight:800;}
+.pet-s{font-size:12.5px;color:var(--t2);}
+.big-status{display:flex;align-items:center;gap:12px;background:linear-gradient(120deg,rgba(61,220,132,0.16),rgba(61,220,132,0.03));border:1px solid rgba(61,220,132,0.3);border-radius:18px;padding:16px;margin-bottom:12px;}
+.big-status .ic{font-size:26px;}
+.big-status .t{font-size:15px;font-weight:800;}
+.big-status .s{font-size:12px;color:var(--t2);}
+.metrics{display:flex;gap:9px;margin-bottom:12px;}
+.metric{flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:15px;padding:13px 8px;text-align:center;}
+.metric .v{font-size:21px;font-weight:800;}
+.metric .v small{font-size:11px;color:var(--t3);font-weight:600;}
+.metric .l{font-size:10px;color:var(--t3);margin-top:2px;text-transform:uppercase;letter-spacing:.5px;}
+.qa{display:flex;gap:10px;}
+.qa .b{flex:1;background:var(--blue-sf);border:1px solid rgba(78,143,247,0.3);border-radius:14px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--blue-lt);cursor:pointer;transition:transform .12s;}
+.qa .b:active{transform:scale(0.97);}
+.sect{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin:6px 2px 10px;}
+
+.map{height:250px;border-radius:18px;background:radial-gradient(circle at 30% 30%,rgba(78,143,247,0.10),transparent 40%),linear-gradient(135deg,#0f1830,#0b1326);border:1px solid var(--line);position:relative;overflow:hidden;margin-bottom:12px;}
+.map.sm{height:140px;}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:28px 28px;}
+.route{position:absolute;inset:0;width:100%;height:100%;}
+.route path{stroke:#4e8ff7;stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;}
+.pin{position:absolute;width:15px;height:15px;border-radius:50%;background:var(--blue-br);border:2px solid #fff;box-shadow:0 0 0 4px rgba(78,143,247,0.25);}
+.pindog{position:absolute;font-size:20px;transform:translate(-50%,-60%);transition:left .3s,top .3s;}
+.statline{display:flex;gap:9px;margin-bottom:12px;}
+.statbox{flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:14px;padding:11px;text-align:center;}
+.statbox .v{font-size:20px;font-weight:800;}
+.statbox .l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+.btn-pri{background:var(--blue);color:#fff;border-radius:15px;padding:15px;text-align:center;font-size:15px;font-weight:800;margin-bottom:10px;cursor:pointer;transition:transform .12s,background .15s;}
+.btn-pri:active{transform:scale(0.98);}
+.btn-pri.run{background:var(--red);}
+.btn-gho{border:1px solid var(--line2);color:var(--t1);border-radius:15px;padding:13px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;}
+.btn-gho:active{background:rgba(255,255,255,0.05);}
+
+.chart-lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;}
+.chart-lbl .t{font-size:13px;font-weight:700;}
+.chart-lbl .v{font-size:12px;color:var(--blue-lt);font-weight:700;}
+.insight{background:linear-gradient(120deg,rgba(240,162,78,0.14),rgba(240,162,78,0.03));border:1px solid rgba(240,162,78,0.34);border-radius:16px;padding:13px 14px;margin:6px 0 12px;cursor:pointer;}
+.insight .t{font-size:13px;font-weight:800;color:var(--amber);margin-bottom:3px;}
+.insight .d{font-size:12px;line-height:1.45;color:var(--t1);}
+.insight .more{font-size:11px;color:var(--amber);margin-top:7px;display:none;}
+.insight.open .more{display:block;}
+
+.dev{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:17px;padding:14px;margin-bottom:10px;}
+.dev .ic{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:21px;background:var(--blue-sf);border:1px solid rgba(78,143,247,0.3);}
+.dev .nm{font-size:14px;font-weight:700;}
+.dev .st{font-size:11px;color:var(--t2);}
+.dev .bat{margin-left:auto;font-size:12px;font-weight:800;color:var(--green);}
+.dev.soon{opacity:.55;}
+.add{border:1px dashed var(--line2);border-radius:17px;padding:15px;text-align:center;font-size:13px;font-weight:700;color:var(--blue-lt);cursor:pointer;}
+.add:active{background:rgba(255,255,255,0.04);}
+
+.place{display:flex;align-items:center;gap:11px;padding:11px 4px;border-bottom:1px solid var(--line);cursor:pointer;}
+.place:active{background:rgba(255,255,255,0.03);}
+.place .e{font-size:19px;}
+.place .nm{font-size:13.5px;font-weight:700;}
+.place .ds{font-size:10.5px;color:var(--t2);}
+.place .km{margin-left:auto;font-size:11px;color:var(--t3);font-weight:700;}
+.event{background:linear-gradient(120deg,rgba(78,143,247,0.13),rgba(78,143,247,0.02));border:1px solid rgba(78,143,247,0.3);border-radius:16px;padding:13px;margin-top:12px;display:flex;align-items:center;gap:10px;}
+.event .t{font-size:13.5px;font-weight:800;}
+.event .d{font-size:11px;color:var(--blue-lt);margin-top:2px;}
+.event .go{margin-left:auto;background:var(--blue);color:#fff;border-radius:11px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;}
+.searchbar{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,0.05);border:1px solid var(--line);border-radius:14px;padding:11px 14px;margin-bottom:12px;}
+.searchbar input{flex:1;background:none;border:none;outline:none;color:#fff;font-size:13px;font-family:var(--sans);}
+.searchbar input::placeholder{color:var(--t3);}
+
+.srow{display:flex;align-items:center;gap:12px;padding:14px 2px;border-bottom:1px solid var(--line);cursor:pointer;}
+.srow .e{font-size:18px;width:24px;text-align:center;}
+.srow .nm{font-size:14px;font-weight:600;}
+.srow .ar{margin-left:auto;color:var(--t3);}
+.switch{margin-left:auto;width:44px;height:26px;border-radius:999px;background:rgba(255,255,255,0.12);position:relative;transition:background .2s;flex-shrink:0;}
+.switch.on{background:var(--blue);}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s;}
+.switch.on::after{left:21px;}
+
+/* toast */
+.toast{position:absolute;left:50%;bottom:84px;transform:translateX(-50%) translateY(20px);background:rgba(20,28,46,0.96);border:1px solid var(--line2);
+  color:#fff;font-size:13px;font-weight:600;padding:11px 18px;border-radius:13px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:40;white-space:nowrap;box-shadow:0 12px 30px -10px rgba(0,0,0,0.6);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* modal (pairing) */
+.modal{position:absolute;inset:0;background:rgba(6,9,16,0.78);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .25s;z-index:50;}
+.modal.show{opacity:1;pointer-events:auto;}
+.sheet{width:100%;background:linear-gradient(180deg,#141d30,#0e1525);border-radius:26px 26px 34px 34px;border-top:1px solid var(--line2);padding:24px 22px 30px;transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);text-align:center;}
+.modal.show .sheet{transform:none;}
+.ble{width:84px;height:84px;border-radius:50%;border:3px solid rgba(78,143,247,0.25);border-top-color:var(--blue-br);margin:6px auto 16px;animation:spin 1s linear infinite;}
+.ble.done{border-color:var(--green);animation:none;display:flex;align-items:center;justify-content:center;font-size:38px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.sheet .h{font-size:18px;font-weight:800;}
+.sheet .p{font-size:13px;color:var(--t2);margin-top:6px;margin-bottom:18px;}
+.hint{margin-top:14px;font-size:12px;color:var(--t3);text-align:center;}
+.hint a{color:var(--blue-lt);}
+@media(max-width:440px){body{padding:0;}.phone{width:100vw;height:100vh;max-height:none;border-radius:0;border:none;padding:0;}.screen-wrap{border-radius:0;}.notch{display:none;}.brandbar,.proto-tag{display:none;}.wrap{gap:0;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brandbar">
+    <span class="logo-mark"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v6c0 4.4-3 7.3-7 8-4-0.7-7-3.6-7-8V7l7-4z" stroke="#fff" stroke-width="1.6" fill="rgba(255,255,255,0.12)"/><circle cx="12" cy="11" r="2.4" fill="#fff"/><path d="M8.5 16c.7-1.6 6.3-1.6 7 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+    <span class="logo-text">anim<span>o</span></span>
+    <span class="proto-tag">интерактивный прототип</span>
+  </div>
+
+  <div class="phone"><div class="notch"></div><div class="screen-wrap">
+    <div class="statusbar"><span id="clock">9:41</span><div class="r"><span id="sigicon">📶</span><span>100%</span></div></div>
+    <div class="apptop"><div class="ttl" id="apptitle">Дом</div><div class="mini">🔔</div></div>
+
+    <div class="views">
+      <!-- HOME -->
+      <div class="view active" data-v="home">
+        <div class="uicard tap petrow" onclick="go('profile')"><div class="pet-av">🐕</div><div><div class="pet-n">Рекс</div><div class="pet-s">корги · 3 года · 11 кг</div></div></div>
+        <div class="big-status"><div class="ic">✅</div><div><div class="t">Сегодня всё хорошо</div><div class="s">показатели в норме питомца</div></div></div>
+        <div class="metrics">
+          <div class="metric tap" onclick="go('health')"><div class="v">7,2<small>к</small></div><div class="l">шаги</div></div>
+          <div class="metric tap" onclick="go('health')"><div class="v">58<small>%</small></div><div class="l">актив.</div></div>
+          <div class="metric tap" onclick="go('health')"><div class="v">6,1<small>ч</small></div><div class="l">сон</div></div>
+        </div>
+        <div class="sect">Быстрые действия</div>
+        <div class="qa"><div class="b" onclick="go('walk')">🐾 Прогулка</div><div class="b" onclick="go('places')">📍 Места рядом</div></div>
+        <div class="insight tap" style="margin-top:14px" onclick="go('health')"><div class="t">📈 Есть наблюдение</div><div class="d">Частота дыхания в покое чуть растёт — посмотри в разделе «Здоровье».</div></div>
+      </div>
+
+      <!-- WALK -->
+      <div class="view" data-v="walk">
+        <div class="map">
+          <div class="grid"></div>
+          <svg class="route" viewBox="0 0 350 250" preserveAspectRatio="none"><path id="routepath" d="M40 215 C 80 130, 140 165, 175 100 S 270 80, 300 40"/></svg>
+          <div class="pin" style="left:34px;top:208px;"></div>
+          <div class="pindog" id="dog" style="left:40px;top:215px;">🐕</div>
+        </div>
+        <div class="statline">
+          <div class="statbox"><div class="v" id="wdist">0,0</div><div class="l">км</div></div>
+          <div class="statbox"><div class="v" id="wtime">0:00</div><div class="l">время</div></div>
+          <div class="statbox"><div class="v" id="wpace">—</div><div class="l">темп</div></div>
+        </div>
+        <div class="btn-pri" id="walkbtn" onclick="toggleWalk()">▶ Начать прогулку</div>
+        <div class="btn-gho" onclick="toast('Маршрут скопирован — делись 📤')">📤 Поделиться маршрутом</div>
+        <div class="hint">Работает с GPS-трекером или по GPS телефона</div>
+      </div>
+
+      <!-- HEALTH -->
+      <div class="view" data-v="health">
+        <div class="uicard"><div class="chart-lbl"><span class="t">Пульс</span><span class="v">88 уд/мин</span></div>
+          <svg viewBox="0 0 300 50" style="width:100%;height:46px"><path d="M0 32 L44 32 L52 12 L62 44 L72 26 L82 32 L130 32 L138 14 L148 42 L158 28 L170 32 L222 32 L230 16 L240 42 L248 32 L300 32" stroke="#4e8ff7" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div class="uicard"><div class="chart-lbl"><span class="t">Частота дыхания (покой)</span><span class="v" style="color:var(--amber)">22 ↑</span></div>
+          <svg viewBox="0 0 300 40" style="width:100%;height:36px"><path d="M0 30 C44 28,76 26,120 24 S210 17,300 11" stroke="#f0a24e" stroke-width="2.6" fill="none"/></svg>
+        </div>
+        <div class="insight" onclick="this.classList.toggle('open')"><div class="t">📈 AI-инсайт · нажми</div><div class="d">Частота дыхания в покое растёт несколько дней — это ранний сигнал.</div><div class="more">Рекомендация: измерь ЧД в покое ещё 2–3 дня и покажи ветеринару динамику. Рост ЧД в покое — один из самых ранних признаков сердечной недостаточности. <i>Не диагноз, а повод для осмотра.</i></div></div>
+        <div class="metrics"><div class="metric"><div class="v">38,4°</div><div class="l">темп.</div></div><div class="metric"><div class="v">96<small>%</small></div><div class="l">SpO₂</div></div><div class="metric"><div class="v">A+</div><div class="l">сон</div></div></div>
+        <div class="btn-gho" onclick="toast('PDF-отчёт сформирован для врача 📄')">📄 Отчёт ветеринару</div>
+      </div>
+
+      <!-- PLACES -->
+      <div class="view" data-v="places">
+        <div class="searchbar">🔎 <input id="psearch" placeholder="Город или место…" value="Москва" oninput="filterPlaces()"></div>
+        <div class="map sm"><div class="grid"></div>
+          <div class="pin" style="left:64px;top:46px"></div><div class="pin" style="left:170px;top:84px;background:var(--green)"></div><div class="pin" style="left:270px;top:40px;background:var(--amber)"></div>
+        </div>
+        <div id="placelist">
+          <div class="place" data-n="кофейня лапка" onclick="toast('Открываю «Лапка» в картах 🗺')"><div class="e">☕</div><div><div class="nm">Кофейня «Лапка»</div><div class="ds">можно с собакой · веранда</div></div><div class="km">380 м</div></div>
+          <div class="place" data-n="парк dog-зона" onclick="toast('Открываю dog-зону 🗺')"><div class="e">🌳</div><div><div class="nm">Парк · dog-зона</div><div class="ds">off-leash площадка</div></div><div class="km">1,1 км</div></div>
+          <div class="place" data-n="ветклиника" onclick="toast('Открываю ветклинику 🗺')"><div class="e">⚕️</div><div><div class="nm">Ветклиника 24/7</div><div class="ds">рейтинг 4.8</div></div><div class="km">1,6 км</div></div>
+          <div class="place" data-n="груминг" onclick="toast('Открываю груминг ✂️')"><div class="e">✂️</div><div><div class="nm">Груминг «Хвостик»</div><div class="ds">стрижка · когти</div></div><div class="km">2,0 км</div></div>
+        </div>
+        <div class="event"><div><div class="t">🐾 Сходка владельцев корги</div><div class="d">сб · 15:00 · Парк Горького</div></div><div class="go" onclick="this.textContent='Иду ✓';toast('Записал! +1 идёт 🎉')">Пойду</div></div>
+      </div>
+
+      <!-- PROFILE -->
+      <div class="view" data-v="profile">
+        <div class="uicard petrow"><div class="pet-av">🐕</div><div><div class="pet-n">Рекс</div><div class="pet-s">корги · 3 года · 11 кг · Москва</div></div></div>
+        <div class="sect">Устройства</div>
+        <div class="srow" onclick="go('devices')"><div class="e">📱</div><div class="nm">Мои устройства</div><div class="ar">›</div></div>
+        <div class="sect">Настройки</div>
+        <div class="srow" onclick="event.stopPropagation();this.querySelector('.switch').classList.toggle('on')"><div class="e">🌅</div><div class="nm">Утренняя сводка</div><div class="switch on"></div></div>
+        <div class="srow" onclick="this.querySelector('.switch').classList.toggle('on')"><div class="e">🔔</div><div class="nm">Алерты здоровья</div><div class="switch on"></div></div>
+        <div class="srow" onclick="this.querySelector('.switch').classList.toggle('on')"><div class="e">📍</div><div class="nm">Потеряшка-алерты города</div><div class="switch"></div></div>
+        <div class="sect">Экосистема</div>
+        <div class="srow" onclick="toast('Открываю Telegram-бот 🤖')"><div class="e">🤖</div><div class="nm">Telegram-бот ANIMO</div><div class="ar">›</div></div>
+        <div class="srow" onclick="toast('Premium: расширенная аналитика, отчёты, мультипитомцы ⭐')"><div class="e">⭐</div><div class="nm">ANIMO Premium</div><div class="ar">›</div></div>
+      </div>
+
+      <!-- DEVICES (sub) -->
+      <div class="view" data-v="devices">
+        <div class="sect">Подключённые устройства</div>
+        <div class="dev"><div class="ic">🟦</div><div><div class="nm">Ошейник-модуль</div><div class="st">синхрон 2 мин назад</div></div><div class="bat">82%</div></div>
+        <div class="dev"><div class="ic">🛰</div><div><div class="nm">GPS-трекер</div><div class="st">маршруты · активность</div></div><div class="bat">64%</div></div>
+        <div class="dev soon"><div class="ic">🔬</div><div><div class="nm">Чип-имплант</div><div class="st">скоро · R&amp;D</div></div><div class="bat">—</div></div>
+        <div class="add" onclick="pair()">＋ Добавить устройство (Bluetooth)</div>
+        <div class="uicard" style="margin-top:14px"><div class="pet-s" style="line-height:1.5">Приложение полезно <b style="color:#fff">и без устройств</b>: советы, места, события и дневник прогулок по GPS телефона.</div></div>
+        <div class="btn-gho" style="margin-top:10px" onclick="go('profile')">◀️ Назад</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab on" data-tab="home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.8"/></svg>Дом</div>
+      <div class="tab" data-tab="walk" onclick="go('walk')"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19l4-9 3 5 3-7 4 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Прогулка</div>
+      <div class="tab" data-tab="health" onclick="go('health')"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2-5 4 10 2-5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Здоровье</div>
+      <div class="tab" data-tab="places" onclick="go('places')"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="11" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>Места</div>
+      <div class="tab" data-tab="profile" onclick="go('profile')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.8"/><path d="M5 20c1.2-3.4 4-5 7-5s5.8 1.6 7 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Профиль</div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="modal">
+      <div class="sheet">
+        <div class="ble" id="ble"></div>
+        <div class="h" id="bleh">Поиск устройств…</div>
+        <div class="p" id="blep">Включи ошейник ANIMO рядом</div>
+        <div class="btn-pri" id="blebtn" style="display:none" onclick="closeModal()">Готово</div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="hint">Тапай по табам и кнопкам — это рабочий прототип. Открой на телефоне для полного эффекта.</div>
+</div>
+
+<script>
+var TITLES = {home:"Дом",walk:"Прогулка",health:"Здоровье",places:"Места и сообщество",profile:"Профиль",devices:"Устройства"};
+function go(v){
+  document.querySelectorAll('.view').forEach(function(el){el.classList.toggle('active', el.dataset.v===v);});
+  document.querySelectorAll('.view').forEach(function(el){if(el.dataset.v===v) el.scrollTop=0;});
+  var tabName = (v==='devices')?'profile':v;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on', t.dataset.tab===tabName);});
+  document.getElementById('apptitle').textContent = TITLES[v]||'';
+}
+var T;
+function toast(msg){
+  clearTimeout(T); var el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  T=setTimeout(function(){el.classList.remove('show');},1900);
+}
+
+/* прогулка */
+var walking=false, wt=0, wd=0, timer, routeLen=0;
+window.addEventListener('load',function(){
+  var p=document.getElementById('routepath'); routeLen=p.getTotalLength();
+  p.style.strokeDasharray=routeLen; p.style.strokeDashoffset=routeLen;
+});
+function toggleWalk(){
+  var btn=document.getElementById('walkbtn'); var p=document.getElementById('routepath'); var dog=document.getElementById('dog');
+  walking=!walking;
+  if(walking){
+    btn.textContent='⏸ Завершить прогулку'; btn.classList.add('run'); toast('Поехали! 🐾');
+    timer=setInterval(function(){
+      wt++; wd+=0.0011*(3+Math.random()*2);
+      document.getElementById('wtime').textContent = Math.floor(wt/60)+':'+('0'+(wt%60)).slice(-2);
+      document.getElementById('wdist').textContent = wd.toFixed(1).replace('.',',');
+      document.getElementById('wpace').textContent = (wd>0.02? (wt/60/wd).toFixed(0).replace('.',',')+'′':'—');
+      var frac=Math.min(1, wt/40);
+      p.style.strokeDashoffset = routeLen*(1-frac);
+      var pt=p.getPointAtLength(routeLen*frac); var box=p.viewBox?p.viewBox.baseVal:null;
+      dog.style.left=(pt.x/350*100)+'%'; dog.style.top=(pt.y/250*100)+'%';
+    },1000);
+  } else {
+    btn.textContent='▶ Начать прогулку'; btn.classList.remove('run');
+    clearInterval(timer);
+    toast('Прогулка: '+document.getElementById('wdist').textContent+' км за '+document.getElementById('wtime').textContent+' ✅');
+    wt=0; wd=0;
+    setTimeout(function(){
+      document.getElementById('wtime').textContent='0:00'; document.getElementById('wdist').textContent='0,0'; document.getElementById('wpace').textContent='—';
+      p.style.strokeDashoffset=routeLen; dog.style.left='40px'; dog.style.top='215px';
+    },1500);
+  }
+}
+
+/* места — фильтр */
+function filterPlaces(){
+  var q=document.getElementById('psearch').value.toLowerCase();
+  document.querySelectorAll('#placelist .place').forEach(function(el){
+    el.style.display = el.dataset.n.indexOf(q)>-1 || q.length<2 ? 'flex':'none';
+  });
+}
+
+/* сопряжение */
+function pair(){
+  var m=document.getElementById('modal'); m.classList.add('show');
+  var ble=document.getElementById('ble'); ble.className='ble';
+  document.getElementById('bleh').textContent='Поиск устройств…';
+  document.getElementById('blep').textContent='Включи ошейник ANIMO рядом';
+  document.getElementById('blebtn').style.display='none';
+  setTimeout(function(){
+    document.getElementById('bleh').textContent='Найден: ANIMO Collar';
+    document.getElementById('blep').textContent='Серийный №AC-3F91 · сигнал отличный';
+  },1400);
+  setTimeout(function(){
+    ble.className='ble done'; ble.textContent='✓';
+    document.getElementById('bleh').textContent='Подключено!';
+    document.getElementById('blep').textContent='Ошейник синхронизируется…';
+    document.getElementById('blebtn').style.display='block';
+  },2800);
+}
+function closeModal(){document.getElementById('modal').classList.remove('show'); toast('Ошейник добавлен 🟦');}
+
+/* часы */
+function tick(){var d=new Date();document.getElementById('clock').textContent=d.getHours()+':'+('0'+d.getMinutes()).slice(-2);}
+tick(); setInterval(tick,10000);
+</script>
+</body>
+</html>
