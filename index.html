@@ -58,6 +58,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(9,13,24,0.82)
 .nav-cta{margin-left:8px;background:var(--blue);color:#fff;font-size:14px;font-weight:700;border-radius:999px;
   padding:11px 22px;transition:background .15s;white-space:nowrap;}
 .nav-cta:hover{background:#2a63d8;}
+.nav-lang{margin-left:6px;font-size:13px;font-weight:700;color:var(--t2);border:1px solid var(--line2);border-radius:8px;padding:7px 11px;transition:color .15s,border-color .15s;}
+.nav-lang:hover{color:#fff;border-color:var(--blue-br);}
 a:focus-visible,.btn:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--blue-br);outline-offset:3px;}
 @media(max-width:860px){
   .nav-in{gap:16px;}
@@ -236,6 +238,7 @@ footer{background:var(--bg2);border-top:1px solid var(--line);padding:32px 0;}
       <a href="#market">Market</a>
       <a href="#contact">Contacts</a>
     </div>
+    <a class="nav-lang" href="ru/">RU</a>
     <a class="nav-cta" href="#contact">Get in touch</a>
   </div>
 </nav>
@@ -424,6 +427,5 @@ setTimeout(() => {
   });
 }, 1500);
 </script>
-<a href="ru/" aria-label="language" style="position:fixed;bottom:18px;right:18px;z-index:80;font-family:Inter,system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;color:#cfe0ff;background:rgba(13,18,32,.82);border:1px solid rgba(120,160,230,.35);border-radius:10px;padding:9px 14px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);text-decoration:none;box-shadow:0 8px 24px -10px rgba(0,0,0,.6);">RU →</a>
 </body>
 </html>
