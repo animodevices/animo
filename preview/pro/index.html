@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ANIMO — носимый health-мониторинг для питомцев</title>
+<meta name="description" content="Ошейник, камера и имплант Animo работают вместе: отслеживают здоровье, активность и поведение питомца в реальном времени и замечают проблему до появления симптомов." />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="ANIMO — носимый health-мониторинг для питомцев" />
+<meta property="og:description" content="Узнайте, что чувствует питомец, до того как появятся симптомы." />
+<meta property="og:image" content="https://animodevices.github.io/animo/img/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Favicon: щит с лапой -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d9488' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Ccircle cx='12' cy='11' r='1.6'/%3E%3Ccircle cx='9' cy='8.5' r='1'/%3E%3Ccircle cx='15' cy='8.5' r='1'/%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Tailwind Play CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          background: "#ffffff",
+          foreground: "#1c1917",
+          muted: { DEFAULT: "#f7f7f5", foreground: "#78716c" },
+          border: "#e7e5e4",
+          primary: {
+            DEFAULT: "#0d9488",
+            hover: "#0f766e",
+            foreground: "#ffffff",
+            soft: "#f0fdfa",
+          },
+          ring: "#0d9488",
+        },
+        fontFamily: {
+          sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+          display: ["'Plus Jakarta Sans'", "Inter", "sans-serif"],
+        },
+        borderRadius: {
+          xl: "0.75rem",
+          "2xl": "1rem",
+        },
+        boxShadow: {
+          sm: "0 1px 2px 0 rgb(28 25 23 / 0.05)",
+          md: "0 4px 16px -4px rgb(28 25 23 / 0.08)",
+          lg: "0 24px 60px -20px rgb(28 25 23 / 0.22)",
+        },
+        keyframes: {
+          "fade-up": {
+            "0%": { opacity: "0", transform: "translateY(16px)" },
+            "100%": { opacity: "1", transform: "translateY(0)" },
+          },
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root {
+    --background: #ffffff;
+    --foreground: #1c1917;
+    --muted: #f7f7f5;
+    --muted-foreground: #78716c;
+    --border: #e7e5e4;
+    --primary: #0d9488;
+    --primary-hover: #0f766e;
+    --primary-foreground: #ffffff;
+    --primary-soft: #f0fdfa;
+    --ring: #0d9488;
+    --radius: 0.75rem;
+  }
+  html { font-family: "Inter", system-ui, sans-serif; }
+  body { background: var(--background); color: var(--foreground); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  .font-display { font-family: "Plus Jakarta Sans", "Inter", sans-serif; }
+
+  /* Scroll-reveal */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Accordion */
+  details.acc > summary { list-style: none; cursor: pointer; }
+  details.acc > summary::-webkit-details-marker { display: none; }
+  details.acc .acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s cubic-bezier(.16,1,.3,1); }
+  details.acc .acc-body > div { overflow: hidden; }
+  details.acc[open] .acc-body { grid-template-rows: 1fr; }
+  details.acc .chev { transition: transform .3s ease; }
+  details.acc[open] .chev { transform: rotate(180deg); }
+
+  /* Product tile dark inset for dark renders */
+  .product-inset {
+    background:
+      radial-gradient(120% 120% at 50% 0%, #2a2a28 0%, #1a1917 55%, #121110 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    details.acc .acc-body { transition: none; }
+  }
+</style>
+<noscript>
+  <style> .reveal { opacity: 1 !important; transform: none !important; } </style>
+</noscript>
+</head>
+
+<body class="antialiased selection:bg-primary/15 selection:text-primary">
+
+<a href="#hero" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:left-4 focus:top-4 focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-white">К содержимому</a>
+
+<!-- ================= NAV ================= -->
+<header class="sticky top-0 z-50 w-full border-b border-border bg-white/70 backdrop-blur-md">
+  <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6" aria-label="Главная навигация">
+    <!-- Logo -->
+    <a href="#hero" class="flex items-center gap-2 font-display text-xl font-extrabold tracking-tight text-foreground">
+      <span class="grid h-8 w-8 place-items-center rounded-xl bg-primary-soft ring-1 ring-teal-100">
+        <svg viewBox="0 0 24 24" class="h-5 w-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <circle cx="12" cy="11" r="1.6"/><circle cx="9" cy="8.5" r="1"/><circle cx="15" cy="8.5" r="1"/>
+        </svg>
+      </span>
+      anim<span class="text-primary">o</span>
+    </a>
+
+    <!-- Center links (desktop) -->
+    <ul class="hidden items-center gap-1 md:flex">
+      <li><a href="#devices" class="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Устройства</a></li>
+      <li><a href="#notice" class="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Что замечает Animo</a></li>
+      <li><a href="#cases" class="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Сценарии</a></li>
+      <li><a href="#compare" class="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Сравнение</a></li>
+    </ul>
+
+    <!-- Right actions -->
+    <div class="flex items-center gap-2">
+      <a href="../" class="hidden h-9 items-center rounded-full border border-border bg-white px-4 text-sm font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:inline-flex">EN</a>
+      <a href="#contact" class="inline-flex h-9 items-center rounded-full bg-primary px-4 text-sm font-semibold text-white transition hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Связаться</a>
+
+      <!-- Mobile menu toggle -->
+      <details class="relative md:hidden">
+        <summary class="grid h-9 w-9 cursor-pointer list-none place-items-center rounded-full border border-border bg-white text-foreground transition hover:bg-muted [&::-webkit-details-marker]:hidden" aria-label="Открыть меню">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </summary>
+        <div class="absolute right-0 mt-2 w-56 rounded-2xl border border-border bg-white p-2 shadow-lg">
+          <a href="#devices" class="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Устройства</a>
+          <a href="#notice" class="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Что замечает Animo</a>
+          <a href="#cases" class="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Сценарии</a>
+          <a href="#compare" class="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Сравнение</a>
+          <a href="#contact" class="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Контакты</a>
+          <a href="../" class="mt-1 block rounded-xl border border-border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">EN — English version</a>
+        </div>
+      </details>
+    </div>
+  </nav>
+</header>
+
+<main id="hero">
+
+<!-- ================= HERO ================= -->
+<section class="relative overflow-hidden">
+  <!-- soft warm backdrop -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(60%_50%_at_70%_0%,#f0fdfa_0%,transparent_60%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(50%_40%_at_10%_10%,#f7f7f5_0%,transparent_55%)]"></div>
+  </div>
+
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-10 lg:py-24">
+    <!-- copy -->
+    <div class="reveal">
+      <span class="inline-flex items-center gap-2 rounded-full border border-teal-100 bg-primary-soft px-3 py-1 text-xs font-medium text-teal-700">
+        <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Здоровье под контролем · 24/7
+      </span>
+
+      <h1 class="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+        Он не может сказать, что ему плохо.
+        <span class="text-primary">Animo поможет это заметить.</span>
+      </h1>
+
+      <p class="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+        Ошейник, камера и имплант Animo работают вместе — отслеживают здоровье, активность и поведение питомца в реальном времени.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a href="#devices" class="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 font-semibold text-white shadow-sm transition hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+          Как это работает
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#contact" class="inline-flex h-11 items-center justify-center rounded-full border border-border bg-white px-6 font-medium text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+          Запросить презентацию
+        </a>
+      </div>
+
+      <p class="mt-8 max-w-md text-sm italic text-muted-foreground">
+        «Узнайте, что чувствует питомец, до того как появятся симптомы.»
+      </p>
+    </div>
+
+    <!-- product tile: collar -->
+    <div class="reveal">
+      <div class="relative">
+        <div class="product-inset overflow-hidden rounded-2xl p-6 shadow-lg ring-1 ring-stone-200 sm:p-8">
+          <img src="img/collar.webp" alt="Умный ошейник Animo" loading="eager" decoding="async" class="mx-auto h-auto w-full max-w-sm object-contain drop-shadow-2xl" />
+        </div>
+        <!-- floating metric chips -->
+        <div class="absolute -left-3 top-6 hidden rounded-2xl border border-border bg-white/95 px-3 py-2 shadow-md backdrop-blur sm:flex sm:items-center sm:gap-2">
+          <svg viewBox="0 0 24 24" class="h-4 w-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2 5 4-12 2 7h6"/></svg>
+          <span class="text-xs font-semibold text-foreground">Пульс и дыхание</span>
+        </div>
+        <div class="absolute -right-3 bottom-6 hidden rounded-2xl border border-border bg-white/95 px-3 py-2 shadow-md backdrop-blur sm:flex sm:items-center sm:gap-2">
+          <svg viewBox="0 0 24 24" class="h-4 w-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+          <span class="text-xs font-semibold text-foreground">Сон и активность</span>
+        </div>
+      </div>
+      <!-- TODO: вставить реальное фото: собака в ошейнике рядом с хозяином (тёплый домашний свет) -->
+      <div data-photo="hero" class="mt-4 hidden items-center gap-3 rounded-2xl border border-dashed border-border bg-gradient-to-br from-stone-50 to-stone-100 p-3 text-xs text-muted-foreground lg:flex">
+        <svg viewBox="0 0 24 24" class="h-5 w-5 shrink-0 text-stone-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L7 20"/></svg>
+        Место для живого фото: питомец в ошейнике Animo
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEVICES ================= -->
+<section id="devices" class="border-t border-border bg-muted/60">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <div class="reveal max-w-2xl">
+      <p class="text-xs font-medium uppercase tracking-widest text-primary">Экосистема устройств</p>
+      <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        Устройство следит за состоянием питомца&nbsp;24/7
+      </h2>
+      <p class="mt-4 text-base text-muted-foreground sm:text-lg">
+        Три устройства закрывают разные стороны здоровья и работают как единая система. Раскройте карточку, чтобы увидеть, что отслеживает каждое.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
+
+      <!-- COLLAR -->
+      <details class="acc reveal group rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:shadow-md" open>
+        <summary class="flex items-start justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-xl">
+          <div class="flex items-start gap-3">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-foreground">Ошейник</h3>
+              <p class="mt-1 text-sm text-muted-foreground">Постоянный мониторинг во время прогулок и дома</p>
+            </div>
+          </div>
+          <svg class="chev mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="acc-body"><div>
+          <div class="mt-5 product-inset overflow-hidden rounded-xl p-4 ring-1 ring-stone-200">
+            <img src="img/collar.webp" alt="Ошейник Animo" loading="lazy" decoding="async" class="mx-auto h-32 w-auto object-contain" />
+          </div>
+          <p class="mt-5 text-xs font-medium uppercase tracking-widest text-primary">Отслеживает</p>
+          <ul class="mt-3 space-y-2 text-sm text-foreground">
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Активность</li>
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Сон</li>
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Температуру</li>
+          </ul>
+        </div></div>
+      </details>
+
+      <!-- CAMERA -->
+      <details class="acc reveal group rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:shadow-md">
+        <summary class="flex items-start justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-xl">
+          <div class="flex items-start gap-3">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+            </span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-foreground">Камера</h3>
+              <p class="mt-1 text-sm text-muted-foreground">Наблюдает за поведением, пока вас нет рядом</p>
+            </div>
+          </div>
+          <svg class="chev mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="acc-body"><div>
+          <div class="mt-5 product-inset overflow-hidden rounded-xl p-4 ring-1 ring-stone-200">
+            <img src="img/camera_wide.webp" alt="Камера Animo" loading="lazy" decoding="async" class="mx-auto h-32 w-auto object-contain" />
+          </div>
+          <p class="mt-5 text-xs font-medium uppercase tracking-widest text-primary">Отслеживает</p>
+          <ul class="mt-3 space-y-2 text-sm text-foreground">
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Поведение</li>
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Тревожность</li>
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Питание</li>
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Взаимодействие</li>
+          </ul>
+        </div></div>
+      </details>
+
+      <!-- IMPLANT -->
+      <details class="acc reveal group rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:shadow-md">
+        <summary class="flex items-start justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-xl">
+          <div class="flex items-start gap-3">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
+            </span>
+            <div>
+              <h3 class="font-display text-lg font-bold text-foreground">Имплант</h3>
+              <p class="mt-1 text-sm text-muted-foreground">Глубокие физиологические данные изнутри</p>
+            </div>
+          </div>
+          <svg class="chev mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="acc-body"><div>
+          <div class="mt-5 product-inset overflow-hidden rounded-xl p-4 ring-1 ring-stone-200">
+            <img src="img/chip.webp" alt="Имплант Animo" loading="lazy" decoding="async" class="mx-auto h-32 w-auto object-contain" />
+          </div>
+          <p class="mt-5 text-xs font-medium uppercase tracking-widest text-primary">Отслеживает</p>
+          <ul class="mt-3 space-y-2 text-sm text-foreground">
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Физиологические показатели</li>
+            <li class="flex items-center gap-2"><span class="text-primary">&bull;</span> Долгосрочные изменения состояния</li>
+          </ul>
+        </div></div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT ANIMO NOTICES ================= -->
+<section id="notice" class="border-t border-border bg-white">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <div class="reveal max-w-2xl">
+      <p class="text-xs font-medium uppercase tracking-widest text-primary">Раннее обнаружение</p>
+      <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Animo может заметить</h2>
+      <p class="mt-4 text-base text-muted-foreground sm:text-lg">
+        Система ищет отклонения от нормы конкретного питомца — и подсказывает, когда стоит присмотреться внимательнее.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+      <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </span>
+        <h3 class="mt-4 font-display text-base font-bold text-foreground">Снижение активности</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Питомец стал двигаться меньше обычного — частый ранний признак недомогания.</p>
+      </article>
+
+      <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.6 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 1.9 1.5 4 3 5.5l7 7Z"/><path d="m3.5 12 4-1 1.5-3 2 5 2-4 1 3h3.5"/></svg>
+        </span>
+        <h3 class="mt-4 font-display text-base font-bold text-foreground">Признаки боли</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Изменения в движении, позе и поведении, по которым видно дискомфорт.</p>
+      </article>
+
+      <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V18a3 3 0 0 0 6 .5 3 3 0 0 0 6-.5v-.2a3 3 0 0 0-1-5.8 3 3 0 0 0-3-3V5a3 3 0 0 0-3-3z"/></svg>
+        </span>
+        <h3 class="mt-4 font-display text-base font-bold text-foreground">Тревожное поведение</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Беспокойство в одиночестве, навязчивые действия, реакция на стресс.</p>
+      </article>
+
+      <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+        </span>
+        <h3 class="mt-4 font-display text-base font-bold text-foreground">Ухудшение сна</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Прерывистый или беспокойный сон — сигнал, что что-то идёт не так.</p>
+      </article>
+
+      <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <h3 class="mt-4 font-display text-base font-bold text-foreground">Риск заболевания</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Сочетание показателей, при котором стоит показать питомца врачу.</p>
+      </article>
+
+      <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
+        </span>
+        <h3 class="mt-4 font-display text-base font-bold text-foreground">Необычные привычки</h3>
+        <p class="mt-2 text-sm text-muted-foreground">Перемены в питании, питьевом режиме и привычном распорядке дня.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CASES ================= -->
+<section id="cases" class="border-t border-border bg-muted/60">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <div class="reveal max-w-2xl">
+      <p class="text-xs font-medium uppercase tracking-widest text-primary">Для кого</p>
+      <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Сценарии использования</h2>
+      <p class="mt-4 text-base text-muted-foreground sm:text-lg">
+        Одна система решает разные задачи — от заботы об одной собаке до мониторинга десятков животных.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-12">
+      <!-- photo placeholder -->
+      <!-- TODO: вставить реальное фото: владелец гуляет с собакой в парке (мягкий дневной свет) -->
+      <div data-photo="scenario" class="reveal relative overflow-hidden rounded-2xl border border-dashed border-border bg-gradient-to-br from-stone-50 via-white to-stone-100 p-8 lg:col-span-5">
+        <div class="flex h-full min-h-[260px] flex-col justify-between">
+          <span class="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-white/80 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
+            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 text-stone-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L7 20"/></svg>
+            Слот для фото
+          </span>
+          <div>
+            <p class="font-display text-xl font-bold text-foreground">Спокойствие каждый день</p>
+            <p class="mt-2 max-w-sm text-sm text-muted-foreground">Здесь появится живое фото питомца и хозяина — чтобы показать заботу, а не технику.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- cases grid -->
+      <div class="grid gap-5 sm:grid-cols-2 lg:col-span-7">
+        <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14a5 5 0 0 0-2 4 3 3 0 0 0 3 3c1.5 0 2-1 3-1s1.5 1 3 1a3 3 0 0 0 3-3 5 5 0 0 0-2-4"/></svg>
+          </span>
+          <h3 class="mt-4 font-display text-base font-bold text-foreground">Владельцам собак</h3>
+          <p class="mt-2 text-sm text-muted-foreground">Здоровье, безопасность и контроль активности любимца — каждый день.</p>
+        </article>
+
+        <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <h3 class="mt-4 font-display text-base font-bold text-foreground">Заводчикам</h3>
+          <p class="mt-2 text-sm text-muted-foreground">Наблюдение за группой животных и репродуктивный мониторинг.</p>
+        </article>
+
+        <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2M5 2v2M5 4v8a4 4 0 0 0 8 0V4"/><path d="M8 12v4a6 6 0 0 0 12 0v-4"/><circle cx="20" cy="10" r="2"/></svg>
+          </span>
+          <h3 class="mt-4 font-display text-base font-bold text-foreground">Ветеринарным клиникам</h3>
+          <p class="mt-2 text-sm text-muted-foreground">Дистанционный мониторинг пациентов между визитами.</p>
+        </article>
+
+        <article class="reveal rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary ring-1 ring-teal-100">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8M3 22h18M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>
+          </span>
+          <h3 class="mt-4 font-display text-base font-bold text-foreground">Исследованиям</h3>
+          <p class="mt-2 text-sm text-muted-foreground">Сбор поведенческих данных для научных и продуктовых задач.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIGITAL TWIN ================= -->
+<section id="twin" class="border-t border-border bg-white">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <div class="reveal overflow-hidden rounded-2xl border border-teal-100 bg-primary-soft p-8 shadow-sm sm:p-12">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-full border border-teal-100 bg-white px-3 py-1 text-xs font-medium text-teal-700">
+            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V18a3 3 0 0 0 6 .5 3 3 0 0 0 6-.5v-.2a3 3 0 0 0-1-5.8 3 3 0 0 0-3-3V5a3 3 0 0 0-3-3z"/></svg>
+            AI-модель организма
+          </span>
+          <h2 class="mt-5 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Цифровой двойник вашего питомца
+          </h2>
+          <p class="mt-4 text-base text-foreground/80 sm:text-lg">
+            Animo непрерывно строит модель организма и отслеживает изменения до появления симптомов.
+          </p>
+          <a href="#contact" class="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 font-semibold text-white shadow-sm transition hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+            Узнать подробнее
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <!-- twin visual placeholder -->
+        <!-- TODO: вставить реальное фото: визуализация цифрового двойника / питомец рядом с панелью данных -->
+        <div data-photo="twin" class="relative">
+          <div class="rounded-2xl border border-border bg-white p-6 shadow-lg">
+            <div class="flex items-center justify-between">
+              <p class="font-display text-sm font-bold text-foreground">Модель состояния</p>
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-2.5 py-1 text-xs font-medium text-teal-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-primary"></span> в норме
+              </span>
+            </div>
+            <div class="mt-5 space-y-4">
+              <div>
+                <div class="flex items-center justify-between text-xs text-muted-foreground"><span>Активность</span><span>хорошо</span></div>
+                <div class="mt-1.5 h-2 w-full rounded-full bg-stone-100"><div class="h-2 rounded-full bg-primary" style="width:82%"></div></div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-xs text-muted-foreground"><span>Сон</span><span>стабильно</span></div>
+                <div class="mt-1.5 h-2 w-full rounded-full bg-stone-100"><div class="h-2 rounded-full bg-primary" style="width:74%"></div></div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-xs text-muted-foreground"><span>Поведение</span><span>спокойно</span></div>
+                <div class="mt-1.5 h-2 w-full rounded-full bg-stone-100"><div class="h-2 rounded-full bg-primary" style="width:90%"></div></div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-xs text-muted-foreground"><span>Пульс и дыхание</span><span>ровно</span></div>
+                <div class="mt-1.5 h-2 w-full rounded-full bg-stone-100"><div class="h-2 rounded-full bg-primary" style="width:68%"></div></div>
+              </div>
+            </div>
+            <p class="mt-5 text-[11px] text-muted-foreground">Иллюстративная панель. На этом месте может быть реальная визуализация данных.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARE ================= -->
+<section id="compare" class="border-t border-border bg-muted/60">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <div class="reveal max-w-2xl">
+      <p class="text-xs font-medium uppercase tracking-widest text-primary">Сравнение</p>
+      <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Сегодня → Animo</h2>
+      <p class="mt-4 text-base text-muted-foreground sm:text-lg">
+        Большинство трекеров показывают данные. Animo объясняет состояние и предупреждает заранее.
+      </p>
+    </div>
+
+    <!-- today -> animo table -->
+    <div class="reveal mt-12 overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
+      <div class="grid grid-cols-2 border-b border-border bg-stone-50 text-sm font-semibold">
+        <div class="flex items-center gap-2 px-5 py-4 text-muted-foreground">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Сегодня
+        </div>
+        <div class="flex items-center gap-2 border-l border-border px-5 py-4 text-teal-700">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Animo
+        </div>
+      </div>
+
+      <dl class="divide-y divide-border text-sm">
+        <div class="grid grid-cols-2">
+          <dt class="px-5 py-4 text-muted-foreground">Показывает данные</dt>
+          <dd class="border-l border-border px-5 py-4 font-medium text-foreground">Объясняет состояние</dd>
+        </div>
+        <div class="grid grid-cols-2 bg-stone-50/40">
+          <dt class="px-5 py-4 text-muted-foreground">Нужно анализировать самому</dt>
+          <dd class="border-l border-border px-5 py-4 font-medium text-foreground">AI делает выводы</dd>
+        </div>
+        <div class="grid grid-cols-2">
+          <dt class="px-5 py-4 text-muted-foreground">Каждый показатель отдельно</dt>
+          <dd class="border-l border-border px-5 py-4 font-medium text-foreground">Целостная модель организма</dd>
+        </div>
+        <div class="grid grid-cols-2 bg-stone-50/40">
+          <dt class="px-5 py-4 text-muted-foreground">Реакция на проблему</dt>
+          <dd class="border-l border-border px-5 py-4 font-medium text-foreground">Предсказание проблемы</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- competitor cards -->
+    <h3 class="reveal mt-14 font-display text-xl font-bold text-foreground">Как Animo выглядит на фоне рынка</h3>
+    <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+      <article class="reveal flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm">
+        <h4 class="font-display text-base font-bold text-foreground">PetPace</h4>
+        <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+          <li class="flex items-start gap-2"><svg viewBox="0 0 24 24" class="mt-0.5 h-4 w-4 shrink-0 text-stone-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg> Дорогой</li>
+          <li class="flex items-start gap-2"><svg viewBox="0 0 24 24" class="mt-0.5 h-4 w-4 shrink-0 text-stone-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg> Меряет только в покое</li>
+        </ul>
+      </article>
+
+      <article class="reveal flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm">
+        <h4 class="font-display text-base font-bold text-foreground">Invoxia MiniTailz</h4>
+        <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+          <li class="flex items-start gap-2"><svg viewBox="0 0 24 24" class="mt-0.5 h-4 w-4 shrink-0 text-stone-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg> Меряет только в покое</li>
+        </ul>
+      </article>
+
+      <article class="reveal flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm">
+        <h4 class="font-display text-base font-bold text-foreground">FitBark · Tractive · Whistle</h4>
+        <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+          <li class="flex items-start gap-2"><svg viewBox="0 0 24 24" class="mt-0.5 h-4 w-4 shrink-0 text-stone-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Активность + GPS</li>
+          <li class="flex items-start gap-2"><svg viewBox="0 0 24 24" class="mt-0.5 h-4 w-4 shrink-0 text-stone-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg> Нет пульса и дыхания</li>
+        </ul>
+      </article>
+
+      <article class="reveal flex flex-col rounded-2xl border-2 border-primary bg-primary-soft p-6 shadow-md ring-1 ring-teal-100">
+        <div class="flex items-center justify-between">
+          <h4 class="font-display text-base font-extrabold text-teal-800">ANIMO</h4>
+          <span class="rounded-full bg-primary px-2.5 py-1 text-[11px] font-semibold text-white">Лучший выбор</span>
+        </div>
+        <ul class="mt-4 space-y-2 text-sm text-teal-900">
+          <li class="flex items-start gap-2"><svg viewBox="0 0 24 24" class="mt-0.5 h-4 w-4 shrink-0 text-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Непрерывные показатели</li>
+          <li class="flex items-start gap-2"><svg viewBox="0 0 24 24" class="mt-0.5 h-4 w-4 shrink-0 text-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Поведение + AI-объяснение</li>
+          <li class="flex items-start gap-2"><svg viewBox="0 0 24 24" class="mt-0.5 h-4 w-4 shrink-0 text-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Доступная цена</li>
+        </ul>
+        <p class="mt-4 border-t border-teal-100 pt-3 text-xs font-medium text-teal-700">Связка, которой нет ни у кого.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section id="contact" class="border-t border-border bg-white">
+  <div class="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+    <div class="reveal relative overflow-hidden rounded-2xl border border-border bg-foreground px-6 py-16 text-center shadow-lg sm:px-12">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_120%_at_50%_-10%,rgba(13,148,136,0.35)_0%,transparent_60%)]"></div>
+      <div class="relative mx-auto max-w-2xl">
+        <p class="text-xs font-medium uppercase tracking-widest text-teal-300">Готовы поговорить</p>
+        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Узнайте, что чувствует питомец, до того как появятся симптомы
+        </h2>
+        <p class="mt-4 text-base text-stone-300">
+          Расскажем подробнее об устройствах, технологии и условиях сотрудничества.
+        </p>
+        <a href="mailto:animo.devices@gmail.com?subject=ANIMO" class="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-8 text-base font-semibold text-white shadow-sm transition hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900">
+          Запросить контакты и презентацию
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <p class="mt-4 text-sm text-stone-400">animo.devices@gmail.com</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t border-border bg-white">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-10 sm:flex-row sm:px-6">
+    <a href="#hero" class="flex items-center gap-2 font-display text-lg font-extrabold tracking-tight text-foreground">
+      <span class="grid h-7 w-7 place-items-center rounded-lg bg-primary-soft ring-1 ring-teal-100">
+        <svg viewBox="0 0 24 24" class="h-4 w-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="1.6"/><circle cx="9" cy="8.5" r="1"/><circle cx="15" cy="8.5" r="1"/></svg>
+      </span>
+      anim<span class="text-primary">o</span>
+    </a>
+    <p class="text-sm text-muted-foreground">&copy; 2026 ANIMO</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal via IntersectionObserver
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var els = document.querySelectorAll(".reveal");
+    if (reduce || !("IntersectionObserver" in window)) {
+      els.forEach(function (el) { el.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>
