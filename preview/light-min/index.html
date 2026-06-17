@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANIMO — здоровье питомца под наблюдением 24/7</title>
+<meta name="description" content="Ошейник, камера и имплант Animo работают вместе и отслеживают здоровье, активность и поведение питомца в реальном времени. Узнайте, что чувствует питомец, до того как появятся симптомы.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3l11 4v8c0 7-4.7 11.6-11 14C9.7 26.6 5 22 5 15V7z' fill='%2314202e'/%3E%3Ccircle cx='16' cy='14' r='2.4' fill='%23fff'/%3E%3Ccircle cx='11.2' cy='11' r='1.5' fill='%23fff'/%3E%3Ccircle cx='20.8' cy='11' r='1.5' fill='%23fff'/%3E%3Ccircle cx='12.6' cy='16.4' r='1.5' fill='%23fff'/%3E%3Ccircle cx='19.4' cy='16.4' r='1.5' fill='%23fff'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="ANIMO — здоровье питомца под наблюдением 24/7">
+<meta property="og:description" content="Ошейник, камера и имплант Animo отслеживают здоровье, активность и поведение питомца в реальном времени.">
+<meta property="og:image" content="https://animodevices.github.io/animo/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --white:#ffffff;
+  --cream:#faf8f3;
+  --cream-2:#f6f3ec;
+  --ink:#14202e;
+  --ink-2:#51616f;
+  --accent:#2f6bd8;
+  --line:rgba(20,32,46,.10);
+  --line-soft:rgba(20,32,46,.07);
+  --radius:22px;
+  --radius-lg:30px;
+  --shadow:0 1px 2px rgba(20,32,46,.05), 0 18px 50px -22px rgba(20,32,46,.22);
+  --shadow-soft:0 1px 2px rgba(20,32,46,.04), 0 10px 30px -18px rgba(20,32,46,.18);
+  --maxw:1120px;
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--white);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  line-height:1.6;
+  font-size:17px;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:500;letter-spacing:-.02em;line-height:1.04;color:var(--ink)}
+p{margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-2);
+}
+.accent{color:var(--accent)}
+.muted{color:var(--ink-2)}
+.center{text-align:center}
+.hairline{height:1px;background:var(--line);border:0;margin:0}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--sans);font-weight:600;font-size:15.5px;
+  padding:15px 28px;border-radius:999px;border:1px solid transparent;
+  cursor:pointer;transition:transform .25s ease, background .25s ease, box-shadow .25s ease, color .25s ease;
+  line-height:1;
+}
+.btn-ink{background:var(--ink);color:#fff;box-shadow:0 10px 24px -14px rgba(20,32,46,.6)}
+.btn-ink:hover{transform:translateY(-2px);background:#0d1925}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:var(--cream-2);transform:translateY(-2px)}
+.btn-lg{padding:18px 36px;font-size:16.5px}
+.btn .arr{transition:transform .25s ease}
+.btn:hover .arr{transform:translateX(3px)}
+
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* ---------- nav ---------- */
+header.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  transition:background .3s ease, box-shadow .3s ease, border-color .3s ease;
+  border-bottom:1px solid transparent;
+}
+header.nav.scrolled{
+  background:rgba(255,255,255,.82);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--sans);font-weight:600;font-size:21px;letter-spacing:-.01em}
+.brand .logo{width:28px;height:28px;flex:0 0 auto}
+.brand b{font-weight:600}
+.brand b span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a.link{font-size:15px;color:var(--ink-2);font-weight:500;transition:color .2s ease}
+.nav-links a.link:hover{color:var(--ink)}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.lang{font-size:14px;font-weight:600;color:var(--ink-2);padding:8px 12px;border:1px solid var(--line);border-radius:999px;transition:.2s}
+.lang:hover{color:var(--ink);border-color:var(--ink-2)}
+@media (max-width:880px){.nav-links{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:150px 0 70px;text-align:center;background:
+  radial-gradient(1200px 520px at 50% -8%, #fbf9f4 0%, rgba(255,255,255,0) 70%);
+}
+.hero .eyebrow{margin-bottom:26px}
+.hero h1{
+  font-size:clamp(40px,8vw,76px);
+  max-width:14ch;margin:0 auto 26px;
+  letter-spacing:-.03em;
+}
+.hero h1 span{color:var(--ink-2);font-style:italic}
+.hero .sub{font-size:clamp(17px,2.3vw,20px);color:var(--ink-2);max-width:56ch;margin:0 auto 36px}
+.hero-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+
+.hero-visual{margin:60px auto 0;max-width:920px}
+.device-card{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  background:linear-gradient(180deg,#f7f4ee,#efeae0);
+  box-shadow:var(--shadow);border:1px solid var(--line-soft);
+}
+.device-card img{width:100%;height:auto;display:block}
+.hero-visual .device-card{padding:0}
+.float-tag{
+  position:absolute;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border:1px solid var(--line-soft);border-radius:14px;padding:11px 15px;
+  box-shadow:var(--shadow-soft);font-size:13.5px;font-weight:600;color:var(--ink);
+  display:flex;align-items:center;gap:9px;
+}
+.float-tag .dot{width:8px;height:8px;border-radius:50%;background:#3aaf7a;box-shadow:0 0 0 4px rgba(58,175,122,.18)}
+.float-tag.t1{top:22px;left:22px}
+.float-tag.t2{bottom:22px;right:22px}
+@media (max-width:560px){.float-tag{font-size:12px;padding:9px 12px}.float-tag.t1{top:14px;left:14px}.float-tag.t2{bottom:14px;right:14px}}
+
+/* ---------- section base ---------- */
+section{padding:96px 0}
+.sec-head{max-width:720px;margin:0 auto 56px;text-align:center}
+.sec-head .eyebrow{margin-bottom:18px;display:block}
+.sec-head h2{font-size:clamp(30px,5vw,48px);margin-bottom:18px}
+.sec-head p{color:var(--ink-2);font-size:18px}
+
+.bg-cream{background:var(--cream)}
+.bg-cream2{background:var(--cream-2)}
+
+/* ---------- devices showcase (dark accent) ---------- */
+.showcase{background:#0f1822;color:#eef2f6}
+.showcase .sec-head h2{color:#fff}
+.showcase .sec-head p{color:#9fb0bf}
+.showcase .eyebrow{color:#7f93a3}
+.dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:860px){.dev-grid{grid-template-columns:1fr}}
+.dev{
+  background:#15212d;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);
+  overflow:hidden;
+}
+.dev .shot{aspect-ratio:4/3;background:#0c141d;overflow:hidden}
+.dev .shot img{width:100%;height:100%;object-fit:cover}
+.dev details{padding:0}
+.dev summary{
+  list-style:none;cursor:pointer;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;
+}
+.dev summary::-webkit-details-marker{display:none}
+.dev summary .t{display:flex;flex-direction:column;gap:5px}
+.dev summary .kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7f93a3}
+.dev summary h3{font-size:23px;color:#fff;font-family:var(--serif)}
+.dev summary .chev{
+  width:30px;height:30px;flex:0 0 auto;border-radius:50%;border:1px solid rgba(255,255,255,.18);
+  display:grid;place-items:center;transition:transform .3s ease, background .3s ease;color:#aebccb;
+}
+.dev details[open] summary .chev{transform:rotate(45deg);background:rgba(47,107,216,.22);border-color:rgba(47,107,216,.5)}
+.dev .body{padding:0 24px 24px;color:#aebccb;font-size:15px}
+.dev .body .label{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7f93a3;margin-bottom:10px}
+.dev .body ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.dev .body ul li{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+  padding:7px 13px;border-radius:999px;font-size:13.5px;color:#dbe6f0;font-weight:500;
+}
+
+/* ---------- notice grid ---------- */
+.notice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+@media (max-width:780px){.notice-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.notice-grid{grid-template-columns:1fr}}
+.notice{background:var(--white);padding:34px 28px;transition:background .25s ease}
+.notice:hover{background:var(--cream)}
+.notice .ic{width:40px;height:40px;margin-bottom:18px;color:var(--accent)}
+.notice h3{font-size:20px;margin-bottom:8px;font-family:var(--serif)}
+.notice p{color:var(--ink-2);font-size:15px}
+
+/* ---------- scenarios ---------- */
+.scen-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:760px){.scen-grid{grid-template-columns:1fr}}
+.scen{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:36px 34px;box-shadow:var(--shadow-soft);transition:transform .3s ease, box-shadow .3s ease;
+}
+.scen:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.scen .num{font-family:var(--serif);font-size:15px;color:var(--accent);font-weight:600;margin-bottom:14px;display:block}
+.scen h3{font-size:24px;margin-bottom:12px}
+.scen p{color:var(--ink-2);font-size:15.5px}
+
+/* ---------- twin ---------- */
+.twin{display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center}
+@media (max-width:840px){.twin{grid-template-columns:1fr;gap:40px}}
+.twin h2{font-size:clamp(30px,5vw,46px);margin-bottom:20px}
+.twin p{color:var(--ink-2);font-size:18px;max-width:48ch}
+.twin .viz{
+  position:relative;aspect-ratio:1/1;border-radius:var(--radius-lg);
+  background:radial-gradient(circle at 50% 45%, #fff 0%, #f3efe6 78%);
+  border:1px solid var(--line-soft);box-shadow:var(--shadow-soft);overflow:hidden;
+  display:grid;place-items:center;
+}
+.pulse-rings{position:absolute;inset:0;display:grid;place-items:center}
+.pulse-rings span{position:absolute;border:1.5px solid rgba(47,107,216,.22);border-radius:50%}
+.pulse-rings span:nth-child(1){width:46%;height:46%}
+.pulse-rings span:nth-child(2){width:66%;height:66%;border-color:rgba(47,107,216,.15)}
+.pulse-rings span:nth-child(3){width:86%;height:86%;border-color:rgba(47,107,216,.09)}
+.twin .core{
+  position:relative;z-index:2;width:38%;height:38%;border-radius:50%;
+  background:linear-gradient(160deg,#2f6bd8,#1f4fa8);
+  box-shadow:0 18px 40px -16px rgba(47,107,216,.6);display:grid;place-items:center;
+}
+.twin .core svg{width:46%;height:46%;color:#fff}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.06);opacity:1}}
+.twin .pulse-rings span{animation:breathe 4.5s ease-in-out infinite}
+.twin .pulse-rings span:nth-child(2){animation-delay:.6s}
+.twin .pulse-rings span:nth-child(3){animation-delay:1.2s}
+@media (prefers-reduced-motion: reduce){.twin .pulse-rings span{animation:none}}
+
+/* ---------- comparison ---------- */
+.cmp-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-soft);
+}
+.cmp-table th{
+  text-align:left;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:20px 26px;color:var(--ink-2);background:var(--cream-2);
+}
+.cmp-table th.now-h{color:var(--ink-2)}
+.cmp-table th.an-h{color:var(--accent)}
+.cmp-table td{padding:20px 26px;font-size:16px;border-top:1px solid var(--line-soft);vertical-align:top}
+.cmp-table td.now{color:var(--ink-2)}
+.cmp-table td.an{color:var(--ink);font-weight:500}
+.cmp-table td.an::before{content:"→ ";color:var(--accent);font-weight:600}
+@media (max-width:620px){
+  .cmp-table th,.cmp-table td{padding:14px 16px;font-size:14.5px}
+}
+
+.peers{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:30px}
+@media (max-width:680px){.peers{grid-template-columns:1fr}}
+.peer{
+  background:var(--white);border:1px solid var(--line);border-radius:18px;padding:24px 26px;
+}
+.peer.is-animo{background:var(--ink);border-color:var(--ink)}
+.peer h4{margin:0 0 8px;font-family:var(--sans);font-size:17px;font-weight:600;color:var(--ink)}
+.peer.is-animo h4{color:#fff}
+.peer p{font-size:14.5px;color:var(--ink-2)}
+.peer.is-animo p{color:#b9c6d3}
+.peer .tag{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 10px;border-radius:999px;margin-bottom:14px}
+.peer .tag.lack{background:rgba(20,32,46,.06);color:var(--ink-2)}
+.peer.is-animo .tag{background:rgba(47,107,216,.25);color:#cfe0ff}
+
+/* ---------- final CTA ---------- */
+.final{text-align:center;padding:110px 0}
+.final h2{font-size:clamp(32px,6vw,56px);max-width:18ch;margin:0 auto 22px}
+.final p{color:var(--ink-2);font-size:19px;max-width:52ch;margin:0 auto 36px}
+.tagline-search{margin-top:46px;font-size:15px;color:var(--ink-2);font-style:italic;font-family:var(--serif)}
+
+/* ---------- footer ---------- */
+footer{padding:46px 0;border-top:1px solid var(--line);background:var(--white)}
+.foot-in{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot-in .brand{font-size:19px}
+footer .cr{font-size:14px;color:var(--ink-2)}
+
+/* ---------- placeholder ---------- */
+.ph{
+  aspect-ratio:16/10;border-radius:var(--radius);
+  background:
+    radial-gradient(600px 300px at 30% 20%, #fbf9f4, rgba(255,255,255,0)),
+    linear-gradient(135deg,#f3efe6,#e9e3d7);
+  border:1px solid var(--line-soft);position:relative;overflow:hidden;
+  display:grid;place-items:center;color:var(--ink-2);font-size:13.5px;
+}
+.ph::after{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(45deg, rgba(255,255,255,.4) 0 2px, rgba(255,255,255,0) 2px 22px);opacity:.5}
+.ph span{position:relative;z-index:2;background:rgba(255,255,255,.7);padding:6px 14px;border-radius:999px;border:1px solid var(--line-soft)}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1!important;transform:none!important;transition:none}}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="ANIMO — на главную">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 3l11 4v8c0 7-4.7 11.6-11 14C9.7 26.6 5 22 5 15V7z" fill="#14202e"/>
+        <circle cx="16" cy="14" r="2.4" fill="#fff"/>
+        <circle cx="11.2" cy="11" r="1.5" fill="#fff"/>
+        <circle cx="20.8" cy="11" r="1.5" fill="#fff"/>
+        <circle cx="12.6" cy="16.4" r="1.5" fill="#fff"/>
+        <circle cx="19.4" cy="16.4" r="1.5" fill="#fff"/>
+      </svg>
+      <b>anim<span>o</span></b>
+    </a>
+    <nav class="nav-links" aria-label="Основная навигация">
+      <a class="link" href="#devices">Устройства</a>
+      <a class="link" href="#notice">Что замечает Animo</a>
+      <a class="link" href="#scenarios">Сценарии</a>
+      <a class="link" href="#compare">Сравнение</a>
+      <a class="link" href="#contact">Контакты</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="lang" href="../" aria-label="Switch to English">EN</a>
+      <a class="btn btn-ink" href="#contact">Связаться</a>
+    </div>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow rv">Носимый health-мониторинг для животных</span>
+    <h1 class="rv">Он не может сказать, что ему плохо. <span>Animo поможет это заметить.</span></h1>
+    <p class="sub rv">Ошейник, камера и имплант Animo работают вместе — отслеживают здоровье, активность и поведение питомца в реальном времени.</p>
+    <div class="hero-cta rv">
+      <a class="btn btn-ink btn-lg" href="#devices">Как это работает <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="hero-visual rv">
+      <div class="device-card">
+        <span class="float-tag t1"><span class="dot" aria-hidden="true"></span>Активность и сон</span>
+        <span class="float-tag t2"><span class="dot" aria-hidden="true"></span>Наблюдение 24/7</span>
+        <img src="img/collar.webp" width="920" height="600" alt="Умный ошейник Animo для мониторинга здоровья питомца" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DEVICES (dark showcase) ===================== -->
+<section class="showcase" id="devices">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Экосистема устройств</span>
+      <h2>Устройство следит за состоянием питомца 24/7</h2>
+      <p>Три устройства Animo дополняют друг друга и собирают полную картину здоровья и поведения.</p>
+    </div>
+
+    <div class="dev-grid">
+      <!-- ОШЕЙНИК -->
+      <article class="dev rv">
+        <div class="shot"><img src="img/collar.webp" alt="Ошейник Animo" loading="lazy" width="400" height="300"></div>
+        <details open>
+          <summary>
+            <span class="t"><span class="kicker">Устройство 01</span><h3>Ошейник</h3></span>
+            <span class="chev" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="body">
+            <div class="label">Отслеживает</div>
+            <ul><li>Активность</li><li>Сон</li><li>Температуру</li></ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- КАМЕРА -->
+      <article class="dev rv">
+        <div class="shot"><img src="img/camera_wide.webp" alt="Камера Animo" loading="lazy" width="400" height="300"></div>
+        <details>
+          <summary>
+            <span class="t"><span class="kicker">Устройство 02</span><h3>Камера</h3></span>
+            <span class="chev" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="body">
+            <div class="label">Отслеживает</div>
+            <ul><li>Поведение</li><li>Тревожность</li><li>Питание</li><li>Взаимодействие</li></ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- ИМПЛАНТ -->
+      <article class="dev rv">
+        <div class="shot"><img src="img/chip.webp" alt="Чип-имплант Animo" loading="lazy" width="400" height="300"></div>
+        <details>
+          <summary>
+            <span class="t"><span class="kicker">Устройство 03</span><h3>Имплант</h3></span>
+            <span class="chev" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="body">
+            <div class="label">Отслеживает</div>
+            <ul><li>Физиологические показатели</li><li>Долгосрочные изменения состояния</li></ul>
+          </div>
+        </details>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NOTICE ===================== -->
+<section class="bg-cream" id="notice">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Раннее предупреждение</span>
+      <h2>Animo может заметить</h2>
+      <p>То, что трудно увидеть глазом и легко пропустить в повседневной жизни.</p>
+    </div>
+
+    <div class="notice-grid">
+      <div class="notice rv">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 17l5-6 4 4 5-7 4 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Снижение активности</h3>
+        <p>Питомец стал меньше двигаться и играть.</p>
+      </div>
+      <div class="notice rv">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <h3>Признаки боли</h3>
+        <p>Изменения в движении и поведении при дискомфорте.</p>
+      </div>
+      <div class="notice rv">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v3M12 18v3M5 12H2M22 12h-3M6 6l-2-2M20 20l-2-2M6 18l-2 2M20 4l-2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.8"/></svg>
+        <h3>Тревожное поведение</h3>
+        <p>Беспокойство, нервозность, нетипичные реакции.</p>
+      </div>
+      <div class="notice rv">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1111.2 3a6.6 6.6 0 009.8 9.8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <h3>Ухудшение сна</h3>
+        <p>Беспокойный или прерывистый сон ночью.</p>
+      </div>
+      <div class="notice rv">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.4 8.3-8 10-4.6-1.7-8-5-8-10V7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Риск заболевания</h3>
+        <p>Ранние отклонения до появления симптомов.</p>
+      </div>
+      <div class="notice rv">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <h3>Необычные привычки</h3>
+        <p>Отклонения от привычного распорядка дня.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SCENARIOS ===================== -->
+<section id="scenarios">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Кому полезен Animo</span>
+      <h2>Сценарии применения</h2>
+      <p>Один и тот же мониторинг решает разные задачи для разных людей.</p>
+    </div>
+
+    <div class="scen-grid">
+      <article class="scen rv">
+        <span class="num">01</span>
+        <h3>Владельцам собак</h3>
+        <p>Здоровье, безопасность и контроль активности любимца — спокойствие за его состояние каждый день.</p>
+      </article>
+      <article class="scen rv">
+        <span class="num">02</span>
+        <h3>Заводчикам</h3>
+        <p>Наблюдение за группой животных и репродуктивный мониторинг — без ручного учёта по каждой особи.</p>
+      </article>
+      <article class="scen rv">
+        <span class="num">03</span>
+        <h3>Ветеринарным клиникам</h3>
+        <p>Дистанционный мониторинг пациентов между визитами — данные о состоянии в динамике.</p>
+      </article>
+      <article class="scen rv">
+        <span class="num">04</span>
+        <h3>Исследованиям</h3>
+        <p>Сбор поведенческих данных в естественной среде — масштабно и непрерывно.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DIGITAL TWIN ===================== -->
+<section class="bg-cream2">
+  <div class="wrap">
+    <div class="twin">
+      <div class="rv">
+        <span class="eyebrow" style="display:block;margin-bottom:18px">Технология Animo</span>
+        <h2>Цифровой двойник вашего питомца</h2>
+        <p>Animo непрерывно строит модель организма и отслеживает изменения до появления симптомов.</p>
+      </div>
+      <div class="viz rv" aria-hidden="true">
+        <div class="pulse-rings"><span></span><span></span><span></span></div>
+        <div class="core">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h3l2-5 4 10 2-5h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPARISON ===================== -->
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Сравнение</span>
+      <h2>Сегодня и с Animo</h2>
+      <p>Большинство устройств показывают данные. Animo объясняет, что они значат.</p>
+    </div>
+
+    <div class="rv">
+      <table class="cmp-table">
+        <thead>
+          <tr><th class="now-h">Сегодня</th><th class="an-h">С Animo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="now">Показывает данные</td><td class="an">Объясняет состояние</td></tr>
+          <tr><td class="now">Нужно анализировать самому</td><td class="an">AI делает выводы</td></tr>
+          <tr><td class="now">Каждый показатель отдельно</td><td class="an">Целостная модель организма</td></tr>
+          <tr><td class="now">Реакция на проблему</td><td class="an">Предсказание проблемы</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="peers">
+      <div class="peer rv">
+        <span class="tag lack">Ограничение</span>
+        <h4>PetPace</h4>
+        <p>Дорогой; снимает показатели только в покое.</p>
+      </div>
+      <div class="peer rv">
+        <span class="tag lack">Ограничение</span>
+        <h4>Invoxia MiniTailz</h4>
+        <p>Снимает показатели только в покое.</p>
+      </div>
+      <div class="peer rv">
+        <span class="tag lack">Ограничение</span>
+        <h4>FitBark · Tractive · Whistle</h4>
+        <p>Только активность и GPS — без пульса и дыхания.</p>
+      </div>
+      <div class="peer is-animo rv">
+        <span class="tag">Animo</span>
+        <h4>ANIMO</h4>
+        <p>Непрерывные показатели и поведение + объяснение от AI, по доступной цене.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PHOTO PLACEHOLDER ===================== -->
+<section class="bg-cream">
+  <div class="wrap">
+    <!-- TODO: реальное фото: собака рядом с хозяином -->
+    <div class="ph rv"><span>Здесь будет фото: питомец рядом с хозяином</span></div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="final" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow" style="display:block;margin-bottom:22px">Связаться с Animo</span>
+      <h2>Узнайте больше о том, как Animo заботится о здоровье питомца</h2>
+      <p>Запросите презентацию и контакты команды — расскажем о продукте, сроках и условиях.</p>
+      <a class="btn btn-ink btn-lg" href="mailto:animo.devices@gmail.com?subject=ANIMO">Запросить контакты и презентацию <span class="arr" aria-hidden="true">→</span></a>
+      <p class="tagline-search">Узнайте, что чувствует питомец, до того как появятся симптомы.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="#top">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 3l11 4v8c0 7-4.7 11.6-11 14C9.7 26.6 5 22 5 15V7z" fill="#14202e"/>
+        <circle cx="16" cy="14" r="2.4" fill="#fff"/>
+        <circle cx="11.2" cy="11" r="1.5" fill="#fff"/>
+        <circle cx="20.8" cy="11" r="1.5" fill="#fff"/>
+        <circle cx="12.6" cy="16.4" r="1.5" fill="#fff"/>
+        <circle cx="19.4" cy="16.4" r="1.5" fill="#fff"/>
+      </svg>
+      <b>anim<span>o</span></b>
+    </a>
+    <span class="cr">© 2026 ANIMO</span>
+  </div>
+</footer>
+
+<noscript>
+  <style>.rv{opacity:1!important;transform:none!important}</style>
+</noscript>
+
+<script>
+(function(){
+  // nav background on scroll
+  var nav=document.getElementById('nav');
+  function onScroll(){ if(window.scrollY>12){nav.classList.add('scrolled')}else{nav.classList.remove('scrolled')} }
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  // reveal on scroll
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+      });
+    },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){io.observe(el)});
+  } else {
+    els.forEach(function(el){el.classList.add('on')});
+  }
+})();
+</script>
+</body>
+</html>
