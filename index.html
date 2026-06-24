@@ -1,431 +1,501 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ANIMO — animal health monitoring ecosystem</title>
-<meta name="description" content="ANIMO: collar module, monitoring camera and implant chip. Continuous pet health metrics, AI interpretation and early alerts.">
+<title>ANIMO — узнайте, что чувствует питомец, до симптомов</title>
+<meta name="description" content="Animo — носимый модуль и AI, которые следят за сном, дыханием и активностью питомца и замечают проблему раньше, чем появятся симптомы.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="ANIMO — animal health monitoring ecosystem">
-<meta property="og:description" content="The collar module reads your pet's heart rate, respiration, temperature, sleep and voice. AI turns the data into clear actions.">
+<meta property="og:title" content="ANIMO — узнайте, что чувствует питомец, до симптомов">
+<meta property="og:description" content="Он не может сказать, что ему плохо. Animo заметит первым.">
 <meta property="og:image" content="https://animodevices.github.io/animo/img/og.jpg">
-<meta property="og:locale" content="en_US">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#090d18">
-<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3l7 4v6c0 4.4-3 7.3-7 8-4-.7-7-3.6-7-8V7l7-4z" fill="%231E50B4"/><circle cx="12" cy="11" r="2.4" fill="white"/><path d="M8.5 16c.7-1.6 6.3-1.6 7 0" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>'>
+<meta name="theme-color" content="#F5F0E8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C0664B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<noscript><style>.rv{opacity:1!important;transform:none!important;}</style></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
 <style>
 :root{
-  --bg:#0d1220; --bg2:#090d18;
-  --line:rgba(255,255,255,0.08); --line2:rgba(255,255,255,0.14);
-  --blue:#1E50B4; --blue-br:#4e8ff7; --blue-lt:#8fb6ff; --blue-sf:rgba(78,143,247,0.12);
-  --t1:rgba(255,255,255,0.96); --t2:rgba(255,255,255,0.66); --t3:rgba(255,255,255,0.52);
-  --green:#3ddc84; --amber:#f0a24e;
-  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --bg:#F5F0E8; --bg2:#EFE8DC; --card:#FBF8F2; --dark:#1A1613;
+  --ink:#221C16; --muted:#6E655A; --line:#E4DBCC; --line2:#D8CCB8;
+  --clay:#C0664B; --clay-d:#A8543C; --sage:#6E8268; --gold:#BC8B4A;
+  --serif:'Playfair Display',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg2);font-family:var(--sans);color:var(--t2);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:clip;}
+body{background:var(--bg);font-family:var(--sans);color:var(--muted);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;}
 img{max-width:100%;height:auto;display:block;}
 a{color:inherit;text-decoration:none;}
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
-section{position:relative;padding:120px 0;}
-.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue-br);margin-bottom:16px;}
-h2{font-size:clamp(30px,4.4vw,46px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;max-width:820px;text-wrap:balance;}
-h2 span{color:var(--blue-br);}
-.lead{font-size:17px;color:var(--t2);margin-top:16px;max-width:640px;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 30px;}
+section{position:relative;}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--clay);}
+h2{font-family:var(--serif);font-size:clamp(30px,4vw,46px);font-weight:600;line-height:1.1;letter-spacing:-.5px;color:var(--ink);}
+.lead{margin-top:18px;font-size:clamp(16px,1.4vw,18.5px);color:var(--muted);max-width:560px;}
+.sec-head{max-width:640px;margin-bottom:54px;}
+.sec-head .eyebrow{margin-bottom:14px;display:block;}
 
-/* reveal */
-.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+.rv{opacity:0;transform:translateY(20px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);}
 .rv.on{opacity:1;transform:none;}
-.d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
 
-/* ── NAV ─────────────────────────── */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(9,13,24,0.82);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
-.nav-in{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
-.logo{display:flex;align-items:center;gap:11px;}
-.logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(160deg,#2a63d8,#1538a0);
-  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px -6px rgba(30,80,180,0.6);flex-shrink:0;}
-.logo-text{font-size:21px;font-weight:800;color:#fff;letter-spacing:-0.4px;}
-.logo-text span{color:var(--blue-br);}
-.nav-links{display:flex;gap:26px;margin-left:auto;}
-.nav-links a{font-size:14px;font-weight:600;color:var(--t2);transition:color .15s;}
-.nav-links a:hover{color:#fff;}
-.nav-cta{margin-left:8px;background:var(--blue);color:#fff;font-size:14px;font-weight:700;border-radius:999px;
-  padding:11px 22px;transition:background .15s;white-space:nowrap;}
-.nav-cta:hover{background:#2a63d8;}
-.nav-lang{margin-left:6px;font-size:13px;font-weight:700;color:var(--t2);border:1px solid var(--line2);border-radius:8px;padding:7px 11px;transition:color .15s,border-color .15s;}
-.nav-lang:hover{color:#fff;border-color:var(--blue-br);}
-a:focus-visible,.btn:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--blue-br);outline-offset:3px;}
-@media(max-width:860px){
-  .nav-in{gap:16px;}
-  .nav-links{gap:16px;overflow-x:auto;scrollbar-width:none;}
-  .nav-links::-webkit-scrollbar{display:none;}
-  .nav-links a{font-size:13px;white-space:nowrap;}
-}
-@media(max-width:560px){.nav-links{display:none;}.nav-cta{margin-left:auto;}}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.82);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.nav-in{max-width:1180px;margin:0 auto;padding:16px 30px;display:flex;align-items:center;gap:28px;}
+.logo{font-family:var(--serif);font-weight:700;font-size:25px;color:var(--ink);letter-spacing:.4px;}
+.nav-links{display:flex;gap:28px;margin-left:24px;}
+.nav-links a{font-size:14px;font-weight:600;color:var(--muted);transition:color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:16px;}
+.lang{font-size:12.5px;font-weight:700;letter-spacing:.5px;color:var(--muted);border:1px solid var(--line2);border-radius:999px;padding:6px 12px;transition:border-color .15s;}
+.lang:hover{border-color:var(--clay);}
+.lang b{color:var(--ink);}
+.nav-cta{background:var(--ink);color:#fff;font-size:13.5px;font-weight:600;border-radius:999px;padding:11px 22px;transition:background .15s,transform .15s;}
+.nav-cta:hover{background:#000;transform:translateY(-1px);}
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:15px 28px;font-size:15px;font-weight:600;transition:all .15s;}
+.btn.primary{background:var(--clay);color:#fff;}
+.btn.primary:hover{background:var(--clay-d);transform:translateY(-2px);box-shadow:0 16px 34px -12px rgba(192,102,75,.5);}
+.btn.ghost{border:1px solid var(--line2);color:var(--ink);background:rgba(255,255,255,.4);}
+.btn.ghost:hover{border-color:var(--ink);}
+.link{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--line2);padding-bottom:3px;transition:border-color .15s;}
+.link:hover{border-color:var(--ink);}
+@media(max-width:860px){.nav-links{display:none;}}
 
-/* ── HERO ─────────────────────────── */
-.hero{padding:180px 0 0;background:var(--bg);overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 55% 50% at 50% 0%,rgba(30,90,200,0.20),transparent 70%);}
-.hero-top{position:relative;text-align:center;max-width:880px;margin:0 auto;}
-h1{font-size:clamp(38px,6vw,68px);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.04;text-wrap:balance;}
-h1 span{color:var(--blue-br);}
-.hero .sub{font-size:clamp(16px,1.6vw,19px);color:var(--t2);margin:22px auto 0;max-width:620px;}
-.hero .sub b{color:var(--t1);font-weight:600;}
-.cta-row{display:flex;gap:14px;margin-top:34px;justify-content:center;flex-wrap:wrap;}
-.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:15px 30px;font-size:15px;font-weight:700;transition:all .15s;}
-.btn.primary{background:var(--blue);color:#fff;box-shadow:0 14px 36px -10px rgba(30,80,180,0.55);}
-.btn.primary:hover{background:#2a63d8;transform:translateY(-1px);}
-.btn.ghost{border:1px solid var(--line2);color:var(--t1);}
-.btn.ghost:hover{border-color:var(--blue-br);color:#fff;}
-.hero-art{position:relative;max-width:880px;margin:64px auto 0;}
-.hero-art::before{content:'';position:absolute;inset:-10% -16%;background:radial-gradient(ellipse 60% 60% at 50% 55%,rgba(78,143,247,0.25),transparent 70%);pointer-events:none;}
-.hero-art img{position:relative;border-radius:26px;border:1px solid rgba(120,160,230,0.2);
-  box-shadow:0 50px 110px -30px rgba(0,0,0,0.85),0 0 110px -20px rgba(78,143,247,0.45);}
-.hero-strip{position:relative;display:flex;justify-content:center;gap:clamp(20px,5vw,72px);flex-wrap:wrap;
-  padding:34px 24px 38px;margin-top:0;border-top:1px solid var(--line);}
-.hs{display:flex;flex-direction:column;align-items:center;gap:3px;}
-.hs .n{font-size:clamp(20px,2.4vw,28px);font-weight:800;color:#fff;letter-spacing:-0.5px;}
-.hs .n i{font-style:normal;color:var(--blue-br);}
-.hs .k{font-size:12.5px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);}
-
-/* ── DEVICES ─────────────────────── */
-.dev{background:var(--bg2);}
-.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;}
-.cards3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:54px;}
-.pcard{position:relative;background:rgba(255,255,255,0.025);border:1px solid var(--line);border-radius:24px;padding:22px;
-  display:flex;flex-direction:column;transition:transform .25s,border-color .25s;}
-.pcard:hover{transform:translateY(-6px);border-color:rgba(78,143,247,0.5);}
-.pcard.core{background:linear-gradient(170deg,rgba(78,143,247,0.13),rgba(30,80,180,0.02));border-color:rgba(78,143,247,0.4);}
-.badge{position:absolute;top:34px;left:34px;z-index:2;font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;border-radius:999px;padding:7px 14px;
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);background:rgba(13,18,32,0.72);color:var(--t2);border:1px solid var(--line2);}
-.badge.b-core{background:rgba(30,80,180,0.88);color:#fff;border-color:transparent;}
-.pcard .art{height:230px;}
-.pcard .art img{width:100%;height:100%;object-fit:cover;border-radius:16px;border:1px solid rgba(120,160,230,0.15);}
-.pbody{padding:20px 8px 8px;display:flex;flex-direction:column;flex:1;}
-.pname{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.3px;line-height:1.15;}
-.pone{font-size:14.5px;color:var(--t2);margin-top:8px;}
-.pspec{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
-.pspec span{background:rgba(255,255,255,0.05);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;color:var(--t2);}
-.price{margin-top:auto;padding-top:18px;font-size:18px;font-weight:800;color:#fff;}
-.price small{font-size:12.5px;font-weight:600;color:var(--t3);}
-.price.tbd{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);}
-@media(max-width:980px){.cards3{grid-template-columns:1fr;max-width:520px;margin:54px auto 0;}}
-
-/* ── WHY (value, condensed) ──────── */
-.why{background:var(--bg);}
-.why::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 50% 45% at 80% 10%,rgba(30,90,200,0.13),transparent 70%);}
-.why-grid{position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:54px;}
-.wcard{background:rgba(255,255,255,0.025);border:1px solid var(--line);border-radius:24px;padding:30px;}
-.wcard .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;
-  background:var(--blue-sf);border:1px solid rgba(78,143,247,0.35);margin-bottom:20px;}
-.wcard .ic svg{width:26px;height:26px;}
-.wcard h3{font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.3px;line-height:1.2;}
-.wcard p{font-size:14.5px;color:var(--t2);margin-top:10px;}
-.wcard p b{color:var(--t1);font-weight:700;}
-.wcard .fact{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--t3);}
-.wcard .fact b{color:var(--green);font-weight:700;}
-@media(max-width:980px){.why-grid{grid-template-columns:1fr;}}
-
-.integr{position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:22px;}
-.itile{background:linear-gradient(160deg,rgba(78,143,247,0.08),rgba(255,255,255,0.015));border:1px solid var(--line);
-  border-radius:18px;padding:20px 22px;}
-.itile b{display:block;font-size:15px;color:var(--t1);font-weight:700;}
-.itile span{display:block;font-size:12.5px;color:var(--t3);margin-top:5px;line-height:1.4;}
-.srcline{margin-top:30px;font-size:12px;color:var(--t3);max-width:820px;line-height:1.55;}
-.integr-lbl{margin-top:60px;font-size:12.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
-@media(max-width:980px){.integr{grid-template-columns:1fr 1fr;}}
-@media(max-width:560px){.integr{grid-template-columns:1fr;}}
-
-/* ── MARKET ──────────────────────── */
-.market{background:var(--bg2);}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:54px;}
-.stat{background:linear-gradient(160deg,rgba(255,255,255,0.045),rgba(255,255,255,0.015));
-  border:1px solid var(--line);border-radius:22px;padding:30px;}
-.stat.accent{border-color:rgba(78,143,247,0.42);background:linear-gradient(160deg,rgba(78,143,247,0.15),rgba(30,80,180,0.04));}
-.stat .lbl{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);}
-.stat .big{font-size:clamp(28px,2.6vw,38px);font-weight:800;color:#fff;letter-spacing:-1.2px;margin:12px 0 8px;white-space:nowrap;}
-.stat .big .ar{color:var(--t3);font-weight:400;}
-.stat .big .hl{color:var(--blue-br);}
-.stat .big .unit{font-size:.5em;font-weight:700;color:var(--t2);margin-left:.1em;}
-.stat .desc{font-size:14px;color:var(--t2);}
-.stat .cagr{display:inline-block;margin-top:16px;font-size:12.5px;font-weight:700;color:var(--blue-lt);
-  background:var(--blue-sf);border:1px solid rgba(78,143,247,0.3);border-radius:999px;padding:5px 13px;}
-@media(max-width:980px){.stats{grid-template-columns:1fr;max-width:520px;margin:54px auto 0;}}
-
-.comp{margin-top:26px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
-.ccard{border:1px solid var(--line);border-radius:18px;padding:20px 22px;background:rgba(255,255,255,0.02);}
-.ccard .cn{font-size:15.5px;font-weight:700;color:var(--t1);}
-.ccard .cp{font-size:13px;color:var(--t3);margin-top:4px;}
-.ccard .cg{font-size:12.5px;color:var(--amber);margin-top:10px;line-height:1.4;}
-.ccard.us{background:linear-gradient(165deg,rgba(78,143,247,0.16),rgba(30,80,180,0.04));border-color:rgba(78,143,247,0.45);}
-.ccard.us .cn{color:#fff;}
-.ccard.us .cg{color:var(--green);font-weight:600;}
-.comp-lbl{margin-top:60px;font-size:12.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
-@media(max-width:980px){.comp{grid-template-columns:1fr 1fr;}}
-@media(max-width:560px){.comp{grid-template-columns:1fr;}}
-
-.verdict{margin-top:26px;display:flex;align-items:center;gap:22px;background:linear-gradient(120deg,rgba(30,80,180,0.22),rgba(78,143,247,0.06));
-  border:1px solid rgba(78,143,247,0.3);border-radius:20px;padding:26px 32px;}
-.verdict .vk{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue-br);flex-shrink:0;}
-.verdict .vt{font-size:clamp(15px,1.8vw,18px);color:var(--t1);font-weight:500;}
-.verdict .vt b{color:#fff;font-weight:700;}
-@media(max-width:700px){.verdict{flex-direction:column;align-items:flex-start;gap:10px;}}
-
-/* ── CONTACTS ────────────────────── */
-.contact{background:var(--bg);}
-.contact::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 50% 60% at 50% 120%,rgba(30,80,180,0.18),transparent 70%);}
-.c-card{position:relative;background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:26px;
-  padding:52px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;margin-top:54px;}
-.c-row{display:flex;align-items:center;gap:15px;}
-.c-ic{width:46px;height:46px;border-radius:13px;background:var(--blue-sf);border:1px solid rgba(78,143,247,0.35);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.c-ic svg{width:22px;height:22px;}
-.c-row .k{font-size:11.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);}
-.c-row .v{font-size:15px;font-weight:600;color:var(--t1);margin-top:3px;line-height:1.65;word-break:break-word;}
-.c-row .v a{color:var(--blue-lt);transition:color .15s;}
-.c-row .v a:hover{color:#fff;}
-.c-row .v.muted{color:var(--t3);font-weight:500;}
-@media(max-width:900px){.c-card{grid-template-columns:1fr;padding:34px 26px;}}
-
-@media(max-width:600px){
-  .hero-art img{aspect-ratio:4/3;object-fit:cover;object-position:center 62%;}
-}
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto;}
-  .rv{transition:none;opacity:1;transform:none;}
-  .pcard,.btn,.nav-cta{transition:none;}
+/* HERO */
+.hero{min-height:92vh;display:flex;align-items:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:url('img/hero.webp') center right/cover no-repeat;
+  transform-origin:60% 50%;animation:kenburns 32s ease-in-out infinite alternate;}
+@keyframes kenburns{from{transform:scale(1.05)}to{transform:scale(1.14)}}
+.hero-scrim{position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--bg) 0%,rgba(245,240,232,.92) 34%,rgba(245,240,232,.4) 56%,rgba(245,240,232,0) 80%);}
+.hero-in{position:relative;padding:140px 0 80px;max-width:600px;}
+.hero .eyebrow{display:block;margin-bottom:18px;}
+.hero h1{font-family:var(--serif);font-size:clamp(38px,5.4vw,66px);font-weight:600;line-height:1.06;letter-spacing:-.6px;color:var(--ink);}
+.hero h1 em{font-style:italic;color:var(--clay);}
+.hero .sub{margin-top:24px;font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:440px;}
+.hero .sub b{color:var(--ink);font-weight:600;}
+.hero .cta-row{display:flex;align-items:center;gap:22px;margin-top:34px;flex-wrap:wrap;}
+.hero .quote{margin-top:40px;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink);max-width:400px;padding-left:18px;border-left:2px solid var(--clay);}
+@media(max-width:760px){
+  .hero{min-height:auto;}
+  .hero-bg{background-position:center 18%;animation:none;}
+  .hero-scrim{background:linear-gradient(180deg,rgba(245,240,232,.5),var(--bg) 62%);}
+  .hero-in{padding:130px 0 50px;}
 }
 
-/* ── CTA ─────────────────────────── */
-.cta-wrap{margin-top:48px;}
-.big-cta{display:inline-flex;align-items:center;gap:12px;padding:22px 46px;font-size:20px;font-weight:800;
-  border-radius:999px;background:var(--blue);color:#fff;letter-spacing:-0.3px;
-  box-shadow:0 18px 50px -12px rgba(30,80,180,0.6);transition:transform .15s,background .15s;}
-.big-cta:hover{background:#2a63d8;transform:translateY(-2px);}
-.email-line{margin-top:20px;font-size:15px;color:var(--t2);}
-.email-line a{color:var(--blue-lt);font-weight:600;}
-.email-line a:hover{color:#fff;}
-@media(max-width:560px){.big-cta{width:100%;justify-content:center;font-size:17px;padding:18px 26px;}}
+/* ECOSYSTEM */
+.eco{padding:110px 0;background:var(--bg2);}
+.eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.dev{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:box-shadow .25s;}
+.dev[open]{box-shadow:0 30px 60px -32px rgba(34,28,22,.4);}
+.dev summary{list-style:none;cursor:pointer;}
+.dev summary::-webkit-details-marker{display:none;}
+.dev .stage{height:210px;overflow:hidden;background:#F1EBDF;}
+.dev .stage img{width:100%;height:100%;object-fit:cover;object-position:center 46%;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.dev:hover .stage img{transform:scale(1.05);}
+.dev .body{padding:24px 24px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
+.dev .body h3{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--ink);}
+.dev .body p{font-size:14px;color:var(--muted);margin-top:5px;}
+.dev .chev{flex-shrink:0;margin-top:4px;transition:transform .3s;color:var(--clay);}
+.dev[open] .chev{transform:rotate(180deg);}
+.dev .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease;}
+.dev[open] .more{grid-template-rows:1fr;}
+.dev .more>div{overflow:hidden;}
+.dev .track{padding:6px 24px 26px;}
+.dev .track .t-lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--clay);margin-bottom:12px;}
+.dev .track ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.dev .track li{display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--ink);}
+.dev .track li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage);flex-shrink:0;}
+@media(max-width:860px){.eco-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto;}}
 
-/* ── FOOTER ──────────────────────── */
-footer{background:var(--bg2);border-top:1px solid var(--line);padding:32px 0;}
-.foot-in{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-  font-size:13px;color:var(--t3);}
-.foot-in .gl{color:var(--t2);font-weight:600;}
-.foot-in .right{margin-left:auto;}
+/* NOTICE */
+.notice{padding:110px 0;}
+.note-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.ncard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s;}
+.ncard:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(34,28,22,.35);}
+.ncard .ic{width:46px;height:46px;border-radius:13px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.ncard .ic svg{width:22px;height:22px;}
+.ncard h3{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);}
+.ncard p{font-size:14.5px;color:var(--muted);margin-top:8px;}
+@media(max-width:860px){.note-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.note-grid{grid-template-columns:1fr;}}
+
+/* TWIN */
+.twin{padding:110px 0;background:var(--bg2);}
+.twin-card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.twin-card .panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 30px 60px -30px rgba(34,28,22,.3);}
+.twin .pill{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--sage);background:rgba(110,130,104,.1);border:1px solid rgba(110,130,104,.25);border-radius:999px;padding:6px 13px;}
+.twin .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--sage);}
+.twin h2{margin-top:18px;}
+.twin .row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.twin .row .ttl{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);}
+.twin .row .st{font-size:12px;font-weight:600;color:var(--sage);}
+.twin .bar{margin-bottom:15px;}
+.twin .bar .bl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:6px;}
+.twin .bar .track2{height:7px;border-radius:99px;background:#EDE6DA;overflow:hidden;}
+.twin .bar .fill{height:100%;width:0;border-radius:99px;background:var(--sage);transition:width 1.4s cubic-bezier(.16,1,.3,1) .35s;}
+.twin-card.on .fill{width:var(--w);}
+.twin .note-tip{margin-top:18px;font-size:12px;color:var(--muted);}
+/* phone app mockup (realistic, dark) */
+.phone-wrap{display:flex;justify-content:center;}
+.phone{position:relative;width:274px;border-radius:50px;background:#0A0A0C;padding:9px;
+  box-shadow:0 56px 100px -34px rgba(20,16,12,.6),0 0 0 2px #07070A,inset 0 0 0 1px rgba(255,255,255,.07);}
+.phone .screen{position:relative;border-radius:42px;background:#101116;overflow:hidden;min-height:548px;color:#EDEAF0;}
+.phone .island{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:86px;height:25px;border-radius:99px;background:#000;z-index:3;}
+.sbar{display:flex;align-items:center;justify-content:space-between;padding:16px 26px 0;font-size:13px;font-weight:600;color:#fff;}
+.sbar .ic{display:flex;align-items:center;gap:6px;}
+.appbody{padding:30px 20px 2px;}
+.app-head{display:flex;align-items:center;gap:11px;}
+.app-head .av{width:38px;height:38px;border-radius:50%;background:url('img/pet.webp') center/cover #2a241d;flex-shrink:0;box-shadow:0 0 0 1.5px rgba(255,255,255,.14);}
+.app-head .pet{font-family:var(--serif);font-size:18px;font-weight:600;color:#fff;line-height:1.05;}
+.app-head .bre{font-size:11.5px;color:#8B8794;}
+.app-head .stp{margin-left:auto;font-size:11px;font-weight:700;color:#3DE0A0;background:rgba(61,224,160,.12);border:1px solid rgba(61,224,160,.25);border-radius:99px;padding:5px 11px;}
+.score-line{margin-top:20px;display:flex;align-items:baseline;gap:9px;}
+.score-line .big{font-family:var(--serif);font-size:46px;font-weight:600;color:#fff;line-height:1;}
+.score-line .of{font-size:12.5px;color:#8B8794;}
+.score-line .tag{margin-left:auto;font-size:11px;font-weight:600;color:#3DE0A0;}
+.dbars{margin-top:22px;display:flex;flex-direction:column;gap:15px;}
+.dbar .dl{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:7px;}
+.dbar .dl .k{color:#B7B3BF;}
+.dbar .dl .v{color:#fff;font-weight:600;}
+.dbar .dl .v small{color:#6F6B78;font-weight:500;margin-left:5px;}
+.dtrack{height:7px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;}
+.dfill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#2BBF86,#3DE0A0);transition:width 1.5s cubic-bezier(.16,1,.3,1) .4s;}
+.twin-card.on .dfill{width:var(--w);}
+.dinsight{margin-top:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px 14px;font-size:12px;line-height:1.5;color:#C3BFCB;}
+.dinsight b{color:#fff;}
+.homebar{width:122px;height:5px;border-radius:99px;background:rgba(255,255,255,.32);margin:16px auto 11px;}
+@media(max-width:860px){.twin-card{grid-template-columns:1fr;gap:32px;padding:30px;}}
+
+/* SCENARIOS */
+.cases{padding:110px 0;}
+.cases-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;}
+.case-photo{border-radius:22px;overflow:hidden;position:relative;min-height:300px;border:1px solid var(--line);}
+.case-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.case-photo .cap{position:absolute;left:0;right:0;bottom:0;padding:24px;color:#fff;
+  background:linear-gradient(0deg,rgba(20,16,12,.8),transparent);}
+.case-photo .cap h3{font-family:var(--serif);font-size:22px;font-weight:600;}
+.case-photo .cap p{font-size:14px;opacity:.92;margin-top:4px;}
+.case-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;}
+.ccard .ic{width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.ccard .ic svg{width:20px;height:20px;}
+.ccard h4{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);}
+.ccard p{font-size:13.5px;color:var(--muted);margin-top:7px;}
+@media(max-width:860px){.cases-grid{grid-template-columns:1fr;}}
+@media(max-width:520px){.case-list{grid-template-columns:1fr;}}
+
+/* COMPARE */
+.compare{padding:110px 0;background:var(--bg2);}
+.ctable{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;max-width:840px;}
+.ctable .chead{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-bottom:1px solid var(--line);}
+.ctable .chead div{padding:18px 26px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.ctable .chead .today{color:var(--muted);}
+.ctable .chead .animo{color:var(--clay);border-left:1px solid var(--line);}
+.ctable .crow{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.ctable .crow:last-child{border-bottom:0;}
+.ctable .crow div{padding:18px 26px;font-size:15px;}
+.ctable .crow .t{color:var(--muted);}
+.ctable .crow .a{color:var(--ink);font-weight:600;border-left:1px solid var(--line);}
+.ctable .crow:nth-child(even){background:rgba(0,0,0,.015);}
+
+/* TRUST */
+.trust{padding:96px 0;}
+.trust-in{text-align:center;max-width:760px;margin:0 auto;}
+.trust h2{font-size:clamp(26px,3.2vw,38px);}
+.trust .row{display:flex;justify-content:center;gap:40px;margin-top:40px;flex-wrap:wrap;}
+.trust .ti .n{font-family:var(--serif);font-size:34px;font-weight:600;color:var(--clay);}
+.trust .ti .k{font-size:13px;color:var(--muted);margin-top:4px;}
+
+.cta{padding:0 0 110px;}
+.cta-card{position:relative;overflow:hidden;background:var(--dark);border-radius:28px;padding:72px 40px;text-align:center;}
+.cta-card::before{content:'';position:absolute;inset:0;background:radial-gradient(60% 120% at 50% -10%,rgba(192,102,75,.35),transparent 60%);}
+.cta-card>*{position:relative;}
+.cta-card .eyebrow{color:var(--gold);}
+.cta-card h2{color:#fff;margin-top:14px;}
+.cta-card p{color:#C9BFAE;margin-top:16px;font-size:16px;max-width:520px;margin-left:auto;margin-right:auto;}
+.cta-card .btn.primary{margin-top:30px;}
+.cta-card .mail{margin-top:16px;font-size:14px;color:#9A9081;}
+
+footer{border-top:1px solid var(--line);padding:32px 0;}
+.foot-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.foot-in .logo{font-size:19px;}
+.foot-in .right{margin-left:auto;font-size:13px;color:var(--muted);}
+
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none}*{animation:none!important}}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-in">
-    <a class="logo" href="#top">
-      <span class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v6c0 4.4-3 7.3-7 8-4-0.7-7-3.6-7-8V7l7-4z" stroke="#fff" stroke-width="1.6" fill="rgba(255,255,255,0.12)"/><circle cx="12" cy="11" r="2.4" fill="#fff"/><path d="M8.5 16c.7-1.6 6.3-1.6 7 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-      <span class="logo-text">anim<span>o</span></span>
-    </a>
+    <a class="logo" href="#top">Animo</a>
     <div class="nav-links">
-      <a href="#devices">Devices</a>
-      <a href="#why">Value</a>
-      <a href="#market">Market</a>
-      <a href="#contact">Contacts</a>
+      <a href="#eco">Устройства</a>
+      <a href="#notice">Что замечает</a>
+      <a href="#cases">Сценарии</a>
+      <a href="#compare">Сравнение</a>
     </div>
-    <a class="nav-lang" href="ru/">RU</a>
-    <a class="nav-cta" href="#contact">Get in touch</a>
+    <div class="nav-right">
+      <a class="lang" href="#"><b>RU</b> · EN</a>
+      <a class="nav-cta" href="#cta">Связаться</a>
+    </div>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="hero-top">
-      <div class="eyebrow rv">ANIMO</div>
-      <h1 class="rv">Your pet's health — <span>under continuous watch</span></h1>
-      <p class="sub rv d1">Multi-sensor ecosystem: the collar module reads <b>heart rate, respiration, temperature, sleep and voice</b> — AI turns the data into clear actions.</p>
-      <div class="cta-row rv d2">
-        <a class="btn primary" href="#devices">See devices
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a class="btn ghost" href="#market">Market potential</a>
+    <div class="hero-in">
+      <span class="eyebrow rv">Здоровье питомца · 24/7</span>
+      <h1 class="rv d1">Он не может сказать,<br>что ему плохо.<br><em>Animo заметит первым.</em></h1>
+      <p class="sub rv d2">Носимый модуль и AI спокойно следят за <b>сном, дыханием и активностью</b> питомца — и подсказывают раньше, чем появятся симптомы.</p>
+      <div class="cta-row rv d3">
+        <a class="btn primary" href="#eco">Как это работает</a>
+        <a class="link" href="#cta">Запросить презентацию
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
+      <p class="quote rv d4">«Узнайте, что чувствует питомец, до того как появятся симптомы.»</p>
     </div>
-    <div class="hero-art rv d2">
-      <img src="img/collar.webp" alt="ANIMO collar module — sensor clip on a collar" width="1536" height="1024" fetchpriority="high">
-    </div>
-  </div>
-  <div class="hero-strip rv">
-    <div class="hs"><div class="n">24/7</div><div class="k">vitals monitoring</div></div>
-    <div class="hs"><div class="n">5 signals</div><div class="k">heart rate · RR · T° · sleep · voice</div></div>
-    <div class="hs"><div class="n">AI</div><div class="k">explainability, not charts</div></div>
-    <div class="hs"><div class="n">$50–80</div><div class="k">open niche</div></div>
   </div>
 </section>
 
-<!-- DEVICES -->
-<section class="dev" id="devices">
+<!-- ECOSYSTEM -->
+<section class="eco" id="eco">
   <div class="wrap">
     <div class="sec-head rv">
+      <span class="eyebrow">Экосистема устройств</span>
+      <h2>Устройство следит за состоянием питомца&nbsp;24/7</h2>
+      <p class="lead">Три устройства закрывают разные стороны здоровья и работают как единая система. Раскройте карточку, чтобы увидеть, что отслеживает каждое.</p>
+    </div>
+    <div class="eco-grid">
+      <details class="dev rv" open>
+        <summary>
+          <div class="stage"><img src="img/collar.webp" alt="Ошейник Animo"></div>
+          <div class="body">
+            <div><h3>Ошейник</h3><p>Постоянный мониторинг дома и на прогулке</p></div>
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </summary>
+        <div class="more"><div><div class="track">
+          <div class="t-lbl">Отслеживает</div>
+          <ul><li>Активность</li><li>Сон</li><li>Температуру</li></ul>
+        </div></div></div>
+      </details>
+
+      <details class="dev rv d1">
+        <summary>
+          <div class="stage"><img src="img/camera_wide.webp" alt="Камера Animo"></div>
+          <div class="body">
+            <div><h3>Камера</h3><p>Наблюдает за поведением, пока вас нет</p></div>
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </summary>
+        <div class="more"><div><div class="track">
+          <div class="t-lbl">Отслеживает</div>
+          <ul><li>Поведение</li><li>Тревожность</li><li>Питание</li><li>Взаимодействие</li></ul>
+        </div></div></div>
+      </details>
+
+      <details class="dev rv d2">
+        <summary>
+          <div class="stage"><img src="img/chip.webp" alt="Имплант Animo"></div>
+          <div class="body">
+            <div><h3>Имплант</h3><p>Глубокие данные изнутри организма</p></div>
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </summary>
+        <div class="more"><div><div class="track">
+          <div class="t-lbl">Отслеживает</div>
+          <ul><li>Физиологические показатели</li><li>Долгосрочные изменения состояния</li></ul>
+        </div></div></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- NOTICE -->
+<section class="notice" id="notice">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Раннее обнаружение</span>
+      <h2>Animo может заметить</h2>
+      <p class="lead">Система ищет отклонения от нормы конкретного питомца — и подсказывает, когда стоит присмотреться внимательнее.</p>
+    </div>
+    <div class="note-grid">
+      <article class="ncard rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2 5 4-12 2 7h6" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Снижение активности</h3><p>Питомец стал двигаться меньше обычного — частый ранний признак недомогания.</p>
+      </article>
+      <article class="ncard rv d1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M19 14c1.5-1.5 3-3.6 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 1.9 1.5 4 3 5.5l7 7Z" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Признаки боли</h3><p>Изменения в движении, позе и поведении, по которым видно дискомфорт.</p>
+      </article>
+      <article class="ncard rv d2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V18a3 3 0 0 0 6 .5 3 3 0 0 0 6-.5v-.2a3 3 0 0 0-1-5.8 3 3 0 0 0-3-3V5a3 3 0 0 0-3-3z" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Тревожное поведение</h3><p>Беспокойство в одиночестве, навязчивые действия, реакция на стресс.</p>
+      </article>
+      <article class="ncard rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Ухудшение сна</h3><p>Прерывистый или беспокойный сон — сигнал, что что-то идёт не так.</p>
+      </article>
+      <article class="ncard rv d1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Риск заболевания</h3><p>Сочетание показателей, при котором стоит показать питомца врачу.</p>
+      </article>
+      <article class="ncard rv d2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#C0664B" stroke-width="2"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Необычные привычки</h3><p>Перемены в питании, питьевом режиме и привычном распорядке дня.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- DIGITAL TWIN -->
+<section class="twin" id="twin">
+  <div class="wrap">
+    <div class="twin-card rv">
       <div>
-        <div class="eyebrow">01 · Ecosystem</div>
-        <h2>Three devices — <span>one health profile</span></h2>
+        <span class="pill"><span class="dot"></span> AI-модель организма</span>
+        <h2>Цифровой двойник вашего питомца</h2>
+        <p class="lead">Animo непрерывно строит модель организма и отслеживает изменения до появления симптомов. Не графики и термины — а понятный ответ: что происходит и что стоит сделать.</p>
+        <a class="link" href="#cta" style="margin-top:26px">Узнать подробнее
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-    </div>
-    <div class="cards3">
-      <div class="pcard core rv">
-        <span class="badge b-core">★ Core · B2C</span>
-        <div class="art"><img src="img/collar.webp" alt="ANIMO collar module" width="1536" height="1024" loading="lazy"></div>
-        <div class="pbody">
-          <h3 class="pname">Collar module</h3>
-          <div class="pone">Detachable clip for any collar — continuous biosensor.</div>
-          <div class="pspec"><span>heart rate</span><span>respiration</span><span>T°</span><span>sleep</span><span>acoustics</span></div>
-          
-        </div>
-      </div>
-      <div class="pcard rv d1">
-        <span class="badge">Pets · farms · clinics</span>
-        <div class="art"><img src="img/camera_wide.webp" alt="ANIMO monitoring camera" width="1536" height="1024" loading="lazy"></div>
-        <div class="pbody">
-          <h3 class="pname">Monitoring camera</h3>
-          <div class="pone">Contactless analysis of behavior and sounds — 24/7, no sensor on the animal.</div>
-          <div class="pspec"><span>cough detection</span><span>behavior</span><span>weight</span></div>
-          
-        </div>
-      </div>
-      <div class="pcard rv d2">
-        <span class="badge">Phase 3+ · R&amp;D</span>
-        <div class="art"><img src="img/chip.webp" alt="ANIMO implant chip" width="1536" height="1024" loading="lazy"></div>
-        <div class="pbody">
-          <h3 class="pname">Implant chip</h3>
-          <div class="pone">Subcutaneous, like an ID chip: metrics without wearing anything — never lost, never removed.</div>
-          <div class="pspec"><span>T° · heart rate</span><span>SpO₂</span><span>ID + health</span></div>
-          
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="island"></div>
+          <div class="screen">
+            <div class="sbar">
+              <span>9:41</span>
+              <span class="ic">
+                <svg width="18" height="11" viewBox="0 0 18 11" fill="#fff" aria-hidden="true"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg>
+                <svg width="16" height="11" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1.5 4.5a9 9 0 0113 0M4 7a5.5 5.5 0 018 0M6.4 9.3a2.2 2.2 0 013.2 0" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="26" height="12" viewBox="0 0 26 12" fill="none" aria-hidden="true"><rect x="1" y="1" width="21" height="10" rx="3" stroke="#fff" stroke-opacity=".5"/><rect x="3" y="3" width="16" height="6" rx="1.5" fill="#fff"/><path d="M23.5 4v4a2 2 0 000-4z" fill="#fff" fill-opacity=".6"/></svg>
+              </span>
+            </div>
+            <div class="appbody">
+              <div class="app-head">
+                <span class="av"></span>
+                <div><div class="pet">Рекс</div><div class="bre">Немецкая овчарка · 4 года</div></div>
+                <span class="stp">● в норме</span>
+              </div>
+              <div class="score-line"><span class="big">86</span><span class="of">/ 100 · индекс состояния</span><span class="tag">▲ стабильно</span></div>
+              <div class="dbars">
+                <div class="dbar"><div class="dl"><span class="k">Активность</span><span class="v">82<small>хорошо</small></span></div><div class="dtrack"><div class="dfill" style="--w:82%"></div></div></div>
+                <div class="dbar"><div class="dl"><span class="k">Сон</span><span class="v">74<small>стабильно</small></span></div><div class="dtrack"><div class="dfill" style="--w:74%"></div></div></div>
+                <div class="dbar"><div class="dl"><span class="k">Поведение</span><span class="v">90<small>спокойно</small></span></div><div class="dtrack"><div class="dfill" style="--w:90%"></div></div></div>
+                <div class="dbar"><div class="dl"><span class="k">Дыхание</span><span class="v">68<small>ровно</small></span></div><div class="dtrack"><div class="dfill" style="--w:68%"></div></div></div>
+              </div>
+              <div class="dinsight"><b>Инсайт.</b> Рекс спал хорошо. Активность чуть ниже нормы — добавьте вечернюю прогулку.</div>
+            </div>
+            <div class="homebar"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHY -->
-<section class="why" id="why">
+<!-- SCENARIOS -->
+<section class="cases" id="cases">
   <div class="wrap">
-    <div class="rv">
-      <div class="eyebrow">02 · Value</div>
-      <h2>Catch illness <span>before it becomes an emergency</span></h2>
+    <div class="sec-head rv">
+      <span class="eyebrow">Для кого</span>
+      <h2>Одна система — разные задачи</h2>
+      <p class="lead">От заботы об одной собаке до мониторинга десятков животных.</p>
     </div>
-    <div class="why-grid">
-      <div class="wcard rv">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2-6 4 12 2-6h6" stroke="#4e8ff7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Early signs — ahead of the owner</h3>
-        <p><b>A rising resting respiratory rate</b> is one of the earliest signs of heart failure. ANIMO captures it automatically.</p>
-        <div class="fact">Planned treatment instead of emergency care — <b>cheaper and safer</b></div>
+    <div class="cases-grid">
+      <div class="case-photo rv">
+        <img src="img/owner-app.webp" alt="Владелец проверяет состояние питомца в приложении Animo">
+        <div class="cap"><h3>Владельцам собак</h3><p>Здоровье, безопасность и контроль активности — каждый день, в одном приложении.</p></div>
       </div>
-      <div class="wcard rv d1">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="11" r="5" stroke="#4e8ff7" stroke-width="2"/><path d="M5 18h14M12 16v2" stroke="#4e8ff7" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <h3>Each pet's individual baseline</h3>
-        <p>AI builds a <b>baseline for the specific animal</b> and explains deviations: the "why" answer + a recommendation.</p>
-        <div class="fact">A digitized history — <b>the vet sees the trend</b>, not a one-off checkup</div>
-      </div>
-      <div class="wcard rv d2">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 4v6c0 4.4-3 7.3-7 8-4-.7-7-3.6-7-8V7l7-4z" stroke="#4e8ff7" stroke-width="1.8"/><path d="M8.5 12.5l2.5 2.5 4.5-5" stroke="#4e8ff7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>From pet to farm</h3>
-        <p>The camera hears coughing and sees behavior <b>without a sensor on the animal</b>: early detection of respiratory diseases before they spread.</p>
-        <div class="fact">Fewer livestock losses and <b>fewer antibiotics</b></div>
-      </div>
-    </div>
-
-    <div class="integr-lbl rv">Ecosystem integrations</div>
-    <div class="integr">
-      <div class="itile rv"><b>Smart feeders</b><span>dosing based on the pet's activity, weight and sleep</span></div>
-      <div class="itile rv d1"><b>AI nutrition advice</b><span>diet by breed, age, genetics and metrics</span></div>
-      <div class="itile rv d2"><b>Auto-reorder of food</b><span>white-label for pet-food makers — food orders itself</span></div>
-      
-    </div>
-    <p class="srcline rv">Sources: AI-COLLAR study (703 dogs, PMC) · bioRxiv · SoundTalks / Boehringer Ingelheim · VetChip · IEEE Spectrum. ANIMO is wellness monitoring: it complements but does not replace veterinary diagnostics.</p>
-  </div>
-</section>
-
-<!-- MARKET -->
-<section class="market" id="market">
-  <div class="wrap">
-    <div class="rv">
-      <div class="eyebrow">03 · Market</div>
-      <h2>A growing market — and <span>an open price gap</span></h2>
-    </div>
-    <div class="stats">
-      <div class="stat rv">
-        <div class="lbl">Pet-care · global</div>
-        <div class="big">$290 <span class="ar">→</span> <span class="hl">$450</span><span class="unit">B</span></div>
-        <div class="desc">Pet-care market, 2024 → 2030.</div>
-        <div class="cagr">CAGR 7.6%</div>
-      </div>
-      <div class="stat accent rv d1">
-        <div class="lbl">Our niche · continuous + AI</div>
-        <div class="big">$50–80</div>
-        <div class="desc">Open price gap: analogs are either over $300 or have no vitals.</div>
-        <div class="cagr">price white space</div>
-      </div>
-      <div class="stat rv d2">
-        <div class="lbl">Agro-tech · livestock monitoring</div>
-        <div class="big">$6.7 <span class="ar">→</span> <span class="hl">$14</span><span class="unit">B</span></div>
-        <div class="desc">Livestock Monitoring, 2024 → 2030. B2B camera track.</div>
-        <div class="cagr">CAGR 12.6%</div>
+      <div class="case-list">
+        <article class="ccard rv d1">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="#C0664B" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h4>Заводчикам</h4><p>Наблюдение за группой животных и репродуктивный мониторинг.</p>
+        </article>
+        <article class="ccard rv d2">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3v4a4 4 0 0 0 8 0V3" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/><path d="M12 11v4a5 5 0 0 0 10 0v-3" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/><circle cx="22" cy="11" r="2" stroke="#C0664B" stroke-width="2"/></svg></div>
+          <h4>Ветеринарным клиникам</h4><p>Дистанционный мониторинг пациентов между визитами.</p>
+        </article>
+        <article class="ccard rv d2">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M9 3v6l-5 9a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-5-9V3" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3h8M7 14h10" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h4>Исследованиям</h4><p>Сбор поведенческих данных для научных и продуктовых задач.</p>
+        </article>
+        <article class="ccard rv d3" style="display:flex;flex-direction:column;justify-content:center;background:var(--dark);border-color:var(--dark);">
+          <h4 style="color:#fff">Профилактика, а не лечение</h4><p style="color:#C9BFAE">Владельцы хотят замечать проблему раньше. Animo даёт эту возможность.</p>
+        </article>
       </div>
     </div>
-
-    <div class="comp-lbl rv">Who is already on the market</div>
-    <div class="comp">
-      <div class="ccard rv"><div class="cn">PetPace</div><div class="cp">vitals collar · $300+</div><div class="cg">expensive, measures only at rest</div></div>
-      <div class="ccard rv d1"><div class="cn">Invoxia MiniTailz</div><div class="cp">AI cardio + GPS · $99</div><div class="cg">measures only at rest</div></div>
-      <div class="ccard rv d2"><div class="cn">FitBark · Tractive · Whistle</div><div class="cp">activity + GPS · $40–100</div><div class="cg">no vitals (heart rate/respiration)</div></div>
-      <div class="ccard us rv d3"><div class="cn">ANIMO</div><div class="cp">vitals + acoustics + DNA + AI · $50–80</div><div class="cg">a combination no one else has</div></div>
-    </div>
-
-    <div class="verdict rv">
-      <div class="vk">Our niche</div>
-      <div class="vt">A continuous sensor with AI <b>under $100</b> that links <b>voice + respiration + behavior + DNA</b> and is useful for free — nothing like it exists on the market.</div>
+    <div class="case-photo rv" style="margin-top:24px;min-height:260px">
+      <img src="img/vet.webp" alt="Ветеринар осматривает собаку">
+      <div class="cap"><h3>Спокойствие, основанное на данных</h3><p>История наблюдений помогает врачу видеть тренд, а не разовый осмотр.</p></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACTS -->
-<section class="contact" id="contact">
+<!-- COMPARE -->
+<section class="compare" id="compare">
   <div class="wrap">
-    <div class="rv">
-      <div class="eyebrow">Contacts</div>
-      <h2>Request the deck <span>and contacts</span></h2>
-      <p class="lead">Investors · veterinary chains · pet-food makers · agro integrators.</p>
+    <div class="sec-head rv">
+      <span class="eyebrow">Почему Animo</span>
+      <h2>Сегодня&nbsp;&rarr; Animo</h2>
+      <p class="lead">Большинство трекеров показывают данные. Animo объясняет состояние и предупреждает заранее.</p>
     </div>
-    <div class="cta-wrap rv">
-      <a class="big-cta" href="mailto:animo.devices@gmail.com?subject=ANIMO%20pitch%20%26%20contacts">Request contacts &amp; pitch deck →</a>
-      <div class="email-line">or email <a href="mailto:animo.devices@gmail.com">animo.devices@gmail.com</a></div>
+    <div class="ctable rv">
+      <div class="chead"><div class="today">Сегодня</div><div class="animo">Animo</div></div>
+      <div class="crow"><div class="t">Показывает данные</div><div class="a">Объясняет состояние</div></div>
+      <div class="crow"><div class="t">Нужно анализировать самому</div><div class="a">AI делает выводы</div></div>
+      <div class="crow"><div class="t">Каждый показатель отдельно</div><div class="a">Целостная модель организма</div></div>
+      <div class="crow"><div class="t">Реакция на проблему</div><div class="a">Предсказание проблемы</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-in rv">
+      <span class="eyebrow">Подход</span>
+      <h2 style="margin-top:14px">Мягкий, но внимательный присмотр — круглые сутки</h2>
+      <div class="row">
+        <div class="ti"><div class="n">24/7</div><div class="k">непрерывно</div></div>
+        <div class="ti"><div class="n">≤15 г</div><div class="k">вес модуля</div></div>
+        <div class="ti"><div class="n">IP67</div><div class="k">влагозащита</div></div>
+        <div class="ti"><div class="n">10 дней</div><div class="k">без зарядки</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="wrap">
+    <div class="cta-card rv">
+      <span class="eyebrow">Готовы поговорить</span>
+      <h2>Узнайте, что чувствует питомец,<br>до того как появятся симптомы</h2>
+      <p>Расскажем подробнее об устройствах, технологии и условиях сотрудничества.</p>
+      <a class="btn primary" href="mailto:animo.devices@gmail.com?subject=ANIMO">Запросить контакты и презентацию
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="mail">animo.devices@gmail.com</div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="foot-in">
-    <span class="gl">ANIMO</span>
-        <span class="right">© 2026 ANIMO</span>
+  <div class="wrap foot-in">
+    <a class="logo" href="#top">Animo</a>
+    <span class="right">© 2026 ANIMO · мониторинг для здоровья, не замена ветеринарной диагностики.</span>
   </div>
 </footer>
 
 <script>
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
-}), { threshold: 0.12 });
-document.querySelectorAll('.rv').forEach(el => io.observe(el));
-setTimeout(() => {
-  document.querySelectorAll('.rv:not(.on)').forEach(el => {
-    if (el.getBoundingClientRect().top < innerHeight * 1.25) { el.classList.add('on'); io.unobserve(el); }
-  });
-}, 1500);
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
