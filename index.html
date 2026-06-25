@@ -24,11 +24,13 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);font-family:var(--sans);color:var(--muted);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;}
+body{background:var(--bg);font-family:var(--sans);color:var(--muted);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;position:relative;}
 img{max-width:100%;height:auto;display:block;}
 a{color:inherit;text-decoration:none;}
 .wrap{max-width:1180px;margin:0 auto;padding:0 30px;}
-section{position:relative;}
+.bgpaws{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.paw{position:absolute;color:#B49E80;opacity:.09;}
+section{position:relative;z-index:1;}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--clay);}
 h2{font-family:var(--serif);font-size:clamp(30px,4vw,46px);font-weight:600;line-height:1.1;letter-spacing:-.5px;color:var(--ink);}
 .lead{margin-top:18px;font-size:clamp(16px,1.4vw,18.5px);color:var(--muted);max-width:560px;}
@@ -43,7 +45,8 @@ h2{font-family:var(--serif);font-size:clamp(30px,4vw,46px);font-weight:600;line-
 nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.82);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
 .nav-in{max-width:1180px;margin:0 auto;padding:16px 30px;display:flex;align-items:center;gap:28px;}
-.logo{font-family:var(--serif);font-weight:700;font-size:25px;color:var(--ink);letter-spacing:.4px;}
+.logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:700;font-size:25px;color:var(--ink);letter-spacing:.4px;}
+.dogmark{height:40px;width:auto;flex-shrink:0;}
 .nav-links{display:flex;gap:28px;margin-left:24px;}
 .nav-links a{font-size:14px;font-weight:600;color:var(--muted);transition:color .15s;}
 .nav-links a:hover{color:var(--ink);}
@@ -85,9 +88,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.
 }
 
 /* ECOSYSTEM */
-.eco{padding:110px 0;background:var(--bg2);}
+.eco{padding:110px 0;}
 .eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-.dev{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:box-shadow .25s;}
+.dev{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:box-shadow .25s;box-shadow:0 1px 2px rgba(34,28,22,.03),0 18px 34px -24px rgba(34,28,22,.18);}
 .dev[open]{box-shadow:0 30px 60px -32px rgba(34,28,22,.4);}
 .dev summary{list-style:none;cursor:pointer;}
 .dev summary::-webkit-details-marker{display:none;}
@@ -112,7 +115,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.
 /* NOTICE */
 .notice{padding:110px 0;}
 .note-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.ncard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s;}
+.ncard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s;box-shadow:0 1px 2px rgba(34,28,22,.03),0 16px 30px -24px rgba(34,28,22,.16);}
 .ncard:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(34,28,22,.35);}
 .ncard .ic{width:46px;height:46px;border-radius:13px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
 .ncard .ic svg{width:22px;height:22px;}
@@ -122,8 +125,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.
 @media(max-width:560px){.note-grid{grid-template-columns:1fr;}}
 
 /* TWIN */
-.twin{padding:110px 0;background:var(--bg2);}
-.twin-card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.twin{padding:110px 0;}
+.twin-card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;box-shadow:0 2px 4px rgba(34,28,22,.03),0 30px 60px -36px rgba(34,28,22,.2);}
 .twin-card .panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 30px 60px -30px rgba(34,28,22,.3);}
 .twin .pill{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--sage);background:rgba(110,130,104,.1);border:1px solid rgba(110,130,104,.25);border-radius:999px;padding:6px 13px;}
 .twin .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--sage);}
@@ -178,7 +181,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.
 .case-photo .cap h3{font-family:var(--serif);font-size:22px;font-weight:600;}
 .case-photo .cap p{font-size:14px;opacity:.92;margin-top:4px;}
 .case-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.ccard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;}
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 1px 2px rgba(34,28,22,.03),0 16px 30px -24px rgba(34,28,22,.16);}
 .ccard .ic{width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
 .ccard .ic svg{width:20px;height:20px;}
 .ccard h4{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);}
@@ -187,8 +190,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.
 @media(max-width:520px){.case-list{grid-template-columns:1fr;}}
 
 /* COMPARE */
-.compare{padding:110px 0;background:var(--bg2);}
-.ctable{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;max-width:840px;}
+.compare{padding:110px 0;}
+.ctable{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;max-width:840px;box-shadow:0 2px 4px rgba(34,28,22,.03),0 26px 50px -34px rgba(34,28,22,.2);}
 .ctable .chead{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-bottom:1px solid var(--line);}
 .ctable .chead div{padding:18px 26px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
 .ctable .chead .today{color:var(--muted);}
@@ -218,7 +221,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.
 .cta-card .btn.primary{margin-top:30px;}
 .cta-card .mail{margin-top:16px;font-size:14px;color:#9A9081;}
 
-footer{border-top:1px solid var(--line);padding:32px 0;}
+footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:32px 0;}
 .foot-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
 .foot-in .logo{font-size:19px;}
 .foot-in .right{margin-left:auto;font-size:13px;color:var(--muted);}
@@ -228,9 +231,32 @@ footer{border-top:1px solid var(--line);padding:32px 0;}
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true"><defs>
+  <symbol id="paw" viewBox="0 0 108 100"><g fill="currentColor">
+    <ellipse cx="26" cy="40" rx="10" ry="14" transform="rotate(-20 26 40)"/>
+    <ellipse cx="46" cy="28" rx="10" ry="15" transform="rotate(-7 46 28)"/>
+    <ellipse cx="66" cy="28" rx="10" ry="15" transform="rotate(7 66 28)"/>
+    <ellipse cx="86" cy="40" rx="10" ry="14" transform="rotate(20 86 40)"/>
+    <path d="M56 50c-16 0-30 11-30 26 0 12 12 18 30 18s30-6 30-18c0-15-14-26-30-26z"/>
+  </g></symbol>
+</defs></svg>
+<div class="bgpaws" aria-hidden="true">
+  <svg class="paw" style="top:21%;left:4%;width:46px;height:43px;transform:rotate(22deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:29%;right:6%;width:34px;height:31px;transform:rotate(-30deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:39%;left:6%;width:40px;height:37px;transform:rotate(55deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:48%;right:7%;width:30px;height:28px;transform:rotate(-14deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:58%;left:4%;width:44px;height:41px;transform:rotate(-46deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:67%;right:6%;width:36px;height:33px;transform:rotate(28deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:77%;left:7%;width:32px;height:30px;transform:rotate(68deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:86%;right:5%;width:46px;height:43px;transform:rotate(-20deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:34%;right:10%;width:40px;height:37px;transform:rotate(42deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:53%;left:9%;width:30px;height:28px;transform:rotate(-12deg)"><use href="#paw"/></svg>
+  <svg class="paw" style="top:73%;right:9%;width:42px;height:39px;transform:rotate(-58deg)"><use href="#paw"/></svg>
+</div>
+
 <nav>
   <div class="nav-in">
-    <a class="logo" href="#top">Animo</a>
+    <a class="logo" href="#top"><img class="dogmark" src="img/dog.webp" alt="" aria-hidden="true">Animo</a>
     <div class="nav-links">
       <a href="#eco">Устройства</a>
       <a href="#notice">Что замечает</a>
