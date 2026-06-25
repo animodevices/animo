@@ -9,18 +9,18 @@
 <meta property="og:title" content="ANIMO — узнайте, что чувствует питомец, до симптомов">
 <meta property="og:description" content="Он не может сказать, что ему плохо. Animo заметит первым.">
 <meta property="og:image" content="https://animodevices.github.io/animo/img/og.jpg">
-<meta name="theme-color" content="#F4F6F2">
+<meta name="theme-color" content="#F5F0E8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C0664B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
 <style>
 :root{
-  --bg:#F4F6F2; --bg2:#ECEFEA; --card:#FFFFFF; --dark:#12211B;
-  --ink:#16221C; --muted:#5C6B62; --line:#E2E7E0; --line2:#D2DAD2;
-  --clay:#0F6E4F; --clay-d:#0B5740; --sage:#2E7D4F; --gold:#7FAE2E;
-  --serif:'Manrope',system-ui,sans-serif; --sans:'Manrope',system-ui,sans-serif;
+  --bg:#F5F0E8; --bg2:#EFE8DC; --card:#FBF8F2; --dark:#1A1613;
+  --ink:#221C16; --muted:#6E655A; --line:#E4DBCC; --line2:#D8CCB8;
+  --clay:#C0664B; --clay-d:#A8543C; --sage:#6E8268; --gold:#BC8B4A;
+  --serif:'Playfair Display',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -29,7 +29,7 @@ img{max-width:100%;height:auto;display:block;}
 a{color:inherit;text-decoration:none;}
 .wrap{max-width:1180px;margin:0 auto;padding:0 30px;}
 .bgpaws{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
-.paw{position:absolute;color:#3F7257;opacity:.11;}
+.paw{position:absolute;color:#B49E80;opacity:.09;}
 section{position:relative;z-index:1;}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--clay);}
 h2{font-family:var(--serif);font-size:clamp(30px,4vw,46px);font-weight:600;line-height:1.1;letter-spacing:-.5px;color:var(--ink);}
@@ -42,7 +42,7 @@ h2{font-family:var(--serif);font-size:clamp(30px,4vw,46px);font-weight:600;line-
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(244,246,242,.82);
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(245,240,232,.82);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
 .nav-in{max-width:1180px;margin:0 auto;padding:16px 30px;display:flex;align-items:center;gap:28px;}
 .logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:700;font-size:25px;color:var(--ink);letter-spacing:.4px;}
@@ -58,7 +58,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(244,246,242,.
 .nav-cta:hover{background:#000;transform:translateY(-1px);}
 .btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:15px 28px;font-size:15px;font-weight:600;transition:all .15s;}
 .btn.primary{background:var(--clay);color:#fff;}
-.btn.primary:hover{background:var(--clay-d);transform:translateY(-2px);box-shadow:0 16px 34px -12px rgba(15,110,79,.5);}
+.btn.primary:hover{background:var(--clay-d);transform:translateY(-2px);box-shadow:0 16px 34px -12px rgba(192,102,75,.5);}
 .btn.ghost{border:1px solid var(--line2);color:var(--ink);background:rgba(255,255,255,.4);}
 .btn.ghost:hover{border-color:var(--ink);}
 .link{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--line2);padding-bottom:3px;transition:border-color .15s;}
@@ -71,7 +71,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(244,246,242,.
   transform-origin:60% 50%;animation:kenburns 32s ease-in-out infinite alternate;}
 @keyframes kenburns{from{transform:scale(1.05)}to{transform:scale(1.14)}}
 .hero-scrim{position:absolute;inset:0;
-  background:linear-gradient(90deg,var(--bg) 0%,rgba(244,246,242,.92) 34%,rgba(244,246,242,.4) 56%,rgba(244,246,242,0) 80%);}
+  background:linear-gradient(90deg,var(--bg) 0%,rgba(245,240,232,.92) 34%,rgba(245,240,232,.4) 56%,rgba(245,240,232,0) 80%);}
 .hero-in{position:relative;padding:140px 0 80px;max-width:600px;}
 .hero .eyebrow{display:block;margin-bottom:18px;}
 .hero h1{font-family:var(--serif);font-size:clamp(38px,5.4vw,66px);font-weight:600;line-height:1.06;letter-spacing:-.6px;color:var(--ink);}
@@ -83,7 +83,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(244,246,242,.
 @media(max-width:760px){
   .hero{min-height:auto;}
   .hero-bg{background-position:center 18%;animation:none;}
-  .hero-scrim{background:linear-gradient(180deg,rgba(244,246,242,.5),var(--bg) 62%);}
+  .hero-scrim{background:linear-gradient(180deg,rgba(245,240,232,.5),var(--bg) 62%);}
   .hero-in{padding:130px 0 50px;}
 }
 
@@ -94,7 +94,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(244,246,242,.
 .dev[open]{box-shadow:0 30px 60px -32px rgba(34,28,22,.4);}
 .dev summary{list-style:none;cursor:pointer;}
 .dev summary::-webkit-details-marker{display:none;}
-.dev .stage{height:210px;overflow:hidden;background:#E9EDE7;}
+.dev .stage{height:210px;overflow:hidden;background:#F1EBDF;}
 .dev .stage img{width:100%;height:100%;object-fit:cover;object-position:center 46%;transition:transform .6s cubic-bezier(.16,1,.3,1);}
 .dev:hover .stage img{transform:scale(1.05);}
 .dev .body{padding:24px 24px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
@@ -212,13 +212,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(244,246,242,.
 .trust .ti .k{font-size:13px;color:var(--muted);margin-top:4px;}
 
 .cta{padding:0 0 110px;}
-.cta-card{position:relative;overflow:hidden;background:#0C1418;border-radius:28px;padding:72px 40px;text-align:center;}
-.cta-card::before{content:'';position:absolute;inset:0;background:radial-gradient(60% 120% at 50% -10%,rgba(25,217,160,.32),transparent 60%);}
+.cta-card{position:relative;overflow:hidden;background:var(--dark);border-radius:28px;padding:72px 40px;text-align:center;}
+.cta-card::before{content:'';position:absolute;inset:0;background:radial-gradient(60% 120% at 50% -10%,rgba(192,102,75,.35),transparent 60%);}
 .cta-card>*{position:relative;}
-.cta-card .eyebrow{color:#7FF0C8;}
+.cta-card .eyebrow{color:var(--gold);}
 .cta-card h2{color:#fff;margin-top:14px;}
 .cta-card p{color:#C9BFAE;margin-top:16px;font-size:16px;max-width:520px;margin-left:auto;margin-right:auto;}
-.cta-card .btn.primary{margin-top:30px;background:#19D9A0;color:#08110E;}
+.cta-card .btn.primary{margin-top:30px;}
 .cta-card .mail{margin-top:16px;font-size:14px;color:#9A9081;}
 
 footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:32px 0;}
@@ -353,27 +353,27 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:32px
     </div>
     <div class="note-grid">
       <article class="ncard rv">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2 5 4-12 2 7h6" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2 5 4-12 2 7h6" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Снижение активности</h3><p>Питомец стал двигаться меньше обычного — частый ранний признак недомогания.</p>
       </article>
       <article class="ncard rv d1">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M19 14c1.5-1.5 3-3.6 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 1.9 1.5 4 3 5.5l7 7Z" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M19 14c1.5-1.5 3-3.6 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 1.9 1.5 4 3 5.5l7 7Z" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Признаки боли</h3><p>Изменения в движении, позе и поведении, по которым видно дискомфорт.</p>
       </article>
       <article class="ncard rv d2">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V18a3 3 0 0 0 6 .5 3 3 0 0 0 6-.5v-.2a3 3 0 0 0-1-5.8 3 3 0 0 0-3-3V5a3 3 0 0 0-3-3z" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V18a3 3 0 0 0 6 .5 3 3 0 0 0 6-.5v-.2a3 3 0 0 0-1-5.8 3 3 0 0 0-3-3V5a3 3 0 0 0-3-3z" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Тревожное поведение</h3><p>Беспокойство в одиночестве, навязчивые действия, реакция на стресс.</p>
       </article>
       <article class="ncard rv">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Ухудшение сна</h3><p>Прерывистый или беспокойный сон — сигнал, что что-то идёт не так.</p>
       </article>
       <article class="ncard rv d1">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Риск заболевания</h3><p>Сочетание показателей, при котором стоит показать питомца врачу.</p>
       </article>
       <article class="ncard rv d2">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#0F6E4F" stroke-width="2"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#C0664B" stroke-width="2"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/></svg></div>
         <h3>Необычные привычки</h3><p>Перемены в питании, питьевом режиме и привычном распорядке дня.</p>
       </article>
     </div>
@@ -441,15 +441,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:32px
       </div>
       <div class="case-list">
         <article class="ccard rv d1">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="#0F6E4F" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="#C0664B" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/></svg></div>
           <h4>Заводчикам</h4><p>Наблюдение за группой животных и репродуктивный мониторинг.</p>
         </article>
         <article class="ccard rv d2">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3v4a4 4 0 0 0 8 0V3" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round"/><path d="M12 11v4a5 5 0 0 0 10 0v-3" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round"/><circle cx="22" cy="11" r="2" stroke="#0F6E4F" stroke-width="2"/></svg></div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3v4a4 4 0 0 0 8 0V3" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/><path d="M12 11v4a5 5 0 0 0 10 0v-3" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/><circle cx="22" cy="11" r="2" stroke="#C0664B" stroke-width="2"/></svg></div>
           <h4>Ветеринарным клиникам</h4><p>Дистанционный мониторинг пациентов между визитами.</p>
         </article>
         <article class="ccard rv d2">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M9 3v6l-5 9a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-5-9V3" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3h8M7 14h10" stroke="#0F6E4F" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M9 3v6l-5 9a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-5-9V3" stroke="#C0664B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3h8M7 14h10" stroke="#C0664B" stroke-width="2" stroke-linecap="round"/></svg></div>
           <h4>Исследованиям</h4><p>Сбор поведенческих данных для научных и продуктовых задач.</p>
         </article>
         <article class="ccard rv d3" style="display:flex;flex-direction:column;justify-content:center;background:var(--dark);border-color:var(--dark);">
