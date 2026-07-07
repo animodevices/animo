@@ -129,7 +129,7 @@ nav.solid{background:rgba(239,239,237,.92);-webkit-backdrop-filter:blur(8px);bac
 .sbar{display:flex;justify-content:space-between;padding:16px 24px 0;font-size:12px;font-weight:600;color:#111;}
 .appbody{padding:26px 20px 0;}
 .app-head{display:flex;align-items:center;gap:11px;}
-.app-head .av{width:40px;height:40px;border-radius:50%;background:url('img/pet.webp') center/cover;filter:grayscale(1);box-shadow:0 0 0 1.5px #111;}
+.app-head .av{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:url('img/pet.webp') center/cover;filter:grayscale(1);box-shadow:0 0 0 1.5px #111;}
 .app-head .pet{font-size:17px;font-weight:800;line-height:1.1;}
 .app-head .bre{font-size:11px;color:var(--muted);}
 .app-head .stp{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);border:1px solid rgba(232,38,45,.4);border-radius:99px;padding:5px 10px;}
@@ -224,6 +224,8 @@ nav.solid{background:rgba(239,239,237,.92);-webkit-backdrop-filter:blur(8px);bac
 .wait .btn{height:50px;}
 .micro{margin-top:14px;font-size:12px;color:var(--muted);}
 .thanks{margin-top:26px;font-weight:700;color:var(--red);}
+.mailerr{margin-top:12px;font-size:13px;font-weight:600;color:var(--red);}
+.wait input.bad{border-color:var(--red);background:#FBF1F1;}
 @media(max-width:560px){.wrow{flex-direction:column}.wait input,.wait select,.wait .btn{width:100%}}
 
 footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
@@ -455,14 +457,15 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
       <p class="lead">Оставьте email — напишем перед запуском. Участникам листа — спецусловия.</p>
       <form class="wait" id="waitform" novalidate>
         <div class="wrow">
-          <input type="email" required placeholder="Ваш email" aria-label="Email">
-          <select aria-label="Кто вы">
+          <input type="email" name="email" autocomplete="email" required placeholder="Ваш email" aria-label="Email">
+          <select name="role" aria-label="Кто вы">
             <option>Я владелец собаки</option>
             <option>Заводчик / ветклиника</option>
             <option>Инвестор / партнёр</option>
           </select>
           <button type="submit" class="btn">Ранний доступ</button>
         </div>
+        <p class="mailerr" id="mailerr" hidden>Похоже, в email опечатка — проверьте адрес, например name@mail.ru</p>
         <p class="micro">Animo в разработке. Без спама — напишем только о запуске. Данные питомца не передаём третьим лицам.</p>
       </form>
       <div class="thanks" id="thanks" hidden>Спасибо! Вы в списке — напишем перед запуском.</div>
@@ -489,8 +492,29 @@ if(ag){const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting
   upd();addEventListener('scroll',upd,{passive:true});
 })();
 (function(){
-  const f=document.getElementById('waitform'),t=document.getElementById('thanks');
-  if(f)f.addEventListener('submit',e=>{e.preventDefault();f.hidden=true;if(t)t.hidden=false;});
+  // FORM_ENDPOINT: вставить URL сервиса форм (например https://api.web3forms.com/submit)
+  // и добавить в форму hidden-поле access_key. Пока пусто — заявки НЕ отправляются.
+  const ENDPOINT='';
+  const f=document.getElementById('waitform'),t=document.getElementById('thanks'),err=document.getElementById('mailerr');
+  if(!f)return;
+  const em=f.querySelector('input[type=email]');
+  f.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const v=(em.value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){
+      if(err)err.hidden=false;
+      em.classList.add('bad');
+      em.focus();
+      return;
+    }
+    if(err)err.hidden=true;
+    em.classList.remove('bad');
+    if(ENDPOINT){
+      try{ await fetch(ENDPOINT,{method:'POST',body:new FormData(f)}); }catch(_){}
+    }
+    f.hidden=true; if(t)t.hidden=false;
+  });
+  em.addEventListener('input',()=>{ if(err)err.hidden=true; em.classList.remove('bad'); });
 })();
 </script>
 </body>
