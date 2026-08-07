@@ -67,8 +67,9 @@ nav.solid{background:rgba(239,239,237,.92);-webkit-backdrop-filter:blur(8px);bac
 .hero{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;}
 .hero-body{position:relative;flex:1;max-width:1220px;width:100%;margin:0 auto;padding:0 30px;}
 .hero-left{position:relative;z-index:4;padding-top:16vh;max-width:52%;}
-.hero .giant{font-size:clamp(88px,14vw,196px);}
-.hero-sub{margin-top:30px;font-size:clamp(15px,1.6vw,20px);color:#3A3A36;}
+.hero .giant{font-size:clamp(60px,10.5vw,146px);}
+.hero .giant .in{white-space:nowrap;}
+.hero-sub{margin-top:30px;font-size:clamp(15px,1.6vw,20px);color:#3A3A36;max-width:19em;}
 .hero-arr{margin-top:12px;font-size:24px;}
 .hero-login{margin-top:7vh;}
 .hero-login .hint{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
@@ -284,8 +285,8 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
 <header class="hero" id="top">
   <div class="hero-body">
     <div class="hero-left">
-      <div class="giant mrv"><span class="mask"><span class="in">dog<span class="dot">.</span></span></span></div>
-      <div class="hero-sub">Your best friend — looked&nbsp;after</div>
+      <div class="giant mrv"><span class="mask"><span class="in">animo<span class="dot">.</span></span></span></div>
+      <div class="hero-sub">Dogs don't complain. Animo notices changes before symptoms — and tells you.</div>
       <div class="hero-arr">→</div>
       <div class="hero-login">
         <div class="hint">Smart collar module · sleep · breathing · activity</div>
@@ -295,7 +296,7 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
     </div>
     <div class="ring" aria-hidden="true"></div>
     <img class="hero-dogs bw" src="img/dogs.webp" alt="Two dogs wearing Animo smart collar modules" fetchpriority="high">
-    <div class="pager"><b>01</b> / 08</div>
+    <div class="pager"><b>01</b> / 06</div>
   </div>
 </header>
 
@@ -303,31 +304,21 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
 <section class="who" id="who">
   <div class="wrap">
     <div class="sec-head rv"><span class="num">01</span><span class="lbl">Who it's for</span></div>
-    <h2 class="rv">Any age. Any <i>size</i></h2>
-    <p class="lead rv d1" style="margin-bottom:44px">The module weighs under 15 g and clips onto any collar — from a chihuahua to a shepherd.</p>
+    <h2 class="rv">Any age. Any <i>pet size</i></h2>
+    <p class="lead rv d1" style="margin-bottom:44px">The monitoring module weighs under 15 g and clips onto any collar — from a chihuahua to a shepherd.</p>
     <div class="rail rv">
       <article class="pcard"><div class="pi"><img class="bw" src="img/p_puppy.webp" alt="A puppy wearing an Animo module"></div><div class="pb"><h3>puppy<i>.</i></h3><p>Build healthy sleep and activity habits from the first months.</p></div></article>
-      <article class="pcard"><div class="pi"><img class="bw" src="img/p_chi.webp" alt="A chihuahua by the window wearing an Animo module"></div><div class="pb"><h3>adult<i>.</i></h3><p>Stay in shape and catch changes while they're still small.</p></div></article>
+      <article class="pcard"><div class="pi"><img class="bw" src="img/p_chi.webp" alt="A chihuahua by the window wearing an Animo module"></div><div class="pb"><h3>adult<i>.</i></h3><p>Spot changes and keep him in shape.</p></div></article>
       <article class="pcard"><div class="pi"><img class="bw" src="img/p_senior.webp" alt="A senior dog"></div><div class="pb"><h3>senior<i>.</i></h3><p>Gently watch age-related changes — without extra anxiety.</p></div></article>
-      <article class="pcard"><div class="pi"><img class="bw" src="img/p_small2.webp" alt="A dachshund resting in a blanket wearing an Animo module"></div><div class="pb"><h3>recovery<i>.</i></h3><p>See the trend between vet visits.</p></div></article>
     </div>
   </div>
 </section>
 
 
-<!-- 02 MANIFESTO -->
-<section class="manifesto">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="num">02</span><span class="lbl">Manifesto</span></div>
-    <p class="big rv d1">Dogs don't complain. Animo notices changes <u>before symptoms</u> — and tells you.</p>
-    <p class="after rv d2">Every dog is unique. Animo learns your dog's personal rhythm — and then compares every day against his own baseline, not a breed average.</p>
-  </div>
-</section>
-
 <!-- 03 SIGNALS -->
 <section class="signals" id="signals">
   <div class="wrap">
-    <div class="sec-head rv"><span class="num">03</span><span class="lbl">What it notices</span></div>
+    <div class="sec-head rv"><span class="num">02</span><span class="lbl">What it notices</span></div>
     <div class="sig-grid">
       <div>
         <h2 class="mrv"><span class="mask"><span class="in">signals<span class="dot">.</span></span></span></h2>
@@ -340,7 +331,7 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
       </div>
       <div class="sig-photo">
         <div class="frame wipe"><img class="bw" src="img/sleep.webp" alt="A sleeping dog wearing an Animo collar module"></div>
-        <div class="cap">Night is the body's most honest hour</div>
+        
       </div>
     </div>
   </div>
@@ -349,14 +340,14 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
 <!-- 04 APP -->
 <section class="app" id="app">
   <div class="wrap">
-    <div class="sec-head rv" style="border-color:#111"><span class="num">04</span><span class="lbl">The app</span></div>
+    <div class="sec-head rv" style="border-color:#111"><span class="num">03</span><span class="lbl">The app</span></div>
     <div class="app-grid" id="appgrid">
       <div>
-        <h2 class="mrv"><span class="mask"><span class="in">Not charts — an <i>answer</i></span></span></h2>
+        <h2 class="mrv"><span class="mask"><span class="in">Instead of charts — an <i>answer</i></span></span></h2>
         <p class="lead rv d1">Animo builds a model of the body and turns data into plain language: what's happening and what to do.</p>
         <div class="app-list">
-          <div class="arow rv"><span class="n">01</span><div><h3>Condition index</h3><p>One number instead of a dozen charts. Above 80 — all is going as usual.</p></div></div>
-          <div class="arow rv d1"><span class="n">02</span><div><h3>How the night went</h3><p>Sleep and breathing — compared with his personal baseline.</p></div></div>
+          <div class="arow rv"><span class="n">01</span><div><h3>Condition index</h3><p>One number instead of a dozen charts. A score above 80 means all is going as usual.</p></div></div>
+          <div class="arow rv d1"><span class="n">02</span><div><h3>How the night went</h3><p>Sleep and breathing — compared with the personal baseline.</p></div></div>
           <div class="arow rv d2"><span class="n">03</span><div><h3>Deviations — early</h3><p>If the rhythm keeps shifting for several days, Animo says so before symptoms.</p></div></div>
           <div class="arow rv d3"><span class="n">04</span><div><h3>What to do</h3><p>A short suggestion: add a walk, keep watching, or see the vet.</p></div></div>
         </div>
@@ -391,15 +382,15 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
 <!-- MARQUEE -->
 <section class="mq-sec" aria-hidden="true">
   <div class="marquee"><div class="track">
-    <span>pulse<i>.</i></span><span>breathing<i>.</i></span><span>sleep<i>.</i></span><span>activity<i>.</i></span><span>dog<i>.</i></span>
-    <span>pulse<i>.</i></span><span>breathing<i>.</i></span><span>sleep<i>.</i></span><span>activity<i>.</i></span><span>dog<i>.</i></span>
+    <span>pulse<i>.</i></span><span>breathing<i>.</i></span><span>sleep<i>.</i></span><span>activity<i>.</i></span><span>animo<i>.</i></span>
+    <span>pulse<i>.</i></span><span>breathing<i>.</i></span><span>sleep<i>.</i></span><span>activity<i>.</i></span><span>animo<i>.</i></span>
   </div></div>
 </section>
 
 <!-- 05 DEVICES -->
 <section class="devices" id="devices">
   <div class="wrap">
-    <div class="sec-head rv"><span class="num">05</span><span class="lbl">Devices</span></div>
+    <div class="sec-head rv"><span class="num">04</span><span class="lbl">Devices</span></div>
     <h2 class="mrv" style="margin-bottom:44px"><span class="mask"><span class="in" style="--i:0">Starts with a module.</span></span><span class="mask"><span class="in" style="--i:1">Grows into an <i>ecosystem</i></span></span></h2>
     <div class="dev-grid">
       <article class="dcard">
@@ -407,7 +398,7 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
         <div class="db">
           <div class="row1"><span class="n">01</span><span class="tag now">now</span></div>
           <h3>Collar module</h3>
-          <p>Clips onto any collar. Sleep, breathing and activity — around the clock.</p>
+          <p>Clips onto any collar. Monitoring of sleep, breathing and activity — around the clock.</p>
         </div>
       </article>
       <article class="dcard">
@@ -415,7 +406,7 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
         <div class="db">
           <div class="row1"><span class="n">02</span><span class="tag">in development</span></div>
           <h3>Camera</h3>
-          <p>Sees what the collar can't feel: food, water and behaviour when he's alone.</p>
+          <p>Sees what the collar can't feel: food and water intake, and behaviour.</p>
         </div>
       </article>
       <article class="dcard">
@@ -446,14 +437,14 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
 <!-- 06 STORIES -->
 <section class="stories" id="stories">
   <div class="wrap">
-    <div class="sec-head rv"><span class="num">06</span><span class="lbl">Stories</span></div>
+    <div class="sec-head rv"><span class="num">05</span><span class="lbl">Stories</span></div>
     <div class="story-grid">
       <article class="scard rv">
         <span class="n">01</span>
         <h3>First signs of illness</h3>
         <div class="step"><span>Usually</span><p>Barney meets you at the door every day with his favourite toy.</p></div>
         <div class="step sa"><span>Animo noticed</span><p>Over two days activity dropped by 28% and rest grew by almost two hours.</p></div>
-        <div class="step"><span>What the owner did</span><p>Booked a vet visit. The check-up found early inflammation — caught at an early stage.</p></div>
+        <div class="step"><span>What the owner did</span><p>Booked a vet visit. The check-up found inflammation at an early stage.</p></div>
       </article>
       <article class="scard rv d1">
         <span class="n">02</span>
@@ -465,7 +456,7 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
       <article class="scard rv d2">
         <span class="n">03</span>
         <h3>When nobody's home</h3>
-        <div class="step"><span>Every day</span><p>You leave for the office — and catch yourself thinking: "what's my dog up to right now?"</p></div>
+        <div class="step"><span>Every day</span><p>You leave for the office — and catch yourself thinking: "What's my dog up to right now?"</p></div>
         <div class="step sa"><span>Animo answers</span><p>Not with a video stream, but with the one question that matters: is everything as usual?</p></div>
         <div class="step"><span>The result</span><p>Behaviour changed — you get a notification. All good — get on with your day.</p></div>
       </article>
@@ -477,7 +468,7 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
 <!-- 07 COMPARE -->
 <section class="compare" id="compare">
   <div class="wrap">
-    <div class="sec-head rv"><span class="num">07</span><span class="lbl">Why Animo</span></div>
+    <div class="sec-head rv"><span class="num">06</span><span class="lbl">Why Animo</span></div>
     <h2 class="mrv" style="margin-bottom:44px"><span class="mask"><span class="in" style="--i:0">Trackers know <i>where</i> he is.</span></span><span class="mask"><span class="in" style="--i:1">Animo knows <i>how</i> he is</span></span></h2>
     <div class="ctable rv">
       <div class="crow"><div class="h">GPS trackers</div><div class="h a">Animo</div></div>
