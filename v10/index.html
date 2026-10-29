@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ANIMO — ваш лучший друг под присмотром</title>
+<meta name="description" content="Animo — умный модуль на ошейнике и AI: сон, дыхание, активность и личная норма вашей собаки. Замечает перемены раньше симптомов.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ANIMO — ваш лучший друг под присмотром">
+<meta property="og:description" content="Собаки не жалуются. Animo замечает перемены раньше симптомов — и говорит вам.">
+<meta name="theme-color" content="#EFEFED">
+<meta property="og:image" content="https://animodevices.github.io/animo/img/og-v10.jpg">
+<link rel="alternate" hreflang="ru" href="https://animodevices.github.io/animo/">
+<link rel="alternate" hreflang="en" href="https://animodevices.github.io/animo/en/">
+<link rel="alternate" hreflang="x-default" href="https://animodevices.github.io/animo/">
+<link rel="preload" as="image" href="../img/dogs.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23E8262D' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Literata:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
+<style>
+:root{
+  --bg:#EFEFED; --bg2:#E7E7E3; --ink:#111111; --muted:#6E6E6A;
+  --red:#E8262D; --red-d:#C61C22; --hair:#D8D8D4; --dark:#161616;
+  --sans:'Manrope',system-ui,sans-serif; --logo:'Literata',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1220px;margin:0 auto;padding:0 30px;}
+::selection{background:#F6C9CB;}
+.bw{filter:grayscale(1) contrast(1.06);}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease-out,transform .55s ease-out;}
+.rv.on{opacity:1;transform:none;}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+.giant{font-weight:800;line-height:.92;letter-spacing:-.04em;}
+.giant i{font-style:normal;color:var(--red);}
+.sec-head{display:flex;align-items:baseline;gap:18px;border-top:1px solid var(--ink);padding-top:16px;margin-bottom:52px;}
+.sec-head .num{font-size:13px;font-weight:700;color:var(--red);}
+.sec-head .lbl{font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);}
+h2{font-size:clamp(30px,4.2vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.03em;}
+h2 i{font-style:normal;color:var(--red);}
+.lead{margin-top:16px;color:var(--muted);max-width:540px;}
+
+.btn{display:inline-block;background:var(--red);color:#fff;font-weight:600;font-size:12px;letter-spacing:.26em;text-transform:uppercase;padding:15px 36px;border:0;cursor:pointer;transition:background .2s;}
+.btn:hover{background:var(--red-d);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:60;background:transparent;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;}
+nav.solid{background:rgba(239,239,237,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);}
+.nav-in{max-width:1220px;margin:0 auto;padding:20px 30px;display:flex;align-items:center;gap:30px;}
+.logo{font-family:var(--logo);font-style:italic;font-weight:600;font-size:23px;}
+.nav-links{margin-left:auto;display:flex;gap:30px;}
+.nav-links a{font-size:13px;color:var(--muted);transition:color .2s;}
+.nav-links a:hover{color:var(--ink);}
+.lang{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);border:1px solid var(--hair);padding:7px 13px;transition:border-color .2s;}
+.lang b{color:var(--ink);}
+.lang:hover{border-color:var(--ink);}
+.nav-cta{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;transition:background .2s;}
+.nav-cta:hover{background:var(--red-d);}
+@media(max-width:900px){.nav-links{display:none;}.lang{margin-left:auto;}}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;}
+.hero-body{position:relative;flex:1;max-width:1220px;width:100%;margin:0 auto;padding:0 30px;}
+.hero-left{position:relative;z-index:4;padding-top:16vh;max-width:52%;}
+.hero .giant{font-size:clamp(60px,10.5vw,146px);}
+.hero .giant .in{white-space:nowrap;}
+.hero-sub{margin-top:30px;font-size:clamp(15px,1.6vw,20px);color:#3A3A36;max-width:19em;}
+.hero-arr{margin-top:12px;font-size:24px;}
+.hero-login{margin-top:7vh;}
+.hero-login .hint{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.hero-login .btn{margin-top:12px;}
+.soc{margin-top:26px;display:flex;gap:10px;}
+.soc a{width:30px;height:30px;border:1px solid #B9B9B4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);transition:all .2s;}
+.soc a:hover{border-color:var(--ink);color:var(--ink);}
+.ring{position:absolute;right:14%;top:10%;width:min(470px,40vw);aspect-ratio:1;border:10px solid var(--red);border-radius:50%;z-index:2;
+  animation:ringin 1s cubic-bezier(.16,1,.3,1) both .3s;}
+@keyframes ringin{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.hero-dogs{position:absolute;right:-2%;bottom:0;width:min(720px,58vw);z-index:3;
+  animation:dogsin 1.1s cubic-bezier(.16,1,.3,1) both .15s;}
+@keyframes dogsin{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.pager{position:absolute;z-index:5;right:30px;bottom:30px;font-size:12.5px;color:var(--muted);}
+.pager b{color:var(--ink);}
+@media(max-width:820px){
+  .hero-left{max-width:100%;padding-top:14vh;}
+  .ring{right:0;top:auto;bottom:16vh;}
+  .hero-dogs{position:relative;right:auto;margin:30px -30px 0 auto;width:96%;}
+  .hero{min-height:auto;padding-bottom:0;}
+  .pager{display:none;}
+}
+
+/* MANIFESTO */
+.manifesto{padding:130px 0 120px;}
+.manifesto .big{font-size:clamp(28px,4.6vw,58px);font-weight:800;line-height:1.12;letter-spacing:-.03em;max-width:18em;}
+.manifesto .big u{text-decoration:none;box-shadow:inset 0 -0.14em 0 rgba(232,38,45,.35);}
+.manifesto .after{margin-top:26px;color:var(--muted);max-width:34em;font-size:17px;}
+
+/* SIGNALS */
+.signals{padding:20px 0 130px;}
+.sig-grid{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:start;}
+.srow{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--hair);}
+.srow:last-child{border-bottom:1px solid var(--hair);}
+.srow .n{font-size:13px;font-weight:700;color:var(--red);padding-top:6px;}
+.srow h3{font-size:24px;font-weight:800;letter-spacing:-.02em;}
+.srow p{margin-top:6px;color:var(--muted);font-size:15px;max-width:30em;}
+.sig-photo{position:sticky;top:90px;}
+.sig-photo .frame{position:relative;overflow:hidden;}
+.sig-photo img{width:100%;}
+.sig-photo .cap{margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+@media(max-width:860px){.sig-grid{grid-template-columns:1fr;}.sig-photo{position:static;max-width:480px;}}
+
+/* APP */
+.app{background:var(--bg2);padding:130px 0;}
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.app-list{margin-top:44px;display:flex;flex-direction:column;}
+.arow{display:grid;grid-template-columns:56px 1fr;gap:16px;padding:20px 0;border-top:1px solid #CFCFCA;}
+.arow .n{font-size:12.5px;font-weight:700;color:var(--red);padding-top:4px;}
+.arow h3{font-size:18px;font-weight:700;}
+.arow p{margin-top:4px;color:var(--muted);font-size:14.5px;}
+.phone-side{display:flex;justify-content:center;}
+.phone{position:relative;width:290px;background:#111;border-radius:48px;padding:10px;box-shadow:0 60px 100px -40px rgba(0,0,0,.5);}
+.phone .screen{border-radius:40px;background:#FAFAF8;overflow:hidden;min-height:570px;position:relative;}
+.phone .island{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:86px;height:24px;border-radius:99px;background:#111;z-index:3;}
+.sbar{display:flex;justify-content:space-between;padding:16px 24px 0;font-size:12px;font-weight:600;color:#111;}
+.appbody{padding:26px 20px 0;}
+.app-head{display:flex;align-items:center;gap:11px;}
+.app-head .av{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:url('../img/pet.webp') center/cover;filter:grayscale(1);box-shadow:0 0 0 1.5px #111;}
+.app-head .pet{font-size:17px;font-weight:800;line-height:1.1;}
+.app-head .bre{font-size:11px;color:var(--muted);}
+.app-head .stp{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);border:1px solid rgba(232,38,45,.4);border-radius:99px;padding:5px 10px;}
+.score{margin-top:22px;display:flex;align-items:baseline;gap:10px;}
+.score .big{font-size:54px;font-weight:800;line-height:1;letter-spacing:-.03em;}
+.score .of{font-size:11.5px;color:var(--muted);}
+.score .tg{margin-left:auto;font-size:11px;font-weight:700;color:var(--red);}
+.abars{margin-top:22px;display:flex;flex-direction:column;gap:15px;}
+.abar .al{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;}
+.abar .al .k{color:var(--muted);}
+.abar .al .v{font-weight:700;}
+.atrack{height:5px;background:#E4E4E0;overflow:hidden;}
+.afill{height:100%;width:0;background:#111;transition:width 1.3s cubic-bezier(.16,1,.3,1) .3s;}
+.abar.hot .afill{background:var(--red);}
+.app-grid.on .afill{width:var(--w);}
+.ains{margin:22px 0;background:#F1F1EE;border-left:2px solid var(--red);padding:12px 14px;font-size:12px;line-height:1.5;color:#3A3A36;}
+.ains b{color:#111;}
+@media(max-width:900px){.app-grid{grid-template-columns:1fr;}.phone-side{order:-1;}}
+
+/* DEVICES */
+.devices{padding:130px 0;}
+.dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.dcard{border:1px solid var(--hair);background:#F4F4F2;transition:transform .2s,box-shadow .2s;}
+.dcard:hover{transform:translateY(-3px);box-shadow:0 30px 60px -40px rgba(0,0,0,.4);}
+.dcard .st{aspect-ratio:1/1;overflow:hidden;}
+.dcard .st img{width:100%;height:100%;object-fit:cover;}
+.dcard .db{padding:22px 24px 28px;border-top:1px solid var(--hair);}
+.dcard .row1{display:flex;align-items:center;gap:12px;}
+.dcard .n{font-size:12px;font-weight:700;color:var(--red);}
+.dcard .tag{margin-left:auto;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--hair);color:var(--muted);}
+.dcard .tag.now{border-color:var(--red);color:var(--red);}
+.dcard h3{margin-top:10px;font-size:22px;font-weight:800;letter-spacing:-.02em;}
+.dcard p{margin-top:6px;font-size:14px;color:var(--muted);}
+@media(max-width:880px){.dev-grid{grid-template-columns:1fr;max-width:430px;margin:0 auto;}}
+
+/* SPECS */
+.specs{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:48px 0;}
+.specs-row{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;}
+.spec .n{font-size:clamp(30px,3.6vw,48px);font-weight:800;letter-spacing:-.03em;}
+.spec .n i{font-style:normal;color:var(--red);}
+.spec .k{margin-top:2px;font-size:12px;letter-spacing:.06em;color:var(--muted);}
+@media(max-width:700px){.specs-row{display:grid;grid-template-columns:1fr 1fr;gap:26px;}}
+
+/* WHO */
+.who{padding:130px 0;}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:min(300px,76vw);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:20px;scrollbar-width:thin;scrollbar-color:var(--hair) transparent;}
+.pcard{scroll-snap-align:start;border:1px solid var(--hair);background:#F4F4F2;}
+.pcard .pi{aspect-ratio:4/5;overflow:hidden;}
+.pcard .pi img{width:100%;height:100%;object-fit:cover;}
+.pcard .pb{padding:18px 22px 24px;border-top:1px solid var(--hair);}
+.pcard h3{font-size:24px;font-weight:800;letter-spacing:-.03em;}
+.pcard h3 i{font-style:normal;color:var(--red);}
+.pcard p{margin-top:6px;font-size:13.5px;color:var(--muted);}
+
+/* STORIES */
+.stories{padding:20px 0 130px;}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.scard{border:1px solid var(--hair);background:#F4F4F2;padding:28px;}
+.scard .n{font-size:12.5px;font-weight:700;color:var(--red);}
+.scard h3{margin-top:10px;font-size:21px;font-weight:800;letter-spacing:-.02em;min-height:2.2em;}
+.scard .step{padding:14px 0;border-top:1px solid var(--hair);}
+.scard .step span{display:block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.scard .step.sa span{color:var(--red);}
+.scard .step p{font-size:14px;color:var(--muted);}
+.scard .step.sa p{color:var(--ink);}
+.st-note{margin-top:16px;font-size:11.5px;letter-spacing:.04em;color:var(--muted);}
+@media(max-width:880px){.story-grid{grid-template-columns:1fr;max-width:460px;}}
+
+/* COMPARE */
+.compare{padding:20px 0 130px;}
+.ctable{border:1px solid var(--ink);max-width:860px;}
+.crow{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--hair);}
+.crow:first-child{border-top:0;background:#F4F4F2;}
+.crow>div{padding:18px 26px;font-size:15px;}
+.crow .h{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.crow .h.a{color:var(--red);}
+.crow .t{color:var(--muted);}
+.crow .a{border-left:1px solid var(--hair);font-weight:600;}
+.crow .a .chk{color:var(--red);margin-right:8px;}
+
+/* CTA */
+.cta{padding:0 0 130px;}
+.cta-band{border:1px solid var(--ink);padding:70px 40px;text-align:center;position:relative;overflow:hidden;}
+.cta-band .giant{font-size:clamp(64px,10vw,140px);}
+.cta-band .lead{margin:18px auto 0;max-width:440px;}
+.wait{max-width:620px;margin:36px auto 0;}
+.wrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.wait input,.wait select{height:50px;border:1px solid #BDBDB8;background:#FAFAF8;color:var(--ink);font:inherit;font-size:14.5px;padding:0 14px;border-radius:0;}
+.wait input{flex:1 1 220px;}
+.wait input::placeholder{color:#9A9A94;}
+.wait select{flex:0 1 200px;}
+.wait .btn{height:50px;}
+.micro{margin-top:14px;font-size:12px;color:var(--muted);}
+.thanks{margin-top:26px;font-weight:700;color:var(--red);}
+.mailerr{margin-top:12px;font-size:13px;font-weight:600;color:var(--red);}
+.wait input.bad{border-color:var(--red);background:#FBF1F1;}
+@media(max-width:560px){.wrow{flex-direction:column}.wait input,.wait select,.wait .btn{width:100%}}
+
+footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
+.foot{display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-size:13px;}
+.foot .logo{color:#fff;font-size:21px;}
+.foot .right{margin-left:auto;max-width:520px;color:#8F8F8A;}
+.foot .tel{color:#fff;font-weight:600;transition:color .2s;}
+.foot .tel:hover{color:var(--red);}
+.foot .deck{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:11px 20px;transition:background .2s;}
+.foot .deck:hover{background:var(--red-d);}
+
+/* ANIMS */
+@supports (animation-timeline: scroll()){
+  .thread{position:fixed;top:0;left:0;width:100%;height:2.5px;background:var(--red);z-index:99;transform-origin:0 50%;scale:0 1;animation:threadgrow linear;animation-timeline:scroll(root block);}
+  @keyframes threadgrow{to{scale:1 1}}
+}
+.mrv .mask{display:block;overflow:hidden;padding-bottom:.07em;}
+.mrv .in{display:inline-block;transform:translateY(115%);transition:transform .9s cubic-bezier(.19,1,.22,1);transition-delay:calc(var(--i,0)*110ms);}
+.mrv .dot{display:inline-block;color:var(--red);transform:translateY(120%) scale(.4);transition:transform .5s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--i,0)*110ms + .45s);}
+.mrv.go .in{transform:translateY(0);}
+.mrv.go .dot{transform:translateY(0) scale(1);}
+.wipe{position:relative;overflow:hidden;}
+.wipe img{transform:scale(1.18);transition:transform 1.25s cubic-bezier(.77,0,.18,1);}
+.wipe::before{content:"";position:absolute;inset:0;background:var(--bg);z-index:3;transition:transform 1s cubic-bezier(.77,0,.18,1);}
+.wipe::after{content:"";position:absolute;inset:0;background:var(--red);z-index:2;transition:transform 1s cubic-bezier(.77,0,.18,1) .13s;}
+.wipe.go img{transform:scale(1);}
+.wipe.go::before{transform:translateY(-101%);}
+.wipe.go::after{transform:translateY(-101%);}
+.mq-sec{padding:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);}
+.marquee{overflow:hidden;padding:24px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7% 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7% 93%,transparent);}
+.track{display:flex;width:max-content;animation:mq 32s linear infinite;}
+.marquee:hover .track{animation-play-state:paused;}
+.track span{font-weight:800;font-size:clamp(40px,6vw,80px);letter-spacing:-.04em;line-height:1.1;white-space:nowrap;padding-right:.6em;}
+.track i{font-style:normal;color:var(--red);}
+@keyframes mq{to{transform:translateX(-50%)}}
+.nav-links a.roll{overflow:hidden;display:inline-block;height:1.5em;line-height:1.5;}
+.nav-links a.roll .stack{display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.76,0,.24,1);}
+.nav-links a.roll .stack span+span{color:var(--red);}
+.nav-links a.roll:hover .stack{transform:translateY(-50%);}
+.spec .n{font-variant-numeric:tabular-nums;}
+@media (prefers-reduced-motion: reduce){
+  .mrv .in,.mrv .dot{transform:none!important;transition:none!important}
+  .wipe img{transform:none!important}
+  .wipe::before,.wipe::after{display:none!important}
+  .thread{display:none!important}
+}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}*{animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="thread" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a class="logo" href="#top">animo</a>
+    <div class="nav-links">
+      <a href="#signals" class="roll"><span class="stack"><span>Что замечает</span><span>Что замечает</span></span></a>
+      <a href="#app" class="roll"><span class="stack"><span>Приложение</span><span>Приложение</span></span></a>
+      <a href="#devices" class="roll"><span class="stack"><span>Устройства</span><span>Устройства</span></span></a>
+      <a href="#stories" class="roll"><span class="stack"><span>Истории</span><span>Истории</span></span></a>
+    </div>
+    <a class="lang" href="../en/"><b>RU</b> · EN</a>
+    <a class="nav-cta" href="#cta">Ранний доступ</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-body">
+    <div class="hero-left">
+      <div class="giant mrv"><span class="mask"><span class="in">animo<span class="dot">.</span></span></span></div>
+      <div class="hero-sub">Собаки не жалуются. Animo замечает перемены раньше симптомов — и говорит.</div>
+      <div class="hero-arr">→</div>
+      <div class="hero-login">
+        <div class="hint">Умный модуль на ошейнике · сон · дыхание · активность</div>
+        <a class="btn" href="#cta">Ранний доступ</a>
+        <div class="soc" aria-hidden="true"><a href="#">◎</a><a href="#">f</a><a href="#">p</a></div>
+      </div>
+    </div>
+    <div class="ring" aria-hidden="true"></div>
+    <img class="hero-dogs bw" src="../img/dogs.webp" alt="Две собаки с умными модулями Animo на ошейниках" fetchpriority="high">
+    <div class="pager"><b>01</b> / 06</div>
+  </div>
+</header>
+
+<!-- 01 WHO -->
+<section class="who" id="who">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">01</span><span class="lbl">Для кого</span></div>
+    <h2 class="rv">Любой возраст. Любой <i>размер питомца</i></h2>
+    <p class="lead rv d1" style="margin-bottom:44px">Модуль для мониторинга весит меньше 15 г и крепится на любой ошейник — от чихуахуа до овчарки.</p>
+    <div class="rail rv">
+      <article class="pcard"><div class="pi"><img class="bw" src="../img/p_puppy.webp" alt="Щенок с модулем Animo"></div><div class="pb"><h3>щенок<i>.</i></h3><p>Выстроить здоровые привычки сна и активности с первых месяцев.</p></div></article>
+      <article class="pcard"><div class="pi"><img class="bw" src="../img/p_chi.webp" alt="Чихуахуа у окна с модулем Animo"></div><div class="pb"><h3>взрослый<i>.</i></h3><p>Замечать перемены и поддерживать форму.</p></div></article>
+      <article class="pcard"><div class="pi"><img class="bw" src="../img/p_senior.webp" alt="Пожилая собака"></div><div class="pb"><h3>пожилой<i>.</i></h3><p>Мягко следить за возрастными изменениями — без лишней тревоги.</p></div></article>
+    </div>
+  </div>
+</section>
+
+
+<!-- 03 SIGNALS -->
+<section class="signals" id="signals">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">02</span><span class="lbl">Что замечает</span></div>
+    <div class="sig-grid">
+      <div>
+        <h2 class="mrv"><span class="mask"><span class="in">сигналы<span class="dot">.</span></span></span></h2>
+        <div style="margin-top:36px">
+          <div class="srow rv"><span class="n">01</span><div><h3>Сон</h3><p>Глубина, прерывистость, ночные подъёмы.</p></div></div>
+          <div class="srow rv d1"><span class="n">02</span><div><h3>Дыхание</h3><p>Частота дыхания в покое — один из самых ранних маркеров изменений.</p></div></div>
+          <div class="srow rv d2"><span class="n">03</span><div><h3>Активность</h3><p>Движение, игра и отдых — в сравнении с его обычным днём.</p></div></div>
+          <div class="srow rv d3"><span class="n">04</span><div><h3>Личная норма</h3><p>Первые недели Animo учит его ритм — и замечает отклонения именно от него.</p></div></div>
+        </div>
+      </div>
+      <div class="sig-photo">
+        <div class="frame wipe"><img class="bw" src="../img/sleep.webp" alt="Спящая собака с модулем Animo на ошейнике"></div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 APP -->
+<section class="app" id="app">
+  <div class="wrap">
+    <div class="sec-head rv" style="border-color:#111"><span class="num">03</span><span class="lbl">Приложение</span></div>
+    <div class="app-grid" id="appgrid">
+      <div>
+        <h2 class="mrv"><span class="mask"><span class="in">Вместо графиков — <i>ответ</i></span></span></h2>
+        <p class="lead rv d1">Animo строит модель организма и переводит данные на человеческий: что происходит и что сделать.</p>
+        <div class="app-list">
+          <div class="arow rv"><span class="n">01</span><div><h3>Индекс состояния</h3><p>Одно число вместо десятка графиков. Показатель выше 80 — всё идёт как обычно.</p></div></div>
+          <div class="arow rv d1"><span class="n">02</span><div><h3>Как прошла ночь</h3><p>Сон и дыхание — сравнение с личной нормой.</p></div></div>
+          <div class="arow rv d2"><span class="n">03</span><div><h3>Отклонения — заранее</h3><p>Ритм меняется несколько дней подряд — Animo скажет до симптомов.</p></div></div>
+          <div class="arow rv d3"><span class="n">04</span><div><h3>Что сделать</h3><p>Короткая подсказка: добавить прогулку, понаблюдать или показать врачу.</p></div></div>
+        </div>
+      </div>
+      <div class="phone-side rv d1">
+        <div class="phone">
+          <div class="screen">
+            <div class="island"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="appbody">
+              <div class="app-head">
+                <span class="av"></span>
+                <div><div class="pet">Рекс</div><div class="bre">Немецкая овчарка · 4 года</div></div>
+                <span class="stp">в норме</span>
+              </div>
+              <div class="score"><span class="big">86</span><span class="of">/ 100 · индекс состояния</span><span class="tg">▲ стабильно</span></div>
+              <div class="abars">
+                <div class="abar"><div class="al"><span class="k">Сон</span><span class="v">7ч 40м</span></div><div class="atrack"><div class="afill" style="--w:86%"></div></div></div>
+                <div class="abar"><div class="al"><span class="k">Дыхание покоя</span><span class="v">14/мин</span></div><div class="atrack"><div class="afill" style="--w:78%"></div></div></div>
+                <div class="abar hot"><div class="al"><span class="k">Активность</span><span class="v">2ч 10м</span></div><div class="atrack"><div class="afill" style="--w:58%"></div></div></div>
+                <div class="abar"><div class="al"><span class="k">Спокойствие</span><span class="v">ровно</span></div><div class="atrack"><div class="afill" style="--w:90%"></div></div></div>
+              </div>
+              <div class="ains"><b>Инсайт.</b> Рекс спал хорошо. Активность чуть ниже его нормы — добавьте вечернюю прогулку.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="mq-sec" aria-hidden="true">
+  <div class="marquee"><div class="track">
+    <span>пульс<i>.</i></span><span>дыхание<i>.</i></span><span>сон<i>.</i></span><span>активность<i>.</i></span><span>animo<i>.</i></span>
+    <span>пульс<i>.</i></span><span>дыхание<i>.</i></span><span>сон<i>.</i></span><span>активность<i>.</i></span><span>animo<i>.</i></span>
+  </div></div>
+</section>
+
+<!-- 05 DEVICES -->
+<section class="devices" id="devices">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">04</span><span class="lbl">Устройства</span></div>
+    <h2 class="mrv" style="margin-bottom:44px"><span class="mask"><span class="in" style="--i:0">Начинается с модуля.</span></span><span class="mask"><span class="in" style="--i:1">Растёт в <i>экосистему</i></span></span></h2>
+    <div class="dev-grid">
+      <article class="dcard">
+        <div class="st wipe"><img class="bw" src="../img/module.webp" alt="Модуль Animo на ошейнике"></div>
+        <div class="db">
+          <div class="row1"><span class="n">01</span><span class="tag now">сейчас</span></div>
+          <h3>Модуль на ошейник</h3>
+          <p>Крепится на любой ошейник. Мониторинг сна, дыхания и активности — круглосуточно.</p>
+        </div>
+      </article>
+      <article class="dcard">
+        <div class="st wipe"><img class="bw" src="../img/camera.webp" alt="Камера Animo"></div>
+        <div class="db">
+          <div class="row1"><span class="n">02</span><span class="tag">в разработке</span></div>
+          <h3>Камера</h3>
+          <p>Видит то, что не чувствует ошейник: потребление еды, воды и поведение.</p>
+        </div>
+      </article>
+      <article class="dcard">
+        <div class="st wipe"><img class="bw" src="../img/implant.webp" alt="Имплант Animo"></div>
+        <div class="db">
+          <div class="row1"><span class="n">03</span><span class="tag">в разработке</span></div>
+          <h3>Имплант</h3>
+          <p>Температура и пульс — изнутри, без помех от шерсти.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 05 SPECS -->
+<section class="specs">
+  <div class="wrap">
+    <div class="specs-row rv">
+      <div class="spec"><div class="n"><span data-count="24">0</span>/7<i>.</i></div><div class="k">непрерывное наблюдение</div></div>
+      <div class="spec"><div class="n">≤<span data-count="15">0</span> г<i>.</i></div><div class="k">вес модуля</div></div>
+      <div class="spec"><div class="n">IP<span data-count="67">0</span><i>.</i></div><div class="k">влагозащита</div></div>
+      <div class="spec"><div class="n"><span data-count="10">0</span> дней<i>.</i></div><div class="k">на одном заряде</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 06 STORIES -->
+<section class="stories" id="stories">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">05</span><span class="lbl">Истории</span></div>
+    <div class="story-grid">
+      <article class="scard rv">
+        <span class="n">01</span>
+        <h3>Первые признаки недомогания</h3>
+        <div class="step"><span>Обычно</span><p>Барни каждый день встречает вас у двери и сразу несёт любимую игрушку.</p></div>
+        <div class="step sa"><span>Animo заметил</span><p>За два дня активность снизилась на 28%, а отдых вырос почти на два часа.</p></div>
+        <div class="step"><span>Что сделал хозяин</span><p>Записался к ветеринару. Осмотр показал начинающееся воспаление на ранней стадии.</p></div>
+      </article>
+      <article class="scard rv d1">
+        <span class="n">02</span>
+        <h3>Стресс после переезда</h3>
+        <div class="step"><span>Ситуация</span><p>После переезда кажется, что пёс уже освоился.</p></div>
+        <div class="step sa"><span>Animo показывает</span><p>Ночью почти не спит, днём двигается заметно меньше обычного.</p></div>
+        <div class="step"><span>Что это даёт</span><p>Понять, что питомец испытывает стресс, и помочь адаптироваться раньше.</p></div>
+      </article>
+      <article class="scard rv d2">
+        <span class="n">03</span>
+        <h3>Когда никого нет дома</h3>
+        <div class="step"><span>Каждый день</span><p>Вы уходите в офис — и ловите себя на мысли: «Чем сейчас занят мой пёс?»</p></div>
+        <div class="step sa"><span>Animo отвечает</span><p>Не видеотрансляцией, а ответом на главный вопрос: всё ли идёт как обычно.</p></div>
+        <div class="step"><span>Итог</span><p>Поведение изменилось — придёт уведомление. Всё хорошо — занимайтесь делами.</p></div>
+      </article>
+    </div>
+    <p class="st-note rv">Иллюстративные сценарии — так продукт работает в типичных ситуациях.</p>
+  </div>
+</section>
+
+<!-- 07 COMPARE -->
+<section class="compare" id="compare">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">06</span><span class="lbl">Почему Animo</span></div>
+    <h2 class="mrv" style="margin-bottom:44px"><span class="mask"><span class="in" style="--i:0">Трекеры знают, <i>где</i> он.</span></span><span class="mask"><span class="in" style="--i:1">Animo — <i>как</i> он</span></span></h2>
+    <div class="ctable rv">
+      <div class="crow"><div class="h">GPS-трекеры</div><div class="h a">Animo</div></div>
+      <div class="crow"><div class="t">Показывают, где собака</div><div class="a"><span class="chk">✓</span>Понимает, как она себя чувствует</div></div>
+      <div class="crow"><div class="t">Данные и графики</div><div class="a"><span class="chk">✓</span>Объяснение и подсказка</div></div>
+      <div class="crow"><div class="t">Средние нормы породы</div><div class="a"><span class="chk">✓</span>Личная норма вашей собаки</div></div>
+      <div class="crow"><div class="t">Реагируют на проблему</div><div class="a"><span class="chk">✓</span>Предупреждает об изменениях заранее</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="wrap">
+    <div class="cta-band rv">
+      <div class="giant mrv"><span class="mask"><span class="in">готовы<span class="dot">?</span></span></span></div>
+      <p class="lead">Оставьте email — напишем перед запуском. Участникам листа — спецусловия.</p>
+      <form class="wait" id="waitform" novalidate>
+        <div class="wrow">
+          <input type="email" name="email" autocomplete="email" required placeholder="Ваш email" aria-label="Email">
+          <select name="role" aria-label="Кто вы">
+            <option>Я владелец собаки</option>
+            <option>Заводчик / ветклиника</option>
+            <option>Инвестор / партнёр</option>
+          </select>
+          <button type="submit" class="btn">Ранний доступ</button>
+        </div>
+        <p class="mailerr" id="mailerr" hidden>Похоже, в email опечатка — проверьте адрес, например name@mail.ru</p>
+        <p class="micro">Animo в разработке. Без спама — напишем только о запуске. Данные питомца не передаём третьим лицам.</p>
+      </form>
+      <div class="thanks" id="thanks" hidden>Спасибо! Вы в списке — напишем перед запуском.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span class="logo" style="font-family:'Literata',serif;font-style:italic;">animo</span>
+    <span>© 2026</span>
+    <a class="tel" href="tel:+37433480610">+374 33 480 610</a>
+    <a class="deck" href="../presentation/">Презентация <span aria-hidden="true">→</span></a>
+    <span class="right">Animo не ставит диагнозы — он помогает заметить перемены и вовремя обратиться к врачу.</span>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const ag=document.getElementById('appgrid');
+if(ag){const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){ag.classList.add('on');io2.disconnect();}}),{threshold:.25});io2.observe(ag);}
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function runCounters(scope){
+  scope.querySelectorAll('[data-count]').forEach(el=>{
+    const target=+el.dataset.count;
+    if(reduced){el.textContent=target;return;}
+    const t0=performance.now(),dur=1200;
+    (function tick(now){
+      const t=Math.min(1,(now-t0)/dur);
+      el.textContent=Math.round(t>=1?target:target*(1-Math.pow(2,-10*t)));
+      if(t<1)requestAnimationFrame(tick);
+    })(performance.now());
+  });
+}
+const io2=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  e.target.classList.add('go');
+  if(e.target.classList.contains('specs-row'))runCounters(e.target);
+  io2.unobserve(e.target);
+}),{threshold:.3});
+document.querySelectorAll('.mrv,.wipe,.specs-row').forEach(el=>io2.observe(el));
+(function(){
+  const nav=document.getElementById('nav');
+  const upd=()=>nav.classList.toggle('solid',(scrollY||0)>50);
+  upd();addEventListener('scroll',upd,{passive:true});
+})();
+(function(){
+  // FORM_ENDPOINT: вставить URL сервиса форм (например https://api.web3forms.com/submit)
+  // и добавить в форму hidden-поле access_key. Пока пусто — заявки НЕ отправляются.
+  const ENDPOINT='';
+  const f=document.getElementById('waitform'),t=document.getElementById('thanks'),err=document.getElementById('mailerr');
+  if(!f)return;
+  const em=f.querySelector('input[type=email]');
+  f.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const v=(em.value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){
+      if(err)err.hidden=false;
+      em.classList.add('bad');
+      em.focus();
+      return;
+    }
+    if(err)err.hidden=true;
+    em.classList.remove('bad');
+    if(ENDPOINT){
+      try{ await fetch(ENDPOINT,{method:'POST',body:new FormData(f)}); }catch(_){}
+    }
+    f.hidden=true; if(t)t.hidden=false;
+  });
+  em.addEventListener('input',()=>{ if(err)err.hidden=true; em.classList.remove('bad'); });
+})();
+</script>
+</body>
+</html>
