@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ANIMO — your best friend, looked after</title>
+<meta name="description" content="Animo — a smart collar module and AI: your dog's sleep, breathing, activity and personal baseline. Notices changes before symptoms.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ANIMO — your best friend, looked after">
+<meta property="og:description" content="Dogs don't complain. Animo notices changes before symptoms — and tells you.">
+<meta name="theme-color" content="#EFEFED">
+<meta property="og:image" content="https://animodevices.github.io/animo/img/og-v10.jpg">
+<link rel="alternate" hreflang="ru" href="https://animodevices.github.io/animo/">
+<link rel="alternate" hreflang="en" href="https://animodevices.github.io/animo/en/">
+<link rel="alternate" hreflang="x-default" href="https://animodevices.github.io/animo/">
+<link rel="preload" as="image" href="../../media/hero-poster.jpg" media="(min-width: 1101px), (orientation: landscape)">
+<link rel="preload" as="image" href="../../media/hero-poster-m.jpg" media="(max-width: 1100px) and (orientation: portrait)">
+<script type="importmap">{"imports":{"three":"../../js/vendor/three/build/three.module.min.js","three/addons/":"../../js/vendor/three/examples/jsm/"}}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23E8262D' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Literata:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
+<style>
+:root{
+  --bg:#EFEFED; --bg2:#E7E7E3; --ink:#111111; --muted:#6E6E6A;
+  --red:#E8262D; --red-d:#C61C22; --hair:#D8D8D4; --dark:#161616;
+  --sans:'Manrope',system-ui,sans-serif; --logo:'Literata',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1220px;margin:0 auto;padding:0 30px;}
+::selection{background:#F6C9CB;}
+.bw{filter:grayscale(1) contrast(1.06);}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease-out,transform .55s ease-out;}
+.rv.on{opacity:1;transform:none;}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+.giant{font-weight:800;line-height:.92;letter-spacing:-.04em;}
+.giant i{font-style:normal;color:var(--red);}
+.sec-head{display:flex;align-items:baseline;gap:18px;border-top:1px solid var(--ink);padding-top:16px;margin-bottom:52px;}
+.sec-head .num{font-size:13px;font-weight:700;color:var(--red);}
+.sec-head .lbl{font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);}
+h2{font-size:clamp(30px,4.2vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.03em;}
+h2 i{font-style:normal;color:var(--red);}
+.lead{margin-top:16px;color:var(--muted);max-width:540px;}
+
+.btn{display:inline-block;background:var(--red);color:#fff;font-weight:600;font-size:12px;letter-spacing:.26em;text-transform:uppercase;padding:15px 36px;border:0;cursor:pointer;transition:background .2s;}
+.btn:hover{background:var(--red-d);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:60;background:transparent;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;}
+nav.solid{background:rgba(239,239,237,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);}
+.nav-in{max-width:1220px;margin:0 auto;padding:20px 30px;display:flex;align-items:center;gap:30px;}
+.logo{font-family:var(--logo);font-style:italic;font-weight:600;font-size:23px;}
+.nav-links{margin-left:auto;display:flex;gap:30px;}
+.nav-links a{font-size:13px;color:var(--muted);transition:color .2s;}
+.nav-links a:hover{color:var(--ink);}
+nav:not(.solid) .nav-links a,nav:not(.solid) .lang{color:#4A4A45;}
+nav:not(.solid) .nav-links a:hover{color:var(--ink);}
+.lang{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);border:1px solid var(--hair);padding:7px 13px;transition:border-color .2s;}
+.lang b{color:var(--ink);}
+.lang:hover{border-color:var(--ink);}
+.nav-cta{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;transition:background .2s;}
+.nav-cta:hover{background:var(--red-d);}
+@media(max-width:900px){.nav-links{display:none;}.lang{margin-left:auto;}}
+
+/* HERO — полноэкранное видео (v11) */
+.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;background:#D9DAD7;}
+.hero-media{position:absolute;inset:0;z-index:0;}
+.hero-poster,.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 50%;filter:saturate(var(--hero-sat,.62)) contrast(1.03);}
+.hero-video{opacity:0;transition:opacity 1.2s ease;}
+.hero-video.on{opacity:1;}
+.hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  linear-gradient(180deg,rgba(239,239,237,.72) 0,rgba(239,239,237,0) 120px),
+  linear-gradient(90deg,rgba(239,239,237,.9) 0%,rgba(239,239,237,.66) 26%,rgba(239,239,237,.18) 50%,rgba(239,239,237,0) 62%),
+  linear-gradient(180deg,rgba(239,239,237,0) 72%,var(--bg) 100%);}
+.hero-body{position:relative;z-index:2;flex:1;max-width:1220px;width:100%;margin:0 auto;padding:0 30px;}
+.hero-left{position:relative;z-index:4;padding-top:18vh;max-width:52%;}
+.hero .giant{font-size:clamp(60px,10.5vw,146px);}
+.hero .giant .in{white-space:nowrap;}
+.hero .giant .dot.breath{animation:breathe 4.6s ease-in-out infinite;transform-origin:50% 80%;}
+@keyframes breathe{0%,100%{scale:1}42%{scale:1.22}}
+.hero-sub{margin-top:30px;font-size:clamp(15px,1.6vw,20px);color:#2A2A27;max-width:19em;}
+.hero-arr{margin-top:12px;font-size:24px;}
+.hero-login{margin-top:7vh;}
+.hero-login .hint{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#2A2A27;}
+.hero-login .btn{margin-top:12px;}
+.soc{margin-top:26px;display:flex;gap:10px;}
+.soc a{width:30px;height:30px;border:1px solid #9C9C96;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#55554F;transition:all .2s;}
+.soc a:hover{border-color:var(--ink);color:var(--ink);}
+.pager{position:absolute;z-index:5;right:30px;bottom:30px;font-size:12.5px;color:#3A3A36;}
+.pager b{color:var(--ink);}
+.hero-pp{position:absolute;z-index:6;left:max(30px,calc((100vw - 1220px)/2 + 30px));bottom:28px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(17,17,17,.35);background:rgba(239,239,237,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer;display:none;align-items:center;justify-content:center;transition:border-color .2s;}
+.hero-pp.show,.sig-pp.show{display:flex;}
+.sig-pp{position:absolute;right:14px;bottom:14px;left:auto;z-index:4;}
+.hero-pp:hover{border-color:var(--ink);}
+.hero-pp:focus-visible{outline:2px solid var(--red);outline-offset:3px;}
+.hero-pp i{display:block;width:10px;height:11px;border-left:3px solid var(--ink);border-right:3px solid var(--ink);}
+.hero-pp[aria-pressed="true"] i{width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent var(--ink);margin-left:3px;}
+@media(max-width:820px),(max-width:1100px) and (orientation:portrait){
+  .hero{min-height:94svh;background:var(--bg);}
+  .hero-media{top:36svh;}
+  .hero-poster,.hero-video{object-position:50% 40%;}
+  .hero-shade{top:36svh;background:linear-gradient(180deg,var(--bg) 0%,rgba(239,239,237,0) 16%,rgba(239,239,237,0) 86%,var(--bg) 100%);}
+  .hero-left{max-width:100%;padding-top:96px;}
+  .hero-sub{margin-top:18px;}
+  .hero-arr,.hero-login{display:none;}
+  .pager{display:none;}
+  .hero-pp{left:auto;right:20px;bottom:22px;}
+}
+@media(max-width:820px) and (orientation:landscape){
+  .hero-media,.hero-shade{top:0;}
+  .hero-shade{background:linear-gradient(90deg,rgba(239,239,237,.92) 0%,rgba(239,239,237,.6) 34%,rgba(239,239,237,0) 60%);}
+  .hero-poster,.hero-video{object-position:72% 50%;}
+  .hero-left{max-width:56%;padding-top:80px;}
+}
+
+/* MANIFESTO */
+.manifesto{padding:130px 0 120px;}
+.manifesto .big{font-size:clamp(28px,4.6vw,58px);font-weight:800;line-height:1.12;letter-spacing:-.03em;max-width:18em;}
+.manifesto .big u{text-decoration:none;box-shadow:inset 0 -0.14em 0 rgba(232,38,45,.35);}
+.manifesto .after{margin-top:26px;color:var(--muted);max-width:34em;font-size:17px;}
+
+/* SIGNALS */
+.signals{padding:20px 0 130px;}
+.sig-grid{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:start;}
+.srow{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--hair);}
+.srow:last-child{border-bottom:1px solid var(--hair);}
+.srow .n{font-size:13px;font-weight:700;color:var(--red);padding-top:6px;}
+.srow h3{font-size:24px;font-weight:800;letter-spacing:-.02em;}
+.srow p{margin-top:6px;color:var(--muted);font-size:15px;max-width:30em;}
+.sig-photo{position:sticky;top:90px;}
+.sig-photo .frame{position:relative;overflow:hidden;}
+.sig-photo img{width:100%;}
+.sig-photo .cap{margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+@media(max-width:860px){.sig-grid{grid-template-columns:1fr;}.sig-photo{position:static;max-width:480px;}}
+
+/* APP */
+.app{background:var(--bg2);padding:130px 0;}
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.app-list{margin-top:44px;display:flex;flex-direction:column;}
+.arow{display:grid;grid-template-columns:56px 1fr;gap:16px;padding:20px 0;border-top:1px solid #CFCFCA;}
+.arow .n{font-size:12.5px;font-weight:700;color:var(--red);padding-top:4px;}
+.arow h3{font-size:18px;font-weight:700;}
+.arow p{margin-top:4px;color:var(--muted);font-size:14.5px;}
+.phone-side{display:flex;justify-content:center;}
+.phone{position:relative;width:290px;background:#111;border-radius:48px;padding:10px;box-shadow:0 60px 100px -40px rgba(0,0,0,.5);}
+.phone .screen{border-radius:40px;background:#FAFAF8;overflow:hidden;min-height:570px;position:relative;}
+.phone .island{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:86px;height:24px;border-radius:99px;background:#111;z-index:3;}
+.sbar{display:flex;justify-content:space-between;padding:16px 24px 0;font-size:12px;font-weight:600;color:#111;}
+.appbody{padding:26px 20px 0;}
+.app-head{display:flex;align-items:center;gap:11px;}
+.app-head .av{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:url('../../img/pet.webp') center/cover;filter:grayscale(1);box-shadow:0 0 0 1.5px #111;}
+.app-head .pet{font-size:17px;font-weight:800;line-height:1.1;}
+.app-head .bre{font-size:11px;color:var(--muted);}
+.app-head .stp{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);border:1px solid rgba(232,38,45,.4);border-radius:99px;padding:5px 10px;}
+.score{margin-top:22px;display:flex;align-items:baseline;gap:10px;}
+.score .big{font-size:54px;font-weight:800;line-height:1;letter-spacing:-.03em;}
+.score .of{font-size:11.5px;color:var(--muted);}
+.score .tg{margin-left:auto;font-size:11px;font-weight:700;color:var(--red);}
+.abars{margin-top:22px;display:flex;flex-direction:column;gap:15px;}
+.abar .al{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;}
+.abar .al .k{color:var(--muted);}
+.abar .al .v{font-weight:700;}
+.atrack{height:5px;background:#E4E4E0;overflow:hidden;}
+.afill{height:100%;width:0;background:#111;transition:width 1.3s cubic-bezier(.16,1,.3,1) .3s;}
+.abar.hot .afill{background:var(--red);}
+.app-grid.on .afill{width:var(--w);}
+.ains{margin:22px 0;background:#F1F1EE;border-left:2px solid var(--red);padding:12px 14px;font-size:12px;line-height:1.5;color:#3A3A36;}
+.ains b{color:#111;}
+@media(max-width:900px){.app-grid{grid-template-columns:1fr;}.phone-side{order:-1;}}
+
+/* DEVICES */
+.devices{padding:130px 0;}
+.dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.dcard{border:1px solid var(--hair);background:#F4F4F2;transition:transform .2s,box-shadow .2s;}
+.dcard:hover{transform:translateY(-3px);box-shadow:0 30px 60px -40px rgba(0,0,0,.4);}
+.dcard .st{aspect-ratio:1/1;overflow:hidden;}
+.dcard .st img{width:100%;height:100%;object-fit:cover;}
+.dcard .db{padding:22px 24px 28px;border-top:1px solid var(--hair);}
+.dcard .row1{display:flex;align-items:center;gap:12px;}
+.dcard .n{font-size:12px;font-weight:700;color:var(--red);}
+.dcard .tag{margin-left:auto;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--hair);color:var(--muted);}
+.dcard .tag.now{border-color:var(--red);color:var(--red);}
+.dcard h3{margin-top:10px;font-size:22px;font-weight:800;letter-spacing:-.02em;}
+.dcard p{margin-top:6px;font-size:14px;color:var(--muted);}
+@media(max-width:880px){.dev-grid{grid-template-columns:1fr;max-width:430px;margin:0 auto;}}
+
+/* SPECS */
+.specs{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:48px 0;}
+.specs-row{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;}
+.spec .n{font-size:clamp(30px,3.6vw,48px);font-weight:800;letter-spacing:-.03em;}
+.spec .n i{font-style:normal;color:var(--red);}
+.spec .k{margin-top:2px;font-size:12px;letter-spacing:.06em;color:var(--muted);}
+@media(max-width:700px){.specs-row{display:grid;grid-template-columns:1fr 1fr;gap:26px;}}
+
+/* WHO */
+.who{padding:130px 0;}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:min(300px,76vw);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:20px;scrollbar-width:thin;scrollbar-color:var(--hair) transparent;}
+.pcard{scroll-snap-align:start;border:1px solid var(--hair);background:#F4F4F2;}
+.pcard .pi{aspect-ratio:4/5;overflow:hidden;}
+.pcard .pi img{width:100%;height:100%;object-fit:cover;}
+.pcard .pb{padding:18px 22px 24px;border-top:1px solid var(--hair);}
+.pcard h3{font-size:24px;font-weight:800;letter-spacing:-.03em;}
+.pcard h3 i{font-style:normal;color:var(--red);}
+.pcard p{margin-top:6px;font-size:13.5px;color:var(--muted);}
+
+/* STORIES */
+.stories{padding:20px 0 130px;}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.scard{border:1px solid var(--hair);background:#F4F4F2;padding:28px;}
+.scard .n{font-size:12.5px;font-weight:700;color:var(--red);}
+.scard h3{margin-top:10px;font-size:21px;font-weight:800;letter-spacing:-.02em;min-height:2.2em;}
+.scard .step{padding:14px 0;border-top:1px solid var(--hair);}
+.scard .step span{display:block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.scard .step.sa span{color:var(--red);}
+.scard .step p{font-size:14px;color:var(--muted);}
+.scard .step.sa p{color:var(--ink);}
+.st-note{margin-top:16px;font-size:11.5px;letter-spacing:.04em;color:var(--muted);}
+@media(max-width:880px){.story-grid{grid-template-columns:1fr;max-width:460px;}}
+
+/* COMPARE */
+.compare{padding:20px 0 130px;}
+.ctable{border:1px solid var(--ink);max-width:860px;}
+.crow{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--hair);}
+.crow:first-child{border-top:0;background:#F4F4F2;}
+.crow>div{padding:18px 26px;font-size:15px;}
+.crow .h{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.crow .h.a{color:var(--red);}
+.crow .t{color:var(--muted);}
+.crow .a{border-left:1px solid var(--hair);font-weight:600;}
+.crow .a .chk{color:var(--red);margin-right:8px;}
+
+/* CTA */
+.cta{padding:0 0 130px;}
+.cta-band{border:1px solid var(--ink);padding:70px 40px;text-align:center;position:relative;overflow:hidden;}
+.cta-band .giant{font-size:clamp(64px,10vw,140px);}
+.cta-band .lead{margin:18px auto 0;max-width:440px;}
+.wait{max-width:620px;margin:36px auto 0;}
+.wrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.wait input,.wait select{height:50px;border:1px solid #BDBDB8;background:#FAFAF8;color:var(--ink);font:inherit;font-size:14.5px;padding:0 14px;border-radius:0;}
+.wait input{flex:1 1 220px;}
+.wait input::placeholder{color:#9A9A94;}
+.wait select{flex:0 1 200px;}
+.wait .btn{height:50px;}
+.micro{margin-top:14px;font-size:12px;color:var(--muted);}
+.thanks{margin-top:26px;font-weight:700;color:var(--red);outline:none;}
+.thanks:empty{display:none;}
+.mailerr{margin-top:12px;font-size:13px;font-weight:600;color:var(--red);}
+.wait input.bad{border-color:var(--red);background:#FBF1F1;}
+@media(max-width:560px){.wrow{flex-direction:column}.wait input,.wait select,.wait .btn{width:100%}}
+
+footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
+.foot{display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-size:13px;}
+.foot .logo{color:#fff;font-size:21px;}
+.foot .right{margin-left:auto;max-width:520px;color:#8F8F8A;}
+.foot .tel{color:#fff;font-weight:600;transition:color .2s;}
+.foot .tel:hover{color:var(--red);}
+.foot .deck{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:11px 20px;transition:background .2s;}
+.foot .deck:hover{background:var(--red-d);}
+
+/* COLLAR CONFIGURATOR (v11) */
+.collar{padding:20px 0 130px;}
+.cfg-top{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:end;margin-bottom:44px;}
+.cfg-top .lead{margin-top:0;}
+.cfg{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:44px;align-items:start;}
+.cfg-stage{position:relative;aspect-ratio:4/3;border:1px solid var(--hair);background:radial-gradient(120% 90% at 50% 38%,#FAFAF8 0%,#EFEFED 55%,#E3E3DF 100%);overflow:hidden;touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none;}
+.cfg-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .6s ease;pointer-events:none;}
+.cfg-stage.ready .cfg-poster{opacity:0;}
+.cfg-canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;cursor:grab;outline:none;}
+.cfg-canvas:active{cursor:grabbing;}
+.cfg-load{position:absolute;left:18px;bottom:16px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#55554F;}
+.cfg-stage.ready .cfg-load{display:none;}
+.cfg-hint{position:absolute;right:18px;bottom:16px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#55554F;opacity:0;transition:opacity .4s;pointer-events:none;}
+.cfg-stage.ready .cfg-hint{opacity:1;}
+.cfg-stage.touched .cfg-hint{opacity:0;}
+.cfg-pp{position:absolute;left:auto;right:16px;top:14px;bottom:auto;z-index:3;}
+.cfg-stage.ready .cfg-pp{display:flex;}
+.cfg-stage.sd{cursor:pointer;}
+@media (prefers-reduced-motion: reduce){.cfg-stage.ready .cfg-pp{display:none;}}
+.cfg-stage.nogl .cfg-load{display:block;max-width:70%;letter-spacing:.06em;text-transform:none;font-weight:600;}
+.cfg-tag{position:absolute;left:18px;top:16px;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red-d);border:1px solid rgba(232,38,45,.45);padding:5px 10px;background:rgba(250,250,248,.7);}
+.cfg-side{position:sticky;top:96px;}
+.cfg-group{padding:20px 0;border-top:1px solid var(--hair);}
+.cfg-group:first-child{border-top:1px solid var(--ink);}
+.cfg-k{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.cfg-k .cfg-cname{color:var(--ink);letter-spacing:.08em;text-transform:none;font-size:13px;font-weight:700;}
+.cfg-mats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.cfg-mat,.cfg-hw{position:relative;text-align:left;font:inherit;color:var(--ink);background:#F6F6F4;border:1px solid var(--hair);padding:12px 12px 13px;cursor:pointer;transition:border-color .2s,background .2s;}
+.cfg-mat b,.cfg-hw b{display:block;font-size:14.5px;font-weight:800;letter-spacing:-.01em;}
+.cfg-mat span{display:block;margin-top:3px;font-size:11.5px;line-height:1.35;color:var(--muted);}
+.cfg-mat:hover,.cfg-hw:hover{border-color:#9C9C96;}
+.cfg-mat[aria-checked="true"],.cfg-hw[aria-checked="true"]{border-color:var(--ink);background:#FBFBF9;}
+.cfg-mat[aria-checked="true"]::before,.cfg-hw[aria-checked="true"]::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:3px;background:var(--red);}
+.cfg-hws{display:flex;gap:8px;}
+.cfg-hw{padding:10px 16px;}
+.cfg-sws{display:flex;flex-wrap:wrap;gap:12px;}
+.cfg-sw{width:36px;height:36px;border-radius:50%;border:0;padding:0;cursor:pointer;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.38);transition:transform .2s;}
+.cfg-sw:hover{transform:scale(1.08);}
+.cfg-sw[aria-checked="true"]{box-shadow:inset 0 0 0 1px rgba(0,0,0,.38),0 0 0 3px var(--bg),0 0 0 5px var(--ink);}
+.cfg-mat:focus-visible,.cfg-hw:focus-visible,.cfg-sw:focus-visible{outline:2px solid var(--red);outline-offset:3px;}
+.cfg-sum{padding:18px 0 0;border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:4px;}
+.cfg-sum span{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.cfg-sum b{font-size:18px;font-weight:800;letter-spacing:-.01em;}
+.cfg-cta{margin-top:22px;}
+.cfg-note{margin-top:14px;font-size:12px;color:var(--muted);max-width:30em;}
+.choice{margin-top:14px;font-size:13px;color:var(--ink);}
+.choice b{font-weight:700;}
+@media(max-width:900px){
+  .cfg-top{grid-template-columns:1fr;gap:16px;}
+  .cfg{grid-template-columns:1fr;gap:26px;}
+  .cfg-stage{aspect-ratio:1/1;margin:0 -30px;border-left:0;border-right:0;}
+  .cfg-side{position:static;}
+}
+@media(max-width:420px){.cfg-mats{grid-template-columns:1fr 1fr 1fr;gap:6px}.cfg-mat{padding:10px 8px}.cfg-mat span{display:none}}
+
+/* ANIMS */
+@supports (animation-timeline: scroll()){
+  .thread{position:fixed;top:0;left:0;width:100%;height:2.5px;background:var(--red);z-index:99;transform-origin:0 50%;scale:0 1;animation:threadgrow linear;animation-timeline:scroll(root block);}
+  @keyframes threadgrow{to{scale:1 1}}
+}
+.mrv .mask{display:block;overflow:hidden;padding-bottom:.07em;}
+.mrv .in{display:inline-block;transform:translateY(115%);transition:transform .9s cubic-bezier(.19,1,.22,1);transition-delay:calc(var(--i,0)*110ms);}
+.mrv .dot{display:inline-block;color:var(--red);transform:translateY(120%) scale(.4);transition:transform .5s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--i,0)*110ms + .45s);}
+.mrv.go .in{transform:translateY(0);}
+.mrv.go .dot{transform:translateY(0) scale(1);}
+.wipe{position:relative;overflow:hidden;}
+.wipe img{transform:scale(1.18);transition:transform 1.25s cubic-bezier(.77,0,.18,1);}
+.wipe::before{content:"";position:absolute;inset:0;background:var(--bg);z-index:3;transition:transform 1s cubic-bezier(.77,0,.18,1);}
+.wipe::after{content:"";position:absolute;inset:0;background:var(--red);z-index:2;transition:transform 1s cubic-bezier(.77,0,.18,1) .13s;}
+.wipe.go img{transform:scale(1);}
+.sig-video{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;transform:scale(1.18);transition:transform 1.25s cubic-bezier(.77,0,.18,1);}
+.wipe.go .sig-video{transform:scale(1);}
+.wipe.go::before{transform:translateY(-101%);}
+.wipe.go::after{transform:translateY(-101%);}
+.mq-sec{padding:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);}
+.marquee{overflow:hidden;padding:24px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7% 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7% 93%,transparent);}
+.track{display:flex;width:max-content;animation:mq 32s linear infinite;}
+.marquee:hover .track{animation-play-state:paused;}
+.track span{font-weight:800;font-size:clamp(40px,6vw,80px);letter-spacing:-.04em;line-height:1.1;white-space:nowrap;padding-right:.6em;}
+.track i{font-style:normal;color:var(--red);}
+@keyframes mq{to{transform:translateX(-50%)}}
+.nav-links a.roll{overflow:hidden;display:inline-block;height:1.5em;line-height:1.5;}
+.nav-links a.roll .stack{display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.76,0,.24,1);}
+.nav-links a.roll .stack span+span{color:var(--red);}
+.nav-links a.roll:hover .stack{transform:translateY(-50%);}
+.spec .n{font-variant-numeric:tabular-nums;}
+@media (prefers-reduced-motion: reduce){
+  .mrv .in,.mrv .dot{transform:none!important;transition:none!important}
+  .wipe img,.sig-video{transform:none!important;transition:none!important}
+  .wipe::before,.wipe::after{display:none!important}
+  .thread{display:none!important}
+}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}*{animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="thread" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a class="logo" href="#top">animo</a>
+    <div class="nav-links">
+      <a href="#signals" class="roll"><span class="stack"><span>What it notices</span><span aria-hidden="true">What it notices</span></span></a>
+      <a href="#app" class="roll"><span class="stack"><span>The app</span><span aria-hidden="true">The app</span></span></a>
+      <a href="#devices" class="roll"><span class="stack"><span>Devices</span><span aria-hidden="true">Devices</span></span></a>
+      <a href="#collar" class="roll"><span class="stack"><span>Collar</span><span aria-hidden="true">Collar</span></span></a>
+      <a href="#stories" class="roll"><span class="stack"><span>Stories</span><span aria-hidden="true">Stories</span></span></a>
+    </div>
+    <a class="lang" href="../"><b>EN</b> · RU</a>
+    <a class="nav-cta" href="#cta">Early access</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-media" aria-hidden="true">
+    <picture>
+      <source media="(max-width: 1100px) and (orientation: portrait)" srcset="../../media/hero-poster-m.jpg">
+      <img class="hero-poster" src="../../media/hero-poster.jpg" alt="" fetchpriority="high">
+    </picture>
+    <video class="hero-video" muted loop playsinline preload="none" disablepictureinpicture></video>
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-body">
+    <div class="hero-left">
+      <h1 class="giant mrv"><span class="mask"><span class="in">animo<span class="dot">.</span></span></span></h1>
+      <div class="hero-sub">Dogs don't complain. Animo notices changes before symptoms — and tells you.</div>
+      <div class="hero-arr">→</div>
+      <div class="hero-login">
+        <div class="hint">Smart collar module · sleep · breathing · activity</div>
+        <a class="btn" href="#cta">Early access</a>
+        <div class="soc" aria-hidden="true"><a href="#" tabindex="-1">◎</a><a href="#" tabindex="-1">f</a><a href="#" tabindex="-1">p</a></div>
+      </div>
+    </div>
+    <div class="pager"><b>01</b> / 07</div>
+  </div>
+  <button class="hero-pp" id="heroPP" type="button" aria-pressed="false" aria-label="Pause background video"><i></i></button>
+</header>
+
+<!-- 01 WHO -->
+<section class="who" id="who">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">01</span><span class="lbl">Who it's for</span></div>
+    <h2 class="rv">Any age. Any <i>pet size</i></h2>
+    <p class="lead rv d1" style="margin-bottom:44px">The monitoring module weighs under 15 g and clips onto any collar — from a chihuahua to a shepherd.</p>
+    <div class="rail rv">
+      <article class="pcard"><div class="pi"><img class="bw" src="../../img/p_puppy.webp" alt="A puppy wearing an Animo module"></div><div class="pb"><h3>puppy<i>.</i></h3><p>Build healthy sleep and activity habits from the first months.</p></div></article>
+      <article class="pcard"><div class="pi"><img class="bw" src="../../img/p_chi.webp" alt="A chihuahua by the window wearing an Animo module"></div><div class="pb"><h3>adult<i>.</i></h3><p>Spot changes and keep him in shape.</p></div></article>
+      <article class="pcard"><div class="pi"><img class="bw" src="../../img/p_senior.webp" alt="A senior dog"></div><div class="pb"><h3>senior<i>.</i></h3><p>Gently watch age-related changes — without extra anxiety.</p></div></article>
+    </div>
+  </div>
+</section>
+
+
+<!-- 03 SIGNALS -->
+<section class="signals" id="signals">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">02</span><span class="lbl">What it notices</span></div>
+    <div class="sig-grid">
+      <div>
+        <h2 class="mrv"><span class="mask"><span class="in">signals<span class="dot">.</span></span></span></h2>
+        <div style="margin-top:36px">
+          <div class="srow rv"><span class="n">01</span><div><h3>Sleep</h3><p>Depth, interruptions, night-time restlessness.</p></div></div>
+          <div class="srow rv d1"><span class="n">02</span><div><h3>Breathing</h3><p>Resting respiratory rate — one of the earliest markers of change.</p></div></div>
+          <div class="srow rv d2"><span class="n">03</span><div><h3>Activity</h3><p>Movement, play and rest — compared with his usual day.</p></div></div>
+          <div class="srow rv d3"><span class="n">04</span><div><h3>Personal baseline</h3><p>In the first weeks Animo learns his rhythm — and spots deviations from it, not from an average.</p></div></div>
+        </div>
+      </div>
+      <div class="sig-photo">
+        <div class="frame wipe"><video class="bw sig-video" muted loop playsinline preload="none" poster="../../media/sleep-poster.jpg" data-src="../../media/sleep.mp4" aria-label="A sleeping dog wearing the animo collar, breathing calmly in its sleep"></video><button class="hero-pp sig-pp" id="sigPP" type="button" aria-pressed="false" aria-label="Pause sleep video"><i></i></button></div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 APP -->
+<section class="app" id="app">
+  <div class="wrap">
+    <div class="sec-head rv" style="border-color:#111"><span class="num">03</span><span class="lbl">The app</span></div>
+    <div class="app-grid" id="appgrid">
+      <div>
+        <h2 class="mrv"><span class="mask"><span class="in">Instead of charts — an <i>answer</i></span></span></h2>
+        <p class="lead rv d1">Animo builds a model of the body and turns data into plain language: what's happening and what to do.</p>
+        <div class="app-list">
+          <div class="arow rv"><span class="n">01</span><div><h3>Condition index</h3><p>One number instead of a dozen charts. A score above 80 means all is going as usual.</p></div></div>
+          <div class="arow rv d1"><span class="n">02</span><div><h3>How the night went</h3><p>Sleep and breathing — compared with the personal baseline.</p></div></div>
+          <div class="arow rv d2"><span class="n">03</span><div><h3>Deviations — early</h3><p>If the rhythm keeps shifting for several days, Animo says so before symptoms.</p></div></div>
+          <div class="arow rv d3"><span class="n">04</span><div><h3>What to do</h3><p>A short suggestion: add a walk, keep watching, or see the vet.</p></div></div>
+        </div>
+      </div>
+      <div class="phone-side rv d1">
+        <div class="phone">
+          <div class="screen">
+            <div class="island"></div>
+            <div class="sbar"><span>9:41</span><span>●●●</span></div>
+            <div class="appbody">
+              <div class="app-head">
+                <span class="av"></span>
+                <div><div class="pet">Rex</div><div class="bre">German Shepherd · 4 yrs</div></div>
+                <span class="stp">normal</span>
+              </div>
+              <div class="score"><span class="big">86</span><span class="of">/ 100 · condition index</span><span class="tg">▲ stable</span></div>
+              <div class="abars">
+                <div class="abar"><div class="al"><span class="k">Sleep</span><span class="v">7h 40m</span></div><div class="atrack"><div class="afill" style="--w:86%"></div></div></div>
+                <div class="abar"><div class="al"><span class="k">Resting breathing</span><span class="v">14/min</span></div><div class="atrack"><div class="afill" style="--w:78%"></div></div></div>
+                <div class="abar hot"><div class="al"><span class="k">Activity</span><span class="v">2h 10m</span></div><div class="atrack"><div class="afill" style="--w:58%"></div></div></div>
+                <div class="abar"><div class="al"><span class="k">Calmness</span><span class="v">steady</span></div><div class="atrack"><div class="afill" style="--w:90%"></div></div></div>
+              </div>
+              <div class="ains"><b>Insight.</b> Rex slept well. Activity is a touch below his baseline — add an evening walk.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="mq-sec" aria-hidden="true">
+  <div class="marquee"><div class="track">
+    <span>pulse<i>.</i></span><span>breathing<i>.</i></span><span>sleep<i>.</i></span><span>activity<i>.</i></span><span>animo<i>.</i></span>
+    <span>pulse<i>.</i></span><span>breathing<i>.</i></span><span>sleep<i>.</i></span><span>activity<i>.</i></span><span>animo<i>.</i></span>
+  </div></div>
+</section>
+
+<!-- 05 DEVICES -->
+<section class="devices" id="devices">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">04</span><span class="lbl">Devices</span></div>
+    <h2 class="mrv" style="margin-bottom:44px"><span class="mask"><span class="in" style="--i:0">Starts with a module.</span></span><span class="mask"><span class="in" style="--i:1">Grows into an <i>ecosystem</i></span></span></h2>
+    <div class="dev-grid">
+      <article class="dcard">
+        <div class="st wipe"><img class="bw" src="../../img/module.webp" alt="Animo collar module"></div>
+        <div class="db">
+          <div class="row1"><span class="n">01</span><span class="tag now">now</span></div>
+          <h3>Collar module</h3>
+          <p>Clips onto any collar. Monitoring of sleep, breathing and activity — around the clock.</p>
+        </div>
+      </article>
+      <article class="dcard">
+        <div class="st wipe"><img class="bw" src="../../img/camera.webp" alt="Animo camera"></div>
+        <div class="db">
+          <div class="row1"><span class="n">02</span><span class="tag">in development</span></div>
+          <h3>Camera</h3>
+          <p>Sees what the collar can't feel: food and water intake, and behaviour.</p>
+        </div>
+      </article>
+      <article class="dcard">
+        <div class="st wipe"><img class="bw" src="../../img/implant.webp" alt="Animo implant"></div>
+        <div class="db">
+          <div class="row1"><span class="n">03</span><span class="tag">in development</span></div>
+          <h3>Implant</h3>
+          <p>Temperature and pulse — from the inside, with no interference from fur.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 05 COLLAR CONFIGURATOR -->
+<section class="collar" id="collar">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">05</span><span class="lbl">Collar</span></div>
+    <div class="cfg-top">
+      <h2 class="mrv"><span class="mask"><span class="in" style="--i:0">One module.</span></span><span class="mask"><span class="in" style="--i:1">A strap <i>with character</i></span></span></h2>
+      <p class="lead rv d1">Spin the collar and pick the material, colour and hardware — the preview updates instantly.</p>
+    </div>
+    <div class="cfg">
+      <div class="cfg-stage rv" id="cfgStage">
+        <img class="cfg-poster" src="../../media/collar-poster.webp" alt="The animo collar with its module on a light background" width="1600" height="1200" loading="lazy" decoding="async">
+        <span class="cfg-tag">3D</span>
+        <div class="cfg-load" aria-hidden="true"></div>
+        <button class="hero-pp cfg-pp" id="cfgPP" type="button" aria-pressed="false" aria-label="Stop 3D rotation"><i></i></button>
+        <div class="cfg-hint" aria-hidden="true">↻ drag to rotate</div>
+      </div>
+      <div class="cfg-side rv d1">
+        <div class="cfg-panel" id="cfgPanel"></div>
+        <a class="btn cfg-cta" href="#cta">I want this one</a>
+        <p class="cfg-note">Concept: strap materials and colours will be finalised before launch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="specs">
+  <div class="wrap">
+    <div class="specs-row rv">
+      <div class="spec"><div class="n"><span data-count="24">0</span>/7<i>.</i></div><div class="k">continuous monitoring</div></div>
+      <div class="spec"><div class="n">≤<span data-count="15">0</span> g<i>.</i></div><div class="k">module weight</div></div>
+      <div class="spec"><div class="n">IP<span data-count="67">0</span><i>.</i></div><div class="k">water resistance</div></div>
+      <div class="spec"><div class="n"><span data-count="10">0</span> days<i>.</i></div><div class="k">on one charge</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 06 STORIES -->
+<section class="stories" id="stories">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">06</span><span class="lbl">Stories</span></div>
+    <div class="story-grid">
+      <article class="scard rv">
+        <span class="n">01</span>
+        <h3>First signs of illness</h3>
+        <div class="step"><span>Usually</span><p>Barney meets you at the door every day with his favourite toy.</p></div>
+        <div class="step sa"><span>Animo noticed</span><p>Over two days activity dropped by 28% and rest grew by almost two hours.</p></div>
+        <div class="step"><span>What the owner did</span><p>Booked a vet visit. The check-up found inflammation at an early stage.</p></div>
+      </article>
+      <article class="scard rv d1">
+        <span class="n">02</span>
+        <h3>Stress after moving</h3>
+        <div class="step"><span>The situation</span><p>After the move it seems the dog has already settled in.</p></div>
+        <div class="step sa"><span>Animo shows</span><p>He barely sleeps at night and moves noticeably less during the day.</p></div>
+        <div class="step"><span>What it gives you</span><p>Understanding that he's stressed — and helping him adapt sooner.</p></div>
+      </article>
+      <article class="scard rv d2">
+        <span class="n">03</span>
+        <h3>When nobody's home</h3>
+        <div class="step"><span>Every day</span><p>You leave for the office — and catch yourself thinking: "What's my dog up to right now?"</p></div>
+        <div class="step sa"><span>Animo answers</span><p>Not with a video stream, but with the one question that matters: is everything as usual?</p></div>
+        <div class="step"><span>The result</span><p>Behaviour changed — you get a notification. All good — get on with your day.</p></div>
+      </article>
+    </div>
+    <p class="st-note rv">Illustrative scenarios — this is how the product works in typical situations.</p>
+  </div>
+</section>
+
+<!-- 07 COMPARE -->
+<section class="compare" id="compare">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="num">07</span><span class="lbl">Why Animo</span></div>
+    <h2 class="mrv" style="margin-bottom:44px"><span class="mask"><span class="in" style="--i:0">Trackers know <i>where</i> he is.</span></span><span class="mask"><span class="in" style="--i:1">Animo knows <i>how</i> he is</span></span></h2>
+    <div class="ctable rv">
+      <div class="crow"><div class="h">GPS trackers</div><div class="h a">Animo</div></div>
+      <div class="crow"><div class="t">Show where the dog is</div><div class="a"><span class="chk">✓</span>Understands how he feels</div></div>
+      <div class="crow"><div class="t">Data and charts</div><div class="a"><span class="chk">✓</span>An explanation and a suggestion</div></div>
+      <div class="crow"><div class="t">Breed averages</div><div class="a"><span class="chk">✓</span>Your dog's personal baseline</div></div>
+      <div class="crow"><div class="t">React to problems</div><div class="a"><span class="chk">✓</span>Warns about changes in advance</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="wrap">
+    <div class="cta-band rv">
+      <div class="giant mrv"><span class="mask"><span class="in">ready<span class="dot">?</span></span></span></div>
+      <p class="lead">Leave your email — we'll write before launch. Waitlist members get special terms.</p>
+      <form class="wait" id="waitform" novalidate>
+        <div class="wrow">
+          <input type="email" name="email" autocomplete="email" required placeholder="Your email" aria-label="Email">
+          <select name="role" aria-label="Who you are">
+            <option>I'm a dog owner</option>
+            <option>Breeder / vet clinic</option>
+            <option>Investor / partner</option>
+          </select>
+          <button type="submit" class="btn">Early access</button>
+        </div>
+        <input type="hidden" name="collar" id="collarChoice" value="">
+        <p class="choice" id="choiceLine" hidden>Your pick: <b id="choiceLbl"></b></p>
+        <p class="mailerr" id="mailerr" role="alert" hidden>That email does not look right — please check it, e.g. name@gmail.com</p>
+        <p class="micro">Animo is in development. No spam — we'll only write about the launch. Pet data is never shared with third parties.</p>
+      </form>
+      <div class="thanks" id="thanks" role="status" tabindex="-1"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span class="logo" style="font-family:'Literata',serif;font-style:italic;">animo</span>
+    <span>© 2026</span>
+    <a class="tel" href="tel:+37433480610">+374 33 480 610</a>
+    <a class="deck" href="../../presentation/" hreflang="ru">Presentation (RU) <span aria-hidden="true">→</span></a>
+    <span class="right">Animo doesn't diagnose — it helps you notice changes and see a vet in time.</span>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const ag=document.getElementById('appgrid');
+if(ag){const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){ag.classList.add('on');io2.disconnect();}}),{threshold:.25});io2.observe(ag);}
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const saveData=!!(navigator.connection&&navigator.connection.saveData);
+function runCounters(scope){
+  scope.querySelectorAll('[data-count]').forEach(el=>{
+    const target=+el.dataset.count;
+    if(reduced){el.textContent=target;return;}
+    const t0=performance.now(),dur=1200;
+    (function tick(now){
+      const t=Math.min(1,(now-t0)/dur);
+      el.textContent=Math.round(t>=1?target:target*(1-Math.pow(2,-10*t)));
+      if(t<1)requestAnimationFrame(tick);
+    })(performance.now());
+  });
+}
+const io2=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  e.target.classList.add('go');
+  if(e.target.classList.contains('specs-row'))runCounters(e.target);
+  io2.unobserve(e.target);
+}),{threshold:.3});
+document.querySelectorAll('.mrv,.wipe,.specs-row').forEach(el=>io2.observe(el));
+(function(){
+  const nav=document.getElementById('nav');
+  const upd=()=>nav.classList.toggle('solid',(scrollY||0)>50);
+  upd();addEventListener('scroll',upd,{passive:true});
+})();
+(function(){
+  // FORM_ENDPOINT: вставить URL сервиса форм (например https://api.web3forms.com/submit)
+  // и добавить в форму hidden-поле access_key. Пока пусто — заявки НЕ отправляются.
+  const ENDPOINT='';
+  const f=document.getElementById('waitform'),t=document.getElementById('thanks'),err=document.getElementById('mailerr');
+  if(!f)return;
+  const em=f.querySelector('input[type=email]');
+  f.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const v=(em.value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){
+      if(err)err.hidden=false;
+      em.classList.add('bad');
+      em.focus();
+      return;
+    }
+    if(err)err.hidden=true;
+    em.classList.remove('bad');
+    if(ENDPOINT){
+      try{ await fetch(ENDPOINT,{method:'POST',body:new FormData(f)}); }catch(_){}
+    }
+    f.hidden=true; if(t){t.textContent="Thank you! You're on the list — we'll write before launch.";t.focus();}
+  });
+  em.addEventListener('input',()=>{ if(err)err.hidden=true; em.classList.remove('bad'); });
+})();
+// SIGNALS VIDEO: the sleep loop loads near the viewport and pauses off-screen
+(function(){
+  const v=document.querySelector('.sig-video'),pp=document.getElementById('sigPP');if(!v||reduced||saveData)return;
+  let set=false;const play=()=>{const p=v.play();if(p&&p.catch)p.catch(()=>{});};
+  const paused=()=>pp.getAttribute('aria-pressed')==='true';
+  v.addEventListener('playing',()=>pp.classList.add('show'),{once:true});
+  pp.addEventListener('click',()=>{if(paused()){pp.setAttribute('aria-pressed','false');play();}else{pp.setAttribute('aria-pressed','true');v.pause();}});
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){if(!set){v.src=v.dataset.src;set=true;}if(!paused())play();}else if(set)v.pause();
+  }),{rootMargin:'300px 0px'}).observe(v);
+})();
+// HERO VIDEO: loads after first paint, sized to the screen; without video the poster stays
+(function(){
+  const v=document.querySelector('.hero-video'),pp=document.getElementById('heroPP'),dot=document.querySelector('.hero .giant .dot');
+  if(!v||reduced||saveData)return;
+  const pick=()=>{
+    const mq=matchMedia('(max-width: 1100px) and (orientation: portrait)').matches;
+    const w=innerWidth*Math.min(devicePixelRatio||1,2);
+    return mq?'../../media/hero-m.mp4':(w>1500?'../../media/hero-1080.mp4':'../../media/hero-720.mp4');
+  };
+  let cur=pick();v.src=cur;
+  const userPaused=()=>pp.getAttribute('aria-pressed')==='true';
+  // точка в логотипе «дышит» только вместе с видео (у неё нет своей кнопки паузы)
+  v.addEventListener('playing',()=>{v.classList.add('on');pp.classList.add('show');if(dot)dot.classList.add('breath');});
+  v.addEventListener('pause',()=>{if(dot)dot.classList.remove('breath');});
+  const start=()=>{const p=v.play();if(p&&p.catch)p.catch(()=>{});};
+  let loaded=document.readyState==='complete',inView=false;
+  const go=()=>{if(loaded&&inView&&!userPaused())start();};
+  if(!loaded)addEventListener('load',()=>{loaded=true;go();},{once:true});
+  new IntersectionObserver(es=>es.forEach(e=>{inView=e.isIntersecting;if(inView)go();else v.pause();})).observe(document.getElementById('top'));
+  let rt,onMeta=null;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{
+    const n=pick();if(n===cur)return;
+    const t=v.currentTime,was=!v.paused;cur=n;
+    if(onMeta)v.removeEventListener('loadedmetadata',onMeta);
+    onMeta=()=>{onMeta=null;try{v.currentTime=t;}catch(_){}};
+    v.addEventListener('loadedmetadata',onMeta,{once:true});
+    v.src=n;if(was)start(); // play() сам запускает загрузку при preload=none
+  },250);});
+  pp.addEventListener('click',()=>{
+    if(userPaused()){pp.setAttribute('aria-pressed','false');start();}
+    else{pp.setAttribute('aria-pressed','true');v.pause();}
+  });
+})();
+</script>
+<script type="module">
+// 3D CONFIGURATOR: three.js and the model load only when the section is near the viewport
+const stage=document.getElementById('cfgStage'),panel=document.getElementById('cfgPanel');
+const hidden=document.getElementById('collarChoice'),line=document.getElementById('choiceLine'),lbl=document.getElementById('choiceLbl');
+let first=true;
+const pick=label=>{hidden.value=label;lbl.textContent=label;line.hidden=false;};
+panel.addEventListener('collar:change',e=>{
+  if(first){first=false;return;}
+  pick(e.detail.label);
+});
+document.querySelector('.cfg-cta').addEventListener('click',()=>{if(window.__collar)pick(window.__collar.getState().label);});
+const spinPP=document.getElementById('cfgPP');
+spinPP.addEventListener('click',()=>{const stop=spinPP.getAttribute('aria-pressed')!=='true';spinPP.setAttribute('aria-pressed',String(stop));if(window.__collar)window.__collar.setSpin(!stop);});
+stage.addEventListener('collar:spin',e=>spinPP.setAttribute('aria-pressed',String(!e.detail.on)));
+let mounted=false;
+const mount=async()=>{
+  if(mounted)return;mounted=true;stage.classList.remove('sd');
+  try{
+    const {mountCollar}=await import('../../js/collar.js');
+    window.__collar=await mountCollar({stage,panel,lang:'en',mediaBase:new URL('../../media/',location.href).href});
+  }catch(err){
+    console.warn('collar viewer failed',err);
+    stage.classList.add('nogl');
+    const l=stage.querySelector('.cfg-load');if(l)l.textContent='3D preview is unavailable right now';
+  }
+};
+// при экономии трафика 3D (~3 МБ) грузится только по нажатию
+if(window.saveData||(navigator.connection&&navigator.connection.saveData)){
+  stage.classList.add('sd');const l=stage.querySelector('.cfg-load');if(l)l.textContent='Tap to load the 3D preview (about 3 MB)';
+  stage.addEventListener('click',mount,{once:true});
+}else{
+  const io3=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io3.disconnect();mount();}},{rootMargin:'600px 0px'});
+  io3.observe(stage);
+}
+</script>
+</body>
+</html>
