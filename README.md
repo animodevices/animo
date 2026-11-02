@@ -1,7 +1,7 @@
 # TYAFF site
 
 Статический лендинг TYAFF (прежнее имя ANIMO). Русская версия в корне, английская в `/en/`.
-Публикуется через GitHub Pages из ветки `main`: https://animodevices.github.io/animo/
+Публикуется через GitHub Pages из ветки `main`: https://tyaff.com/ (домен в файле `CNAME`, записи DNS в Cloudflare, режим DNS only). Старый адрес animodevices.github.io/animo/ перенаправляет на него.
 
 Исходник текущей версии и сборка 3D-моделей лежат локально в `preview/site-v13`, новые файлы в `preview/` в git не попадают.
 
