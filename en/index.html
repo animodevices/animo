@@ -14,14 +14,14 @@
 <link rel="alternate" hreflang="ru" href="https://tyaff.com/">
 <link rel="alternate" hreflang="en" href="https://tyaff.com/en/">
 <link rel="alternate" hreflang="x-default" href="https://tyaff.com/">
-<link rel="preload" as="image" href="../media/hero-poster.jpg" media="(min-width: 1101px), (orientation: landscape)">
-<link rel="preload" as="image" href="../media/hero-poster-m.jpg" media="(max-width: 1100px) and (orientation: portrait)">
+<link rel="preload" as="image" href="../media/hero-v14-poster.jpg" media="(min-width: 601px), (orientation: landscape)">
+<link rel="preload" as="image" href="../media/hero-v14-poster-m.jpg" media="(max-width: 600px) and (orientation: portrait)">
 <script type="importmap">{"imports":{"three":"../js/vendor/three/build/three.module.min.js","three/addons/":"../js/vendor/three/examples/jsm/"}}</script>
 <link rel="icon" type="image/svg+xml" href="../img/tyaff-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<noscript><style>.rv{opacity:1!important;transform:none!important}.mrv .in,.mrv .dot,.wipe img,.sig-video{transform:none!important}.wipe::before,.wipe::after{display:none!important}nav{background:rgba(239,239,237,.92)!important}.afill{width:var(--w)!important}.sig-video::-webkit-media-controls{display:none!important}.cfg-panel{display:none}</style></noscript>
+<noscript><style>.rv{opacity:1!important;transform:none!important}.mrv .in,.mrv .dot,.wipe img,.sig-video{transform:none!important}.wipe::before,.wipe::after{display:none!important}nav{position:absolute!important;background:transparent!important}.afill{width:var(--w)!important}.sig-video::-webkit-media-controls{display:none!important}.cfg-panel{display:none}</style></noscript>
 <style>
 :root{
   --bg:#EFEFED; --bg2:#E7E7E3; --ink:#111111; --muted:#6E6E6A;
@@ -52,7 +52,7 @@ h2 i{font-style:normal;color:var(--red);}
 /* имя в подписях набрано без их широкой разрядки */
 .nm{font-weight:inherit;text-transform:none;letter-spacing:.01em;}
 
-.btn{display:inline-block;background:var(--red);color:#fff;font-weight:600;font-size:12px;letter-spacing:.26em;text-transform:uppercase;padding:15px 36px;border:0;cursor:pointer;transition:background .2s;}
+.btn{display:inline-block;background:#D61F26;color:#fff;font-weight:600;font-size:12px;letter-spacing:.26em;text-transform:uppercase;padding:15px 36px;border:0;cursor:pointer;transition:background .2s;}
 .btn:hover{background:var(--red-d);}
 
 /* NAV */
@@ -68,31 +68,37 @@ nav:not(.solid) .nav-links a:hover{color:var(--ink);}
 .lang{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);border:1px solid var(--hair);padding:7px 13px;transition:border-color .2s;}
 .lang b{color:var(--ink);}
 .lang:hover{border-color:var(--ink);}
-.nav-cta{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;transition:background .2s;}
+.nav-cta{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:#D61F26;color:#fff;padding:10px 20px;transition:background .2s;}
 .nav-cta:hover{background:var(--red-d);}
 @media(max-width:900px){.nav-links{display:none;}.lang{margin-left:auto;}}
 
-/* HERO — полноэкранное видео (v11) */
-.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;background:#D9DAD7;}
+/* HERO v14 — ролик из сцен на всю ширину, текст внизу слева (по мотивам tractive.com) */
+.hero{position:relative;height:clamp(560px,50vw,860px);max-height:100svh;min-height:min(520px,100svh);overflow:hidden;display:flex;flex-direction:column;background:#2B2B29;color:#fff;}
 .hero-media{position:absolute;inset:0;z-index:0;}
-.hero-poster,.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 50%;filter:saturate(var(--hero-sat,.62)) contrast(1.03);}
-.hero-video{opacity:0;transition:opacity 1.2s ease;}
+.hero-poster,.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%;filter:saturate(var(--hero-sat,.86)) contrast(1.02);}
+.hero-video{opacity:0;transition:opacity 1s ease;}
 .hero-video.on{opacity:1;}
 .hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:
-  linear-gradient(180deg,rgba(239,239,237,.72) 0,rgba(239,239,237,0) 120px),
-  linear-gradient(90deg,rgba(239,239,237,.9) 0%,rgba(239,239,237,.66) 26%,rgba(239,239,237,.18) 50%,rgba(239,239,237,0) 62%),
-  linear-gradient(180deg,rgba(239,239,237,0) 72%,var(--bg) 100%);}
-.hero-body{position:relative;z-index:2;flex:1;max-width:1220px;width:100%;margin:0 auto;padding:0 30px;}
-.hero-left{position:relative;z-index:4;padding-top:18vh;max-width:52%;}
-.hero .giant{font-size:clamp(60px,10.5vw,146px);}
-.hero .giant .in{white-space:nowrap;}
-.hero .giant .dot.breath{animation:breathe 4.6s ease-in-out infinite;transform-origin:50% 80%;}
-@keyframes breathe{0%,100%{scale:1}42%{scale:1.22}}
-.hero-sub{margin-top:30px;font-size:clamp(15px,1.6vw,20px);color:#2A2A27;max-width:19em;}
-.hero-arr{margin-top:12px;font-size:24px;}
-.hero-login{margin-top:7vh;}
-.hero-login .hint{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#2A2A27;}
-.hero-login .btn{margin-top:12px;}
+  linear-gradient(180deg,rgba(10,10,12,.66) 0,rgba(10,10,12,.55) 60px,rgba(10,10,12,0) 170px),
+  linear-gradient(0deg,rgba(10,10,12,.7) 0%,rgba(10,10,12,.45) 40%,rgba(10,10,12,.22) 60%,rgba(10,10,12,0) 80%),
+  linear-gradient(90deg,rgba(10,10,12,.45) 0%,rgba(10,10,12,.15) 45%,rgba(10,10,12,0) 60%);}
+.hero-body{position:relative;z-index:2;flex:1;max-width:1220px;width:100%;margin:0 auto;padding:0 30px clamp(40px,7vh,76px);display:flex;flex-direction:column;justify-content:flex-end;}
+.hero-copy{max-width:640px;}
+.hero-eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;margin-bottom:18px;padding:6px 12px;border-radius:999px;background:rgba(10,10,12,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+.hero-title{font-weight:800;font-size:clamp(40px,5.4vw,78px);line-height:1.02;letter-spacing:-.035em;color:#fff;text-wrap:balance;text-shadow:0 1px 2px rgba(0,0,0,.35);}
+.hero-sub{margin-top:18px;font-size:clamp(16px,1.45vw,20px);line-height:1.45;color:#fff;max-width:27em;text-shadow:0 1px 2px rgba(0,0,0,.35);}
+.hero-ctas{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px;}
+.pill{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 34px;border-radius:999px;background:#fff;color:var(--ink);font-weight:700;font-size:15px;letter-spacing:.01em;white-space:nowrap;transition:background .2s,color .2s,transform .2s;}
+.pill:hover{transform:translateY(-1px);}
+.pill-red{background:#D61F26;color:#fff;}
+.pill-red:hover{background:var(--red-d);}
+.pill:focus-visible{outline:2px solid #fff;outline-offset:3px;}
+/* меню поверх ролика: белое, пока не прокрутили */
+nav:not(.solid) .logo{color:#fff;}
+nav:not(.solid) .nav-links a,nav:not(.solid) .lang{color:#fff;}
+nav:not(.solid) .nav-links a:hover{color:#fff;}
+nav:not(.solid) .lang{border-color:rgba(255,255,255,.7);}
+nav:not(.solid) .lang b{color:#fff;}
 .hero-pp{position:absolute;z-index:6;left:max(30px,calc((100vw - 1220px)/2 + 30px));bottom:28px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(17,17,17,.35);background:rgba(239,239,237,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer;display:none;align-items:center;justify-content:center;transition:border-color .2s;}
 .hero-pp.show,.sig-pp.show{display:flex;}
 .sig-pp{position:absolute;right:14px;bottom:14px;left:auto;z-index:4;}
@@ -100,23 +106,39 @@ nav:not(.solid) .nav-links a:hover{color:var(--ink);}
 .hero-pp:focus-visible{outline:2px solid var(--red);outline-offset:3px;}
 .hero-pp i{display:block;width:10px;height:11px;border-left:3px solid var(--ink);border-right:3px solid var(--ink);}
 .hero-pp[aria-pressed="true"] i{width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent var(--ink);margin-left:3px;}
-@media(min-width:821px) and (max-height:720px) and (orientation:landscape){#heroPP{left:calc(max(30px,calc((100vw - 1220px)/2 + 30px)) + 232px);}}
+/* пауза ролика — справа внизу шапки, в стороне от кнопок */
+#heroPP{left:auto;right:max(30px,calc((100vw - 1220px)/2 + 30px));bottom:clamp(40px,7vh,76px);border-color:rgba(255,255,255,.7);background:rgba(20,20,22,.5);}
+#heroPP:focus-visible{outline:2px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px rgba(10,10,12,.6);}
+#heroPP:hover{border-color:#fff;}
+#heroPP i{border-color:#fff;}
+#heroPP[aria-pressed="true"] i{border-color:transparent transparent transparent #fff;}
 @media(max-width:820px),(max-width:1100px) and (orientation:portrait){
-  .hero{min-height:94svh;background:var(--bg);}
-  .hero-media{top:36svh;}
-  .hero-poster,.hero-video{object-position:50% 40%;}
-  .hero-shade{top:36svh;background:linear-gradient(180deg,var(--bg) 0%,rgba(239,239,237,0) 16%,rgba(239,239,237,0) 86%,var(--bg) 100%);}
-  .hero-left{max-width:100%;padding-top:96px;}
-  .hero-sub{margin-top:18px;}
-  .hero-arr,.hero-login{display:none;}
-  .hero-pp{left:auto;right:20px;bottom:22px;}
+  .hero{height:min(88svh,780px);max-height:none;}
+  .hero-poster,.hero-video{object-position:50% 50%;}
+  .hero-shade{background:
+    linear-gradient(180deg,rgba(10,10,12,.66) 0,rgba(10,10,12,.55) 56px,rgba(10,10,12,0) 150px),
+    linear-gradient(0deg,rgba(10,10,12,.78) 0%,rgba(10,10,12,.5) 45%,rgba(10,10,12,.2) 66%,rgba(10,10,12,0) 80%);}
+  .hero-body{padding:0 20px 30px;}
+  .hero-eyebrow{font-size:10px;margin-bottom:12px;border-radius:12px;}
+  .hero-title{font-size:clamp(34px,9.6vw,52px);}
+  .hero-sub{margin-top:12px;font-size:15.5px;}
+  .hero-ctas{margin-top:20px;gap:10px;}
+  .pill{height:50px;padding:0 22px;font-size:14px;}
+  #heroPP{right:20px;bottom:auto;top:96px;}
 }
-@media(max-width:340px) and (max-height:520px){.hero-media,.hero-shade{top:250px;}.hero-poster,.hero-video{object-position:50% 16%;}}
+@media(max-width:480px){#heroPP{top:84px;}}
+@media(max-width:380px),(max-width:820px) and (max-height:600px) and (orientation:portrait){.hero-shade{background:linear-gradient(180deg,rgba(10,10,12,.66) 0,rgba(10,10,12,.55) 56px,rgba(10,10,12,0) 150px),linear-gradient(0deg,rgba(10,10,12,.8) 0%,rgba(10,10,12,.55) 50%,rgba(10,10,12,.32) 72%,rgba(10,10,12,0) 90%);}}
+@media(min-width:601px) and (max-width:1100px) and (orientation:portrait),(min-width:601px) and (max-width:820px){.hero-poster,.hero-video{object-position:60% 50%;}}
+@media print{nav .logo{color:var(--ink)!important}nav .nav-links a,nav .lang{color:var(--muted)!important;border-color:var(--hair)!important}nav .lang b{color:var(--ink)!important}.hero,.hero-shade,.pill,.hero-eyebrow{-webkit-print-color-adjust:exact;print-color-adjust:exact}.hero{height:auto;min-height:120mm;max-height:none}.hero-video{display:none}}
+@media(max-width:380px){.hero-ctas{flex-direction:column;align-items:stretch;}.pill{width:100%;}}
 @media(max-width:820px) and (orientation:landscape){
-  .hero-media,.hero-shade{top:0;}
-  .hero-shade{background:linear-gradient(90deg,rgba(239,239,237,.92) 0%,rgba(239,239,237,.6) 34%,rgba(239,239,237,0) 60%);}
-  .hero-poster,.hero-video{object-position:72% 50%;}
-  .hero-left{max-width:56%;padding-top:80px;}
+  .hero{height:100svh;min-height:340px;}
+  .hero-eyebrow{display:none;}
+  .hero-title{font-size:34px;}
+  .hero-sub{font-size:15px;max-width:30em;}
+  .hero-ctas{margin-top:16px;}
+  .pill{height:44px;}
+  #heroPP{top:auto;bottom:26px;}
 }
 
 /* MANIFESTO */
@@ -366,16 +388,8 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
 .wm{display:block;width:auto;overflow:visible;}
 .logo .wm{height:32px;}
 .foot .logo .wm{height:30px;}
-.hero .giant .mask{padding:0;margin:0 0 -.15em;}
-.hero .giant .in{display:block;}
-.hero .giant .wm-box{position:relative;display:block;width:min(3.01em,100%);}
-@media(min-width:1101px) and (min-height:1450px) and (max-aspect-ratio:5/4){.hero-left{padding-top:max(96px,calc(18vh - 170px));}}
-.hero .giant .wm{width:100%;height:auto;}
-.hero .giant .dot{position:absolute;left:93.3%;top:58.34%;width:6.31%;aspect-ratio:1;border-radius:50%;background:var(--red);forced-color-adjust:none;}
-.hero .giant:not(.go) .dot{transform:translateY(240%) scale(.4);}
-.hero .giant .dot.breath{transform-origin:50% 50%;}
-@media (forced-colors:active){.logo .wm,.hero .giant .wm{background:Canvas;}}
-@media print{.hero .giant .dot,footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+@media (forced-colors:active){.logo .wm{background:Canvas;}}
+@media print{footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
 @media(max-width:480px){.nav-in{padding:14px 16px;gap:12px;}.lang,.nav-cta{white-space:nowrap;}.lang{padding:7px 9px;font-size:11px;}.nav-cta{padding:10px 12px;font-size:10px;letter-spacing:.12em;}.logo .wm{height:28px;}}
 /*/wm:css*/
 </style>
@@ -404,21 +418,18 @@ footer{background:var(--dark);color:#CDCDC8;padding:44px 0 50px;}
 <header class="hero" id="top">
   <div class="hero-media" aria-hidden="true">
     <picture>
-      <source media="(max-width: 1100px) and (orientation: portrait)" srcset="../media/hero-poster-m.jpg">
-      <img class="hero-poster" src="../media/hero-poster.jpg" alt="" fetchpriority="high">
+      <source media="(max-width: 600px) and (orientation: portrait)" srcset="../media/hero-v14-poster-m.jpg">
+      <img class="hero-poster" src="../media/hero-v14-poster.jpg" alt="" fetchpriority="high">
     </picture>
     <video class="hero-video" muted loop playsinline preload="none" disablepictureinpicture></video>
   </div>
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="hero-body">
-    <div class="hero-left">
-      <!--wm:hero--><h1 class="giant mrv"><span class="vh">TYAFF</span><span class="mask"><span class="in"><span class="wm-box"><svg class="wm" viewBox="-2 -2 507.5 192.01" aria-hidden="true" focusable="false"><use href="#wm"/></svg><span class="dot"></span></span></span></span></h1><!--/wm:hero-->
-      <div class="hero-sub">Dogs don't complain. TYAFF notices changes before symptoms — and tells you.</div>
-      <div class="hero-arr">→</div>
-      <div class="hero-login">
-        <div class="hint">Smart collar module · sleep · breathing · activity</div>
-        <a class="btn" href="#cta">Early access</a>
-      </div>
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Smart collar module · sleep · breathing · activity</div>
+      <h1 class="hero-title">Dogs don't complain.</h1>
+      <p class="hero-sub">TYAFF notices changes before symptoms — and tells you.</p>
+      <div class="hero-ctas"><a class="pill pill-red" href="#cta">Early access</a><a class="pill" href="#collar">Build your collar</a></div>
     </div>
   </div>
   <button class="hero-pp" id="heroPP" type="button" aria-pressed="false" aria-label="Pause background video"><i></i></button>
@@ -736,12 +747,14 @@ document.querySelectorAll('.mrv,.wipe,.specs-row').forEach(el=>io2.observe(el));
 })();
 // HERO VIDEO: loads after first paint, sized to the screen; without video the poster stays
 (function(){
-  const v=document.querySelector('.hero-video'),pp=document.getElementById('heroPP'),dot=document.querySelector('.hero .giant .dot');
+  const v=document.querySelector('.hero-video'),pp=document.getElementById('heroPP'),dot=null; // в шапке v14 нет логотипа с точкой
   if(!v||reduced||saveData)return;
   const pick=()=>{
-    const mq=matchMedia('(max-width: 1100px) and (orientation: portrait)').matches;
-    const w=innerWidth*Math.min(devicePixelRatio||1,2);
-    return mq?'../media/hero-m.mp4':(w>1500?'../media/hero-1080.mp4':'../media/hero-720.mp4');
+    if(matchMedia('(max-width: 600px) and (orientation: portrait)').matches)return '../media/hero-v14-m.mp4';
+    if(matchMedia('(max-height: 500px)').matches)return '../media/hero-v14-720.mp4';
+    const h=document.getElementById('top'),need=Math.max(h.clientWidth,h.clientHeight*16/9)*Math.min(devicePixelRatio||1,2);
+    if(need>2200&&!matchMedia('(pointer: coarse)').matches)return '../media/hero-v14-1440.mp4';
+    return need>1300?'../media/hero-v14-1080.mp4':'../media/hero-v14-720.mp4';
   };
   let cur=pick();v.src=cur;
   const userPaused=()=>pp.getAttribute('aria-pressed')==='true';
@@ -759,7 +772,7 @@ document.querySelectorAll('.mrv,.wipe,.specs-row').forEach(el=>io2.observe(el));
     if(onMeta)v.removeEventListener('loadedmetadata',onMeta);
     onMeta=()=>{onMeta=null;try{v.currentTime=t;}catch(_){}};
     v.addEventListener('loadedmetadata',onMeta,{once:true});
-    v.src=n;if(was)start(); // play() сам запускает загрузку при preload=none
+    v.src=n;if(was)start();else{v.preload='metadata';v.load();} // на паузе грузим метаданные, чтобы вернуть кадр
   },250);});
   pp.addEventListener('click',()=>{
     if(userPaused()){pp.setAttribute('aria-pressed','false');start();}
