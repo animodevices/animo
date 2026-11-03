@@ -750,11 +750,11 @@ document.querySelectorAll('.mrv,.wipe,.specs-row').forEach(el=>io2.observe(el));
   const v=document.querySelector('.hero-video'),pp=document.getElementById('heroPP'),dot=null; // в шапке v14 нет логотипа с точкой
   if(!v||reduced||saveData)return;
   const pick=()=>{
-    if(matchMedia('(max-width: 600px) and (orientation: portrait)').matches)return '../media/hero-v14-m.mp4';
-    if(matchMedia('(max-height: 500px)').matches)return '../media/hero-v14-720.mp4';
+    if(matchMedia('(max-width: 600px) and (orientation: portrait)').matches)return '../media/hero-v14-m.mp4?v=2';
+    if(matchMedia('(max-height: 500px)').matches)return '../media/hero-v14-720.mp4?v=2';
     const h=document.getElementById('top'),need=Math.max(h.clientWidth,h.clientHeight*16/9)*Math.min(devicePixelRatio||1,2);
-    if(need>2200&&!matchMedia('(pointer: coarse)').matches)return '../media/hero-v14-1440.mp4';
-    return need>1300?'../media/hero-v14-1080.mp4':'../media/hero-v14-720.mp4';
+    if(need>2200&&!matchMedia('(pointer: coarse)').matches)return '../media/hero-v14-1440.mp4?v=2';
+    return need>1300?'../media/hero-v14-1080.mp4?v=2':'../media/hero-v14-720.mp4?v=2';
   };
   let cur=pick();v.src=cur;
   const userPaused=()=>pp.getAttribute('aria-pressed')==='true';
