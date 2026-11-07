@@ -103,7 +103,7 @@
     <div class="cta-band rv">
       <h2 class="mrv"><span class="mask"><span class="in">Заявка на <i>тестирование</i></span></span></h2>
       <p class="lead">Подайте заявку на раннее тестирование.</p>
-      <form class="wait" id="waitform" novalidate data-thanks="Спасибо! Заявка принята — напишем, когда начнём тестирование. Чтобы отозвать её, напишите на [[ЗАПОЛНИТЬ: email]].">
+      <form class="wait" id="waitform" novalidate data-thanks="Спасибо! Заявка принята — напишем, когда начнём тестирование. Чтобы отозвать её, напишите на support@tyaff.com.">
         <div class="wgrid">
           <label class="fld"><span>Email</span><input type="email" name="email" autocomplete="email" required placeholder="name@mail.ru"></label>
           <label class="fld"><span>Порода</span><input type="text" name="breed" autocomplete="off" maxlength="80" placeholder="например, бигль или метис"></label>
@@ -114,10 +114,10 @@
              Required, unticked by default; js/site-v15.js blocks sending without it and fills consent_lang / consent_at / consent_text
              as proof of consent (Art. 9(8)). Change consent_version whenever this text or privacy/ changes. -->
         <div class="consent-slot" id="consentSlot">
-          <label class="chk"><input type="checkbox" name="consent" value="yes" required><span id="consentTxt">Я согласен(на), что ООО «Гравилат Тех» обрабатывает данные из этой формы, описанные в <a href="privacy/" target="_blank" rel="noopener">Уведомлении об обработке данных<span class="vh"> (откроется в новой вкладке)</span></a> (мой email, порода и возраст питомца, мой город и выбранный товар), чтобы отобрать участников тестирования ТЯФ и связаться со мной, в том числе хранит их за пределами Армении у сервисов, указанных там же. Мне есть 18 лет. Согласие можно отозвать в любой момент.</span></label>
+          <label class="chk"><input type="checkbox" name="consent" value="yes" required><span id="consentTxt">Я согласен(на), что ООО «Гравилат Тех» обрабатывает данные из этой формы, описанные в <a href="privacy/form/" target="_blank" rel="noopener">Уведомлении об обработке данных<span class="vh"> (откроется в новой вкладке)</span></a> (мой email, порода и возраст питомца, мой город и выбранный товар), чтобы отобрать участников тестирования ТЯФ и связаться со мной, в том числе хранит их за пределами Армении у сервисов, указанных там же. Мне есть 18 лет. Согласие можно отозвать в любой момент.</span></label>
           <p class="mailerr cerr" id="consentErr" data-err-for="consent" role="alert" hidden>Отметьте согласие на обработку данных — без него мы не можем принять заявку.</p>
           <label class="chk"><input type="checkbox" name="notify_sales" value="yes"><span>Сообщить мне о начале продаж ТЯФ (по желанию).</span></label>
-          <input type="hidden" name="consent_version" value="privacy-notice-v1">
+          <input type="hidden" name="consent_version" value="privacy-notice-v2">
           <input type="hidden" name="consent_lang" value="">
           <input type="hidden" name="consent_at" value="">
           <input type="hidden" name="consent_text" value="">
@@ -128,7 +128,7 @@
         <p class="mailerr" id="mailerr" role="alert" hidden>Похоже, в email опечатка — проверьте адрес, например name@mail.ru</p>
         <p class="mailerr" id="senderr" role="alert" hidden>Заявка не отправилась — попробуйте ещё раз через минуту или позвоните +374 33 480 610.</p>
         <button type="submit" class="pill pill-red wsubmit">Подать заявку</button>
-        <p class="micro">Это заявка, а не покупка — оплата не берётся. Давать данные не обязательно, но без email мы не сможем рассмотреть заявку. <a href="privacy/">Уведомление об обработке данных</a></p>
+        <p class="micro">Это заявка, а не покупка — оплата не берётся. Давать данные не обязательно, но без email мы не сможем рассмотреть заявку. <a href="privacy/form/">Уведомление об обработке данных</a></p>
       </form>
       <div class="thanks" id="thanks" role="status" tabindex="-1"></div>
     </div>
@@ -142,11 +142,11 @@
       <span class="logo"><span class="vh">ТЯФ</span><svg class="wm" viewBox="-2 -2 507.5 192.01" aria-hidden="true" focusable="false"><use href="#wm"/><circle style="fill:var(--red)" cx="487.5" cy="126.01" r="16"/></svg></span>
       <span>© 2026 ООО «Гравилат Тех»</span>
       <a class="tel" href="tel:+37433480610">+374 33 480 610</a>
-      <a class="flink" href="privacy/">Уведомление об обработке данных</a>
+      <a class="flink" href="privacy/form/">Уведомление об обработке данных</a>
     </div>
     <div class="legal">
-      <p>ТЯФ — продукт ООО «Гравилат Тех» (Армения). Юридический адрес: <span class="ph">[[ЗАПОЛНИТЬ: юридический адрес]]</span> · Гос. рег. номер <span class="ph">[[ЗАПОЛНИТЬ: гос. рег. номер]]</span> · ИНН (ՀՎՀՀ) <span class="ph">[[ЗАПОЛНИТЬ: ИНН/ՀՎՀՀ]]</span></p>
-      <p>Email: <span class="ph">[[ЗАПОЛНИТЬ: email]]</span> · Часы работы: <span class="ph">[[ЗАПОЛНИТЬ: часы работы, время Еревана]]</span></p>
+      <p>ТЯФ — продукт ООО «Гравилат Тех» (Армения). Юридический адрес: 0097, Ереван, район Аджапняк, ул. Г. Чауша, 11/5 · Гос. рег. номер 999.110.1595129 · ИНН (ՀՎՀՀ) 01384211</p>
+      <p>Email: <a href="mailto:support@tyaff.com">support@tyaff.com</a></p>
       <p>ТЯФ в разработке и пока не продаётся. Характеристики и дизайн могут измениться; изображения иллюстративные. Информация на сайте не является публичной офертой.</p>
       <p>ТЯФ не является медицинским или ветеринарным изделием и не ставит диагнозов. Если вас беспокоит здоровье питомца, обратитесь к ветеринару.</p>
     </div>

@@ -103,7 +103,7 @@
     <div class="cta-band rv">
       <h2 class="mrv"><span class="mask"><span class="in">Testing <i>application</i></span></span></h2>
       <p class="lead">Apply for early testing.</p>
-      <form class="wait" id="waitform" novalidate data-thanks="Thank you! Your application is in — we'll write when testing starts. To withdraw it, write to [[ЗАПОЛНИТЬ: email]].">
+      <form class="wait" id="waitform" novalidate data-thanks="Thank you! Your application is in — we'll write when testing starts. To withdraw it, write to support@tyaff.com.">
         <div class="wgrid">
           <label class="fld"><span>Email</span><input type="email" name="email" autocomplete="email" required placeholder="name@gmail.com"></label>
           <label class="fld"><span>Breed</span><input type="text" name="breed" autocomplete="off" maxlength="80" placeholder="e.g. beagle or mixed breed"></label>
@@ -114,10 +114,10 @@
              Required, unticked by default; js/site-v15.js blocks sending without it and fills consent_lang / consent_at / consent_text
              as proof of consent (Art. 9(8)). Change consent_version whenever this text or privacy/ changes. -->
         <div class="consent-slot" id="consentSlot">
-          <label class="chk"><input type="checkbox" name="consent" value="yes" required><span id="consentTxt">I agree that Gravilat Tech LLC processes the data from this form described in the <a href="privacy/" target="_blank" rel="noopener">Privacy notice<span class="vh"> (opens in a new tab)</span></a> (my email, my pet's breed and age, my city and my product choice) to select testers and contact me about TYAFF testing, including storing it outside Armenia with the services named there. I am 18 or older. I can withdraw consent at any time.</span></label>
+          <label class="chk"><input type="checkbox" name="consent" value="yes" required><span id="consentTxt">I agree that Gravilat Tech LLC processes the data from this form described in the <a href="privacy/form/" target="_blank" rel="noopener">Privacy notice<span class="vh"> (opens in a new tab)</span></a> (my email, my pet's breed and age, my city and my product choice) to select testers and contact me about TYAFF testing, including storing it outside Armenia with the services named there. I am 18 or older. I can withdraw consent at any time.</span></label>
           <p class="mailerr cerr" id="consentErr" data-err-for="consent" role="alert" hidden>Please tick the consent box — without it we can't accept your application.</p>
           <label class="chk"><input type="checkbox" name="notify_sales" value="yes"><span>Also email me when TYAFF goes on sale (optional).</span></label>
-          <input type="hidden" name="consent_version" value="privacy-notice-v1">
+          <input type="hidden" name="consent_version" value="privacy-notice-v2">
           <input type="hidden" name="consent_lang" value="">
           <input type="hidden" name="consent_at" value="">
           <input type="hidden" name="consent_text" value="">
@@ -128,7 +128,7 @@
         <p class="mailerr" id="mailerr" role="alert" hidden>That email does not look right — please check it, e.g. name@gmail.com</p>
         <p class="mailerr" id="senderr" role="alert" hidden>The application was not sent — please try again in a minute or call +374 33 480 610.</p>
         <button type="submit" class="pill pill-red wsubmit">Apply</button>
-        <p class="micro">This is an application, not a purchase — no payment is taken. Giving your data is voluntary, but without an email we can't consider your application. <a href="privacy/">Privacy notice</a></p>
+        <p class="micro">This is an application, not a purchase — no payment is taken. Giving your data is voluntary, but without an email we can't consider your application. <a href="privacy/form/">Privacy notice</a></p>
       </form>
       <div class="thanks" id="thanks" role="status" tabindex="-1"></div>
     </div>
@@ -142,11 +142,11 @@
       <span class="logo"><span class="vh">TYAFF</span><svg class="wm" viewBox="-2 -2 507.5 192.01" aria-hidden="true" focusable="false"><use href="#wm"/><circle style="fill:var(--red)" cx="487.5" cy="126.01" r="16"/></svg></span>
       <span>© 2026 Gravilat Tech LLC</span>
       <a class="tel" href="tel:+37433480610">+374 33 480 610</a>
-      <a class="flink" href="privacy/">Privacy notice</a>
+      <a class="flink" href="privacy/form/">Privacy notice</a>
     </div>
     <div class="legal">
-      <p>TYAFF is a product of Gravilat Tech LLC (Armenia). Registered office: <span class="ph">[[ЗАПОЛНИТЬ: юридический адрес]]</span> · State registration No. <span class="ph">[[ЗАПОЛНИТЬ: гос. рег. номер]]</span> · TIN (ՀՎՀՀ) <span class="ph">[[ЗАПОЛНИТЬ: ИНН/ՀՎՀՀ]]</span></p>
-      <p>Email: <span class="ph">[[ЗАПОЛНИТЬ: email]]</span> · Working hours: <span class="ph">[[ЗАПОЛНИТЬ: часы работы, время Еревана]]</span></p>
+      <p>TYAFF is a product of Gravilat Tech LLC (Armenia). Registered office: 11/5 G. Chaush str., Ajapnyak district, Yerevan 0097, Armenia · State registration No. 999.110.1595129 · TIN (ՀՎՀՀ) 01384211</p>
+      <p>Email: <a href="mailto:support@tyaff.com">support@tyaff.com</a></p>
       <p>TYAFF is in development and not on sale yet. Specifications and design may change; images are illustrative. Information on this site is not a public offer.</p>
       <p>TYAFF is not a medical or veterinary device and does not diagnose. If you are worried about your pet's health, see a veterinarian.</p>
     </div>

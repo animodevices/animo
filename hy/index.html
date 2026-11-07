@@ -104,7 +104,7 @@
     <div class="cta-band rv">
       <h2 class="mrv"><span class="mask"><span class="in">Թեստավորման <i>հայտ</i></span></span></h2>
       <p class="lead">Հայտ ներկայացրեք վաղ թեստավորման համար։</p>
-      <form class="wait" id="waitform" novalidate data-thanks="Շնորհակալություն։ Ձեր հայտն ընդունված է, և երբ թեստավորումը մեկնարկի, մենք ձեզ կգրենք։ Հայտը հետ վերցնելու համար գրեք [[ЗАПОЛНИТЬ: email]] հասցեին։">
+      <form class="wait" id="waitform" novalidate data-thanks="Շնորհակալություն։ Ձեր հայտն ընդունված է, և երբ թեստավորումը մեկնարկի, մենք ձեզ կգրենք։ Հայտը հետ վերցնելու համար գրեք support@tyaff.com հասցեին։">
         <div class="wgrid">
           <label class="fld"><span>Էլ. փոստ</span><input type="email" name="email" autocomplete="email" required placeholder="name@gmail.com"></label>
           <label class="fld"><span>Ցեղատեսակ</span><input type="text" name="breed" autocomplete="off" maxlength="80" placeholder="օրինակ՝ բիգլ կամ խառնացեղ"></label>
@@ -115,10 +115,10 @@
              Required, unticked by default; js/site-v15.js blocks sending without it and fills consent_lang / consent_at / consent_text
              as proof of consent (Art. 9(8)). Change consent_version whenever this text or privacy/ changes. -->
         <div class="consent-slot" id="consentSlot">
-          <label class="chk"><input type="checkbox" name="consent" value="yes" required><span id="consentTxt">Համաձայն եմ, որ Gravilat Tech LLC ընկերությունը մշակի այս ձևի այն տվյալները, որոնք նկարագրված են <a href="privacy/" target="_blank" rel="noopener">Գաղտնիության ծանուցման<span class="vh"> (բացվում է նոր ներդիրում)</span></a> մեջ (իմ էլ. փոստի հասցեն, իմ ընտանի կենդանու ցեղատեսակն ու տարիքը, իմ քաղաքը և ընտրած ապրանքը)՝ թեստավորման մասնակիցներ ընտրելու և TYAFF-ի թեստավորման վերաբերյալ ինձ հետ կապվելու նպատակով, այդ թվում՝ դրանք պահպանի Հայաստանից դուրս՝ այնտեղ նշված ծառայությունների միջոցով։ Ես առնվազն 18 տարեկան եմ։ Համաձայնությունս կարող եմ հետ կանչել ցանկացած պահի։</span></label>
+          <label class="chk"><input type="checkbox" name="consent" value="yes" required><span id="consentTxt">Համաձայն եմ, որ Gravilat Tech LLC ընկերությունը մշակի այս ձևի այն տվյալները, որոնք նկարագրված են <a href="privacy/form/" target="_blank" rel="noopener">Գաղտնիության ծանուցման<span class="vh"> (բացվում է նոր ներդիրում)</span></a> մեջ (իմ էլ. փոստի հասցեն, իմ ընտանի կենդանու ցեղատեսակն ու տարիքը, իմ քաղաքը և ընտրած ապրանքը)՝ թեստավորման մասնակիցներ ընտրելու և TYAFF-ի թեստավորման վերաբերյալ ինձ հետ կապվելու նպատակով, այդ թվում՝ դրանք պահպանի Հայաստանից դուրս՝ այնտեղ նշված ծառայությունների միջոցով։ Ես առնվազն 18 տարեկան եմ։ Համաձայնությունս կարող եմ հետ կանչել ցանկացած պահի։</span></label>
           <p class="mailerr cerr" id="consentErr" data-err-for="consent" role="alert" hidden>Խնդրում ենք նշել համաձայնության վանդակը — առանց դրա չենք կարող ընդունել ձեր հայտը։</p>
           <label class="chk"><input type="checkbox" name="notify_sales" value="yes"><span>Նաև տեղեկացրեք ինձ էլ. փոստով, երբ TYAFF-ը վաճառքի հանվի (ըստ ցանկության)։</span></label>
-          <input type="hidden" name="consent_version" value="privacy-notice-v1">
+          <input type="hidden" name="consent_version" value="privacy-notice-v2">
           <input type="hidden" name="consent_lang" value="">
           <input type="hidden" name="consent_at" value="">
           <input type="hidden" name="consent_text" value="">
@@ -129,7 +129,7 @@
         <p class="mailerr" id="mailerr" role="alert" hidden>Էլ. փոստի հասցեն կարծես սխալ է — խնդրում ենք ստուգել, օրինակ՝ name@gmail.com</p>
         <p class="mailerr" id="senderr" role="alert" hidden>Հայտը չուղարկվեց — խնդրում ենք կրկին փորձել մեկ րոպե անց կամ զանգահարել +374 33 480 610։</p>
         <button type="submit" class="pill pill-red wsubmit">Ներկայացնել հայտը</button>
-        <p class="micro">Սա հայտ է, ոչ թե գնում, և որևէ վճար չի գանձվում։ Տվյալների տրամադրումը կամավոր է, բայց առանց էլ. փոստի մենք չենք կարող քննարկել ձեր հայտը։ <a href="privacy/">Գաղտնիության ծանուցում</a></p>
+        <p class="micro">Սա հայտ է, ոչ թե գնում, և որևէ վճար չի գանձվում։ Տվյալների տրամադրումը կամավոր է, բայց առանց էլ. փոստի մենք չենք կարող քննարկել ձեր հայտը։ <a href="privacy/form/">Գաղտնիության ծանուցում</a></p>
       </form>
       <div class="thanks" id="thanks" role="status" tabindex="-1"></div>
     </div>
@@ -143,11 +143,11 @@
       <span class="logo"><span class="vh">TYAFF</span><svg class="wm" viewBox="-2 -2 507.5 192.01" aria-hidden="true" focusable="false"><use href="#wm"/><circle style="fill:var(--red)" cx="487.5" cy="126.01" r="16"/></svg></span>
       <span>© 2026 Gravilat Tech LLC</span>
       <a class="tel" href="tel:+37433480610">+374 33 480 610</a>
-      <a class="flink" href="privacy/">Գաղտնիության ծանուցում</a>
+      <a class="flink" href="privacy/form/">Գաղտնիության ծանուցում</a>
     </div>
     <div class="legal">
-      <p>TYAFF-ը Gravilat Tech LLC ընկերության (Հայաստան) արտադրանքն է։ Իրավաբանական հասցե՝ <span class="ph">[[ЗАПОЛНИТЬ: юридический адрес]]</span> · Պետական գրանցման համար՝ <span class="ph">[[ЗАПОЛНИТЬ: гос. рег. номер]]</span> · ՀՎՀՀ՝ <span class="ph">[[ЗАПОЛНИТЬ: ИНН/ՀՎՀՀ]]</span></p>
-      <p>Էլ. փոստ՝ <span class="ph">[[ЗАПОЛНИТЬ: email]]</span> · Աշխատանքային ժամեր՝ <span class="ph">[[ЗАПОЛНИТЬ: часы работы, время Еревана]]</span></p>
+      <p>TYAFF-ը Gravilat Tech LLC ընկերության (Հայաստան) արտադրանքն է։ Իրավաբանական հասցե՝ 11/5 G. Chaush str., Ajapnyak district, Yerevan 0097, Armenia · Պետական գրանցման համար՝ 999.110.1595129 · ՀՎՀՀ՝ 01384211</p>
+      <p>Էլ. փոստ՝ <a href="mailto:support@tyaff.com">support@tyaff.com</a></p>
       <p>TYAFF-ը մշակման փուլում է և դեռ վաճառքում չէ։ Տեխնիկական բնութագրերը և դիզայնը կարող են փոխվել, պատկերները ցուցադրական բնույթ ունեն։ Կայքում ներկայացված տեղեկատվությունը հրապարակային օֆերտա չէ։</p>
       <p>TYAFF-ը բժշկական արտադրատեսակ կամ անասնաբուժական սարք չէ և ախտորոշում չի կատարում։ Եթե անհանգստացած եք ձեր ընտանի կենդանու առողջությամբ, դիմեք անասնաբույժի։</p>
     </div>
