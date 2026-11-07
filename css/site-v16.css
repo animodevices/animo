@@ -1,0 +1,12 @@
+/* v16 hq: на телефоне в портрете ролик квадратом во всю ширину сверху, заголовок и кнопка под ним —
+   собака и телефоны в кадре целиком, а не узкая середина широкого кадра */
+@media (max-width:600px) and (orientation:portrait){
+  .hero{height:auto;min-height:0;max-height:none;display:block;}
+  .hero-media{position:relative;inset:auto;width:100%;aspect-ratio:1/1;}
+  .hero-poster,.hero-video{object-position:50% 50%;}
+  .hero-shade{inset:0 0 auto 0;height:100vw;background:
+    linear-gradient(180deg,rgba(7,7,7,.78) 0,rgba(7,7,7,.35) 70px,rgba(7,7,7,0) 120px),
+    linear-gradient(0deg,#0A0A0A 0,rgba(10,10,10,.6) 36px,rgba(10,10,10,0) 90px);}
+  .hero-body{padding:8px 20px 40px;}
+  .hero-title{text-shadow:none;}
+}
