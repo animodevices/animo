@@ -10,3 +10,10 @@
   .hero-body{padding:8px 20px 40px;}
   .hero-title{text-shadow:none;}
 }
+
+/* 09.11.2026: в строке характеристик осталось три пункта (IP67 убран) — на телефоне в один ряд, без «сироты» во втором ряду */
+@media(max-width:700px){
+  .specs-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+  .spec .n{font-size:clamp(22px,7vw,30px);}
+  .spec .k{font-size:11px;letter-spacing:.04em;}
+}
