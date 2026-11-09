@@ -121,6 +121,9 @@
         </div>
         <input type="hidden" name="product" id="fProduct" value="">
         <input type="hidden" name="config" id="fConfig" value="">
+        <!-- anti-spam (worker v2): t = ms since page open (<2 s = bot), website = honeypot, must stay a text field off-screen -->
+        <input type="hidden" name="t" value="">
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><input type="text" name="website" tabindex="-1" autocomplete="off" value=""></div>
         <p class="choice" id="choiceLine" hidden>Your pick: <b id="choiceLbl"></b></p>
         <p class="mailerr" id="mailerr" role="alert" hidden>That email does not look right — please check it, e.g. name@gmail.com</p>
         <p class="mailerr" id="senderr" role="alert" hidden>The application was not sent — please try again in a minute or call +374 33 480 610.</p>
@@ -150,6 +153,6 @@
   </div>
 </footer>
 
-<script src="js/site-v16.js?v=3"></script>
+<script src="js/site-v16.js?v=4"></script>
 </body>
 </html>

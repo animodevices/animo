@@ -70,7 +70,8 @@
     // consent_version, consent_lang, consent_at (время ISO), consent_text (точный текст согласия) —
     // это доказательство согласия (ст. 9(8) закона РА «О защите персональных данных»).
     // LEGAL: до подключения сервиса — страна хранения данных (ст. 27) и поручение обработчику / DPA (ст. 14), см. privacy/.
-    const ENDPOINT = '';
+    // form handler: Cloudflare Worker tyaff-apply -> Telegram (see privacy/form/)
+    const ENDPOINT = 'https://tyaff-apply.gravilattech.workers.dev/';
     // live site (tyaff.com): with an empty ENDPOINT the form shows the send error instead of a false "thank you";
     // local previews still show the thanks text so the flow can be checked.
     const LIVE = /(^|\.)tyaff\.com$/i.test(location.hostname);
@@ -136,6 +137,7 @@
       setField('consent_text', txt);
       setField('consent_lang', LANG);
       setField('consent_at', new Date().toISOString());
+      setField('t', String(Math.round(performance.now()))); // ms since page open; the worker drops < 2000 as a bot
       if (sendErr) sendErr.hidden = true;
       // v15 fix: on the live domain without an endpoint nothing can be sent, so do not claim the application is in
       if (!ENDPOINT && LIVE) {
