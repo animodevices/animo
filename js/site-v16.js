@@ -188,13 +188,14 @@
     const v = $('.hero-video'), pp = $('#heroPP'), top = $('#top');
     if (!v || !pp || !top || reduced || saveData) return;
     const M = ROOT + 'media/';
+    // v16 hq5 (11.11.2026): v4 + в конце петли 4 с ошейник TYAFF Onyx (Blender, без модуля заряда)
     // v16 hq4 (09.11.2026): Topaz без дорисовки шерсти, один ошейник у щенка, настоящие экраны tyaff на весь телефон; улучшенный ролик 1440p; на телефоне в портрете — квадратная версия 1080×1080 (см. css/site-v16.css)
     const pick = () => {
-      if (matchMedia('(max-width: 600px) and (orientation: portrait)').matches) return M + 'hero-v16-hq4-sq.mp4?v=1';
-      if (matchMedia('(max-height: 500px)').matches) return M + 'hero-v16-hq4-720.mp4?v=1';
+      if (matchMedia('(max-width: 600px) and (orientation: portrait)').matches) return M + 'hero-v16-hq5-sq.mp4?v=1';
+      if (matchMedia('(max-height: 500px)').matches) return M + 'hero-v16-hq5-720.mp4?v=1';
       const need = Math.max(top.clientWidth, top.clientHeight * 16 / 9) * Math.min(devicePixelRatio || 1, 2);
-      if (need > 2200 && !matchMedia('(pointer: coarse)').matches) return M + 'hero-v16-hq4-1440.mp4?v=1';
-      return need > 1300 ? M + 'hero-v16-hq4-1080.mp4?v=1' : M + 'hero-v16-hq4-720.mp4?v=1';
+      if (need > 2200 && !matchMedia('(pointer: coarse)').matches) return M + 'hero-v16-hq5-1440.mp4?v=1';
+      return need > 1300 ? M + 'hero-v16-hq5-1080.mp4?v=1' : M + 'hero-v16-hq5-720.mp4?v=1';
     };
     let cur = pick();
     v.src = cur;
